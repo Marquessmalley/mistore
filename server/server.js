@@ -1,7 +1,7 @@
-const express = require("express");
+const app = require("./app");
+const dbConnect = require("./config/dbConnect");
+const port = process.env.PORT || 5000;
 
-const app = express();
-
-const port = 8000;
+dbConnect();
 
 app.listen(port, () => console.log(`Serve starting on port: ${port}`));
