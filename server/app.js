@@ -1,9 +1,10 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const rateLimit = require("express-rate-limit");
+const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const xss = require("xss-clean");
+const mongoSanitize = require("express-mongo-sanitize");
 
 const app = express();
 
@@ -14,14 +15,14 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
+app.use(express.json());
+app.use(cookieParser());
 // set security http headers
 app.use(helmet());
 // data sanitization against nosql query injection
 app.use(mongoSanitize());
 // data sanatization against XSS
 app.use(xss());
-
-app.use(express.json());
 
 const authRoutes = require("./routes/authRoutes");
 const usersRoutes = require("./routes/usersRoutes");

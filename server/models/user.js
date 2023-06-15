@@ -46,4 +46,12 @@ userSchema.pre("save", async function (next) {
   }
 });
 
+// Method attached to user model that make sure password is correct
+userSchema.methods.correctPassword = async function (
+  candidtePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidtePassword, userPassword);
+};
+
 module.exports = mongoose.model("User", userSchema);
