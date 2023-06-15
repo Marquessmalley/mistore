@@ -4,6 +4,6 @@ const { login, refresh, logout } = require("../controller/authController");
 
 router.post("/login", login);
 router.get("/refresh", refresh);
-router.get("/logout", logout);
+router.post("/logout", logout);
 
 module.exports = router;
