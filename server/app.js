@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http:/localhost:3000",
+    origin: "http://localhost:3000",
     credentials: true, //alows cookie to be sent from client request
     optionsSuccessStatus: 200,
   })

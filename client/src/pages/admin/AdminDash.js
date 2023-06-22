@@ -1,7 +1,7 @@
 import React from "react";
 
 const AdminDash = () => {
-  return <div>AdminDash</div>;
+  return <div>AdminDash content</div>;
 };
 
 export default AdminDash;
