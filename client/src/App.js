@@ -5,7 +5,10 @@ import Signup from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import AdminLayout from "./components/Layouts/Admins/AdminLayout";
 import AdminDash from "./pages/admin/AdminDash";
-
+import UsersList from "./components/Features/users/UsersList";
+import EditUser from "./components/Features/users/EditUser";
+import AddUser from "./components/Features/users/AddUser";
+import Unauthorized from "./components/Errors/Unauthorized";
 function App() {
   return (
     <Routes>
@@ -15,10 +18,17 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
-      {/* PRIVATE ROUTES */}
+      {/* PRIVATE ADMIN ROUTES */}
       <Route path="admin-dash" element={<AdminLayout />}>
         <Route index element={<AdminDash />} />
+        <Route path="users">
+          <Route index element={<UsersList />} />
+          <Route path="add" element={<AddUser />} />
+          <Route path="edit" element={<EditUser />} />
+        </Route>
       </Route>
+
+      <Route path="unauthorized" element={<Unauthorized />} />
     </Routes>
   );
 }

@@ -1,7 +1,14 @@
-import React from "react";
+import NavBar from "../../Navigation/NavBar";
 
-const Header = () => {
-  return <div>Admin Header</div>;
+const Header = ({ handleToggleDrawer, drawerWidth }) => {
+  return (
+    <>
+      <NavBar
+        handleToggleDrawer={handleToggleDrawer}
+        drawerWidth={drawerWidth}
+      />
+    </>
+  );
 };
 
 export default Header;
