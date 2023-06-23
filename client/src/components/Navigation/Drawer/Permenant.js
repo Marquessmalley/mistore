@@ -82,10 +82,10 @@ const Permenant = ({ drawerWidth }) => {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <PostAddIcon sx={{ color: "#fff" }} />
-                  </ListItemIcon>
-                  <ListItemText primary="Add Product" sx={{ color: "#fff" }} />
+                  <ListItemText
+                    primary="Add Product"
+                    sx={{ color: "#fff", textAlign: "center" }}
+                  />
                 </ListItemButton>
               </List>
             </Collapse>
@@ -104,10 +104,7 @@ const Permenant = ({ drawerWidth }) => {
             </ListItem>
             <Collapse in={openUser} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <PostAddIcon sx={{ color: "#fff" }} />
-                  </ListItemIcon>
+                <ListItemButton sx={{ pl: 4, textAlign: "center" }}>
                   <ListItemText primary="Add User" sx={{ color: "#fff" }} />
                 </ListItemButton>
               </List>
