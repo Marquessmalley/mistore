@@ -19,7 +19,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import PostAddIcon from "@mui/icons-material/PostAdd";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
