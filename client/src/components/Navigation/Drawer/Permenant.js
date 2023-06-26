@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -18,15 +19,17 @@ import PersonIcon from "@mui/icons-material/Person";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import PostAddIcon from "@mui/icons-material/PostAdd";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 const Permenant = ({ drawerWidth }) => {
-  const [open, setOpen] = useState(false);
-  const handleClick = () => setOpen(!open);
+  const location = useLocation();
 
+  const [open, setOpen] = useState(false);
   const [openUser, setOpenUser] = useState(false);
+
+  const handleProductClick = () => setOpen(!open);
   const handleUserClick = () => setOpenUser(!openUser);
+
   return (
     <Drawer
       variant="permanent"
@@ -58,64 +61,156 @@ const Permenant = ({ drawerWidth }) => {
       <Box sx={{ marginBottom: "10rem" }}>
         <nav>
           <List>
+            {/* OVERVIEW */}
             <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <BarChartIcon sx={{ color: "#fff" }} />
-                </ListItemIcon>
-                <ListItemText primary="Overview" sx={{ color: "#fff" }} />
-              </ListItemButton>
+              <Link
+                to="/admin-dash"
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    <BarChartIcon
+                      sx={{
+                        color:
+                          location.pathname === "/admin-dash"
+                            ? "#90EE90"
+                            : "#9DA4AE",
+                      }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Overview"
+                    sx={{
+                      color:
+                        location.pathname === "/admin-dash"
+                          ? "#fff"
+                          : "#9DA4AE",
+                    }}
+                  />
+                </ListItemButton>
+              </Link>
             </ListItem>
+            {/* PRODUCTS */}
             <ListItem>
-              <ListItemButton onClick={handleClick}>
-                <ListItemIcon>
-                  <WorkIcon sx={{ color: "#fff" }} />
-                </ListItemIcon>
-                <ListItemText primary="Products" sx={{ color: "#fff" }} />
-                {open ? (
-                  <ExpandLess sx={{ color: "#fff" }} />
-                ) : (
-                  <ExpandMore sx={{ color: "#fff" }} />
-                )}
-              </ListItemButton>
+              <Link
+                to="/admin-dash/products"
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                <ListItemButton onClick={handleProductClick}>
+                  <ListItemIcon>
+                    <WorkIcon
+                      sx={{
+                        color:
+                          location.pathname === "/admin-dash/products"
+                            ? "#90EE90"
+                            : "#9DA4AE",
+                      }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Products"
+                    sx={{
+                      color:
+                        location.pathname === "/admin-dash/products"
+                          ? "#fff"
+                          : "#9DA4AE",
+                    }}
+                  />
+                  {open ? (
+                    <ExpandLess sx={{ color: "#9DA4AE" }} />
+                  ) : (
+                    <ExpandMore sx={{ color: "#9DA4AE" }} />
+                  )}
+                </ListItemButton>
+              </Link>
             </ListItem>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText
                     primary="Add Product"
-                    sx={{ color: "#fff", textAlign: "center" }}
+                    sx={{ color: "#9DA4AE", textAlign: "center" }}
                   />
                 </ListItemButton>
               </List>
             </Collapse>
+            {/* USERS */}
             <ListItem>
-              <ListItemButton onClick={handleUserClick}>
-                <ListItemIcon>
-                  <PersonIcon sx={{ color: "#fff" }} />
-                </ListItemIcon>
-                <ListItemText primary="Users" sx={{ color: "#fff" }} />
-                {openUser ? (
-                  <ExpandLess sx={{ color: "#fff" }} />
-                ) : (
-                  <ExpandMore sx={{ color: "#fff" }} />
-                )}
-              </ListItemButton>
+              <Link
+                to="/admin-dash/users"
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                <ListItemButton onClick={handleUserClick}>
+                  <ListItemIcon>
+                    <PersonIcon
+                      sx={{
+                        color:
+                          location.pathname === "/admin-dash/users"
+                            ? "#90EE90"
+                            : "#9DA4AE",
+                      }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Users"
+                    sx={{
+                      color:
+                        location.pathname === "/admin-dash/users"
+                          ? "#fff"
+                          : "#9DA4AE",
+                    }}
+                  />
+                  {openUser ? (
+                    <ExpandLess sx={{ color: "#9DA4AE" }} />
+                  ) : (
+                    <ExpandMore sx={{ color: "#9DA4AE" }} />
+                  )}
+                </ListItemButton>
+              </Link>
             </ListItem>
             <Collapse in={openUser} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4, textAlign: "center" }}>
-                  <ListItemText primary="Add User" sx={{ color: "#fff" }} />
+                  <ListItemText primary="Add User" sx={{ color: "#9DA4AE" }} />
                 </ListItemButton>
               </List>
             </Collapse>
+            {/* ORDERS */}
             <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <BookmarksIcon sx={{ color: "#fff" }} />
-                </ListItemIcon>
-                <ListItemText primary="Orders" sx={{ color: "#fff" }} />
-              </ListItemButton>
+              <Link
+                to="/admin-dash/orders"
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    <BookmarksIcon
+                      sx={{
+                        color:
+                          location.pathname === "/admin-dash/orders"
+                            ? "#90EE90"
+                            : "#9DA4AE",
+                      }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Orders"
+                    sx={{
+                      color:
+                        location.pathname === "/admin-dash/orders"
+                          ? "#fff"
+                          : "#9DA4AE",
+                    }}
+                  />
+                </ListItemButton>
+              </Link>
             </ListItem>
           </List>
         </nav>

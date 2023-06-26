@@ -4,7 +4,6 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import AdminLayout from "./components/Layouts/Admins/AdminLayout";
-import AdminDash from "./pages/admin/AdminDash";
 import Users from "./pages/admin/Users";
 import EditUser from "./components/Features/users/EditUser";
 import AddUser from "./components/Features/users/AddUser";
@@ -24,8 +23,7 @@ function App() {
 
       {/* PRIVATE ADMIN ROUTES */}
       <Route path="admin-dash" element={<AdminLayout />}>
-        <Route index element={<AdminDash />} />
-        <Route path="overview" element={<Overview />} />
+        <Route index element={<Overview />} />
         <Route path="users">
           <Route index element={<Users />} />
           <Route path="add" element={<AddUser />} />
