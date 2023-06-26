@@ -9,8 +9,9 @@ import EditUser from "./components/Features/users/EditUser";
 import AddUser from "./components/Features/users/AddUser";
 import Unauthorized from "./components/Errors/Unauthorized";
 import Overview from "./pages/admin/Overview";
-import Products from "./pages/admin/Products";
 import Orders from "./pages/admin/Orders";
+import ListProducts from "./components/Features/products/ListProducts";
+import AddProducts from "./components/Features/products/AddProduct";
 
 function App() {
   return (
@@ -30,7 +31,8 @@ function App() {
           <Route path="edit" element={<EditUser />} />
         </Route>
         <Route path="products">
-          <Route index element={<Products />} />
+          <Route index element={<ListProducts />} />
+          <Route path="add" element={<AddProducts />} />
         </Route>
 
         <Route path="orders" element={<Orders />} />
