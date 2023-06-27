@@ -40,19 +40,21 @@ module.exports.getUser = async (req, res, next) => {
 // @access private
 module.exports.createUser = async (req, res, next) => {
   try {
-    const { firstname, lastname, email, password } = req.body;
+    const { firstname, lastname, email, password, role } = req.body;
+    console.log(req.body);
 
-    if (!firstname || !lastname || !email || !password) {
-      return res
-        .status(400)
-        .json({ error: true, message: "All fields required" });
-    }
+    // if (!firstname || !lastname || !email || !password) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: true, message: "All fields required" });
+    // }
 
     const newUser = await User.create({
       firstname,
       lastname,
       email,
       password,
+      role,
     });
 
     res.status(201).json({
@@ -62,8 +64,8 @@ module.exports.createUser = async (req, res, next) => {
   } catch (err) {
     if (err.name === "ValidationError") {
       return res.status(400).json({
-        message: "Validation error. Make sure fields are correct.",
-        error: true,
+        message: "Validation error. Make sure fields filled out correctly.",
+        err,
       });
     }
     if (err.code === 11000) {

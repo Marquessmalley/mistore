@@ -9,7 +9,7 @@ const columns = [
   { field: "firstname", headerName: "First Name" },
   { field: "lastname", headerName: "Last Name" },
   { field: "email", headerName: "Email" },
-  { field: "roles", headerName: "Roles" },
+  { field: "role", headerName: "Role" },
 ];
 
 const UsersList = () => {
@@ -53,6 +53,7 @@ const UsersList = () => {
             }}
             pageSizeOptions={[5, 10]}
             checkboxSelection
+            sx={{ background: "#fff" }}
           />
         </Grid>
       </Grid>

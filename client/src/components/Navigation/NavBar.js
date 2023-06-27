@@ -28,7 +28,7 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
     <AppBar
       position="fixed"
       sx={{
-        background: "black",
+        background: "rgb(9, 20, 34)",
         width: { sm: `calc(100% - ${drawerWidth}px)` },
         ml: { sm: `${drawerWidth}px` },
         pb: "2rem",

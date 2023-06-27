@@ -38,8 +38,7 @@ const Permenant = ({ drawerWidth }) => {
         "& .MuiDrawer-paper": {
           boxSizing: "border-box",
           width: drawerWidth,
-
-          background: "black",
+          background: "rgb(9, 20, 34)",
         },
       }}
       open
