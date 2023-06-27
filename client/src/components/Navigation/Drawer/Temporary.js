@@ -39,7 +39,8 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
         "& .MuiDrawer-paper": {
           boxSizing: "border-box",
           width: drawerWidth,
-          background: "black",
+          background: "rgb(9, 20, 34)",
+          orderRight: "2px solid rgba(145, 158, 171, 0.2)",
         },
       }}
     >
@@ -68,7 +69,16 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   textDecoration: "none",
                 }}
               >
-                <ListItemButton>
+                <ListItemButton
+                  sx={{
+                    background:
+                      location.pathname === "/admin-dash"
+                        ? "rgba(0, 167, 111, 0.08)"
+                        : null,
+                    borderRadius: "10px",
+                    width: "208px",
+                  }}
+                >
                   <ListItemIcon>
                     <BarChartIcon
                       sx={{
@@ -93,7 +103,17 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
             </ListItem>
             {/* PRODUCTS */}
             <ListItem>
-              <ListItemButton onClick={handleProductClick}>
+              <ListItemButton
+                onClick={handleProductClick}
+                sx={{
+                  background:
+                    location.pathname === "/admin-dash/products" ||
+                    location.pathname === "/admin-dash/products/add"
+                      ? "rgba(0, 167, 111, 0.08)"
+                      : null,
+                  borderRadius: "10px",
+                }}
+              >
                 <ListItemIcon>
                   <WorkIcon
                     sx={{
@@ -166,7 +186,17 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
             </Collapse>
             {/* USERS */}
             <ListItem>
-              <ListItemButton onClick={handleUserClick}>
+              <ListItemButton
+                onClick={handleUserClick}
+                sx={{
+                  background:
+                    location.pathname === "/admin-dash/users" ||
+                    location.pathname === "/admin-dash/users/add"
+                      ? "rgba(0, 167, 111, 0.08)"
+                      : null,
+                  borderRadius: "10px",
+                }}
+              >
                 <ListItemIcon>
                   <PersonIcon
                     sx={{
@@ -243,7 +273,16 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   textDecoration: "none",
                 }}
               >
-                <ListItemButton>
+                <ListItemButton
+                  sx={{
+                    background:
+                      location.pathname === "/admin-dash/orders"
+                        ? "rgba(0, 167, 111, 0.08)"
+                        : null,
+                    borderRadius: "10px",
+                    width: "208px",
+                  }}
+                >
                   <ListItemIcon>
                     <BookmarksIcon
                       sx={{
