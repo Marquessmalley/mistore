@@ -7,11 +7,13 @@ import AdminLayout from "./components/Layouts/Admins/AdminLayout";
 import Users from "./pages/admin/Users";
 import EditUser from "./components/Features/users/EditUser";
 import AddUser from "./components/Features/users/AddUser";
+import User from "./components/Features/users/User";
 import Unauthorized from "./components/Errors/Unauthorized";
 import Overview from "./pages/admin/Overview";
 import Orders from "./pages/admin/Orders";
 import ListProducts from "./components/Features/products/ListProducts";
 import AddProducts from "./components/Features/products/AddProduct";
+import Prefetch from "./components/Features/users/Prefetch";
 
 function App() {
   return (
@@ -23,22 +25,25 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
       {/* PRIVATE ADMIN ROUTES */}
-      <Route path="admin-dash" element={<AdminLayout />}>
-        <Route index element={<Overview />} />
-        <Route path="users">
-          <Route index element={<Users />} />
-          <Route path="add" element={<AddUser />} />
-          <Route path="edit" element={<EditUser />} />
-        </Route>
-        <Route path="products">
-          <Route index element={<ListProducts />} />
-          <Route path="add" element={<AddProducts />} />
+      <Route element={<Prefetch />}>
+        <Route path="admin-dash" element={<AdminLayout />}>
+          <Route index element={<Overview />} />
+          <Route path="users">
+            <Route index element={<Users />} />
+            <Route path="add" element={<AddUser />} />
+            <Route path="edit" element={<EditUser />} />
+            <Route path=":id" element={<User />} />
+          </Route>
+          <Route path="products">
+            <Route index element={<ListProducts />} />
+            <Route path="add" element={<AddProducts />} />
+          </Route>
+
+          <Route path="orders" element={<Orders />} />
         </Route>
 
-        <Route path="orders" element={<Orders />} />
+        <Route path="unauthorized" element={<Unauthorized />} />
       </Route>
-
-      <Route path="unauthorized" element={<Unauthorized />} />
     </Routes>
   );
 }

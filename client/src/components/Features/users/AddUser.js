@@ -8,9 +8,8 @@ import {
   MenuItem,
   Button,
   Alert,
-  AlertTitle,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCreateUserMutation } from "./usersApiSlice";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 
@@ -34,6 +33,8 @@ const roles = [
 ];
 
 const AddUser = () => {
+  const navigate = useNavigate();
+
   const [userData, setUserData] = useState({
     firstname: "",
     lastname: "",
@@ -49,8 +50,7 @@ const AddUser = () => {
   const [roleError, setRoleError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  const [createUser, { isLoading, isSuccess, isError, error }] =
-    useCreateUserMutation();
+  const [createUser, { isSuccess, isError, error }] = useCreateUserMutation();
 
   useEffect(() => {
     if (isError) setErrMsg(error.data.message);
@@ -62,8 +62,9 @@ const AddUser = () => {
         role: "",
         password: "",
       });
+      navigate("/admin-dash/users");
     }
-  }, [isError, error, isSuccess]);
+  }, [isError, error, isSuccess, navigate]);
 
   const handleFormChange = (e) => {
     return setUserData((prevState) => ({
@@ -113,7 +114,7 @@ const AddUser = () => {
           }}
         >
           <Link
-            path="/admin-dash"
+            to="/admin-dash"
             style={{
               textDecoration: "none",
               fontSize: "0.975rem",
@@ -133,7 +134,7 @@ const AddUser = () => {
             }}
           ></span>
           <Link
-            path="/admin-dash/user"
+            to="/admin-dash/users"
             style={{
               textDecoration: "none",
               fontSize: "0.975rem",
@@ -142,7 +143,7 @@ const AddUser = () => {
               cursor: "pointer",
             }}
           >
-            User
+            Users
           </Link>
           <span
             style={{
@@ -279,6 +280,10 @@ const AddUser = () => {
               "& .MuiInputLabel-root.Mui-focused": {
                 color: "#fff", // Label color when focused
               },
+              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: "#fff", // Change this to the desired outline color on hover
+                },
             }}
           />
           <TextField
@@ -314,6 +319,10 @@ const AddUser = () => {
               "& .MuiInputLabel-root.Mui-focused": {
                 color: "#fff", // Label color when focused
               },
+              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: "#fff", // Change this to the desired outline color on hover
+                },
             }}
           />
           <TextField
@@ -350,6 +359,10 @@ const AddUser = () => {
               "& .MuiInputLabel-root.Mui-focused": {
                 color: "#fff", // Label color when focused
               },
+              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: "#fff", // Change this to the desired outline color on hover
+                },
             }}
           />
           <TextField
@@ -385,6 +398,10 @@ const AddUser = () => {
               "& .MuiInputLabel-root.Mui-focused": {
                 color: "#fff", // Label color when focused
               },
+              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: "#fff", // Change this to the desired outline color on hover
+                },
             }}
           >
             {roles.map((role) => (
@@ -426,6 +443,10 @@ const AddUser = () => {
               "& .MuiInputLabel-root.Mui-focused": {
                 color: "#fff", // Label color when focused
               },
+              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: "#fff", // Change this to the desired outline color on hover
+                },
             }}
           />
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>

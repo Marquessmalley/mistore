@@ -41,13 +41,6 @@ module.exports.getUser = async (req, res, next) => {
 module.exports.createUser = async (req, res, next) => {
   try {
     const { firstname, lastname, email, password, role } = req.body;
-    console.log(req.body);
-
-    // if (!firstname || !lastname || !email || !password) {
-    //   return res
-    //     .status(400)
-    //     .json({ error: true, message: "All fields required" });
-    // }
 
     const newUser = await User.create({
       firstname,
@@ -82,6 +75,7 @@ module.exports.createUser = async (req, res, next) => {
 module.exports.updateUser = async (req, res, next) => {
   try {
     const id = req.params.id;
+    console.log(id);
 
     const user = await User.findById(id);
 
@@ -89,9 +83,9 @@ module.exports.updateUser = async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const { firstname, lastname, email, password, roles } = req.body;
+    const { firstname, lastname, email, role } = req.body;
 
-    if (!firstname || !lastname || !email || !password || !roles) {
+    if (!firstname || !lastname || !email || !role) {
       return res
         .status(400)
         .json({ message: "Make sure all fields are filled" });
@@ -100,7 +94,7 @@ module.exports.updateUser = async (req, res, next) => {
     user.firstname = firstname;
     user.lastname = lastname;
     user.email = email;
-    user.roles = roles;
+    user.role = role;
 
     const updatedUser = await user.save();
 
@@ -140,12 +134,11 @@ module.exports.deleteUser = async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    await User.deleteOne(user);
+    await user.deleteOne();
 
     res.status(200).json({ message: "User deleted successfully" });
   } catch (err) {
     if (err.name === "CastError") {
-      console.log(true);
       return res.status(404).json({ message: "Invalid user ID" });
     }
   }

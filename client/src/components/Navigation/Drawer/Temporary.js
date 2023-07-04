@@ -79,25 +79,27 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                     width: "208px",
                   }}
                 >
-                  <ListItemIcon>
-                    <BarChartIcon
-                      sx={{
-                        color:
-                          location.pathname === "/admin-dash"
-                            ? "#90EE90"
-                            : "#9DA4AE",
-                      }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Overview"
+                  <BarChartIcon
                     sx={{
+                      color:
+                        location.pathname === "/admin-dash"
+                          ? "#90EE90"
+                          : "#9DA4AE",
+                      mr: ".6rem",
+                    }}
+                  />
+
+                  <Typography
+                    sx={{
+                      fontSize: "14px",
                       color:
                         location.pathname === "/admin-dash"
                           ? "#fff"
                           : "#9DA4AE",
                     }}
-                  />
+                  >
+                    Overview
+                  </Typography>
                 </ListItemButton>
               </Link>
             </ListItem>
@@ -114,7 +116,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   borderRadius: "10px",
                 }}
               >
-                <ListItemIcon>
+                <Box sx={{ display: "flex", mr: 6 }}>
                   <WorkIcon
                     sx={{
                       color:
@@ -122,19 +124,24 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                         location.pathname === "/admin-dash/products/add"
                           ? "#90EE90"
                           : "#9DA4AE",
+                      mr: ".6rem",
                     }}
                   />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Products"
-                  sx={{
-                    color:
-                      location.pathname === "/admin-dash/products" ||
-                      location.pathname === "/admin-dash/products/add"
-                        ? "#fff"
-                        : "#9DA4AE",
-                  }}
-                />
+                  <Typography
+                    sx={{
+                      color:
+                        location.pathname === "/admin-dash/products" ||
+                        location.pathname === "/admin-dash/products/add"
+                          ? "#fff"
+                          : "#9DA4AE",
+                      fontSize: "15px",
+                      mr: "1rem",
+                    }}
+                  >
+                    Products
+                  </Typography>
+                </Box>
+
                 {open ? (
                   <ExpandLess sx={{ color: "#fff" }} />
                 ) : (
@@ -150,17 +157,18 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                     textDecoration: "none",
                   }}
                 >
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemText
-                      primary="List Product"
+                  <ListItemButton sx={{ ml: 8 }}>
+                    <Typography
                       sx={{
                         color:
                           location.pathname === "/admin-dash/products"
                             ? "#fff"
                             : "#9DA4AE",
-                        textAlign: "center",
+                        fontSize: "14px",
                       }}
-                    />
+                    >
+                      List
+                    </Typography>
                   </ListItemButton>
                 </Link>
                 <Link
@@ -169,17 +177,18 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                     textDecoration: "none",
                   }}
                 >
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemText
-                      primary="Add Product"
+                  <ListItemButton sx={{ ml: 8 }}>
+                    <Typography
                       sx={{
                         color:
-                          location.pathname === "/admin-dash/products/add"
+                          location.pathname === "/admin-dash/products"
                             ? "#fff"
                             : "#9DA4AE",
-                        textAlign: "center",
+                        fontSize: "14px",
                       }}
-                    />
+                    >
+                      Add
+                    </Typography>
                   </ListItemButton>
                 </Link>
               </List>
@@ -197,7 +206,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   borderRadius: "10px",
                 }}
               >
-                <ListItemIcon>
+                <Box sx={{ display: "flex", mr: 9 }}>
                   <PersonIcon
                     sx={{
                       color:
@@ -205,19 +214,24 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                         location.pathname === "/admin-dash/users/add"
                           ? "#90EE90"
                           : "#9DA4AE",
+                      mr: ".6rem",
                     }}
                   />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Users"
-                  sx={{
-                    color:
-                      location.pathname === "/admin-dash/users" ||
-                      location.pathname === "/admin-dash/users/add"
-                        ? "#fff"
-                        : "#9DA4AE",
-                  }}
-                />
+
+                  <Typography
+                    sx={{
+                      color:
+                        location.pathname === "/admin-dash/users" ||
+                        location.pathname === "/admin-dash/users/add"
+                          ? "#fff"
+                          : "#9DA4AE",
+                      fontSize: "14px",
+                      mr: "1rem",
+                    }}
+                  >
+                    Users
+                  </Typography>
+                </Box>
                 {openUser ? (
                   <ExpandLess sx={{ color: "#fff" }} />
                 ) : (
@@ -233,16 +247,18 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                     textDecoration: "none",
                   }}
                 >
-                  <ListItemButton sx={{ pl: 4, textAlign: "center" }}>
-                    <ListItemText
-                      primary="List Users"
+                  <ListItemButton sx={{ ml: 8, textAlign: "center" }}>
+                    <Typography
                       sx={{
                         color:
                           location.pathname === "/admin-dash/users"
                             ? "#fff"
                             : "#9DA4AE",
+                        fontSize: "14px",
                       }}
-                    />
+                    >
+                      List
+                    </Typography>
                   </ListItemButton>
                 </Link>
                 <Link
@@ -251,16 +267,18 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                     textDecoration: "none",
                   }}
                 >
-                  <ListItemButton sx={{ pl: 4, textAlign: "center" }}>
-                    <ListItemText
-                      primary="Add User"
+                  <ListItemButton sx={{ ml: 8, textAlign: "center" }}>
+                    <Typography
                       sx={{
                         color:
                           location.pathname === "/admin-dash/users/add"
                             ? "#fff"
                             : "#9DA4AE",
+                        fontSize: "14px",
                       }}
-                    />
+                    >
+                      Add
+                    </Typography>
                   </ListItemButton>
                 </Link>
               </List>
@@ -283,25 +301,27 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                     width: "208px",
                   }}
                 >
-                  <ListItemIcon>
-                    <BookmarksIcon
-                      sx={{
-                        color:
-                          location.pathname === "/admin-dash/orders"
-                            ? "#90EE90"
-                            : "#9DA4AE",
-                      }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Orders"
+                  <BookmarksIcon
+                    sx={{
+                      color:
+                        location.pathname === "/admin-dash/orders"
+                          ? "#90EE90"
+                          : "#9DA4AE",
+                      mr: ".6rem",
+                    }}
+                  />
+
+                  <Typography
                     sx={{
                       color:
                         location.pathname === "/admin-dash/orders"
                           ? "#fff"
                           : "#9DA4AE",
+                      fontSize: "14px",
                     }}
-                  />
+                  >
+                    Orders
+                  </Typography>
                 </ListItemButton>
               </Link>
             </ListItem>

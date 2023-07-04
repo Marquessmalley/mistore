@@ -35,6 +35,8 @@ userSchema.pre("save", async function (next) {
   try {
     if (!this.password) return next();
 
+    console.log("per svae running");
+
     //generating salt to use for hashing
     const salt = await bcrypt.genSalt(10);
 
