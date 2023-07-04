@@ -38,8 +38,8 @@ const Permenant = ({ drawerWidth }) => {
         "& .MuiDrawer-paper": {
           boxSizing: "border-box",
           width: drawerWidth,
-
-          background: "black",
+          background: "rgb(9, 20, 34)",
+          borderRight: "2px solid rgba(145, 158, 171, 0.2)",
         },
       }}
       open
@@ -69,33 +69,54 @@ const Permenant = ({ drawerWidth }) => {
                   textDecoration: "none",
                 }}
               >
-                <ListItemButton>
-                  <ListItemIcon>
-                    <BarChartIcon
-                      sx={{
-                        color:
-                          location.pathname === "/admin-dash"
-                            ? "#90EE90"
-                            : "#9DA4AE",
-                      }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Overview"
+                <ListItemButton
+                  sx={{
+                    background:
+                      location.pathname === "/admin-dash"
+                        ? "rgba(0, 167, 111, 0.08)"
+                        : null,
+                    borderRadius: "10px",
+                    width: "208px",
+                  }}
+                >
+                  <BarChartIcon
                     sx={{
+                      color:
+                        location.pathname === "/admin-dash"
+                          ? "#90EE90"
+                          : "#9DA4AE",
+                      mr: ".6rem",
+                    }}
+                  />
+
+                  <Typography
+                    sx={{
+                      fontSize: "14px",
                       color:
                         location.pathname === "/admin-dash"
                           ? "#fff"
                           : "#9DA4AE",
                     }}
-                  />
+                  >
+                    Overview
+                  </Typography>
                 </ListItemButton>
               </Link>
             </ListItem>
             {/* PRODUCTS */}
             <ListItem>
-              <ListItemButton onClick={handleProductClick}>
-                <ListItemIcon>
+              <ListItemButton
+                onClick={handleProductClick}
+                sx={{
+                  background:
+                    location.pathname === "/admin-dash/products" ||
+                    location.pathname === "/admin-dash/products/add"
+                      ? "rgba(0, 167, 111, 0.08)"
+                      : null,
+                  borderRadius: "10px",
+                }}
+              >
+                <Box sx={{ display: "flex", mr: 6 }}>
                   <WorkIcon
                     sx={{
                       color:
@@ -103,19 +124,24 @@ const Permenant = ({ drawerWidth }) => {
                         location.pathname === "/admin-dash/products/add"
                           ? "#90EE90"
                           : "#9DA4AE",
+                      mr: ".6rem",
                     }}
                   />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Products"
-                  sx={{
-                    color:
-                      location.pathname === "/admin-dash/products" ||
-                      location.pathname === "/admin-dash/products/add"
-                        ? "#fff"
-                        : "#9DA4AE",
-                  }}
-                />
+
+                  <Typography
+                    sx={{
+                      color:
+                        location.pathname === "/admin-dash/products" ||
+                        location.pathname === "/admin-dash/products/add"
+                          ? "#fff"
+                          : "#9DA4AE",
+                      fontSize: "15px",
+                      mr: "1rem",
+                    }}
+                  >
+                    Products
+                  </Typography>
+                </Box>
                 {open ? (
                   <ExpandLess sx={{ color: "#9DA4AE" }} />
                 ) : (
@@ -131,17 +157,22 @@ const Permenant = ({ drawerWidth }) => {
                     textDecoration: "none",
                   }}
                 >
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemText
-                      primary="List Product"
+                  <ListItemButton
+                    sx={{
+                      ml: 8,
+                    }}
+                  >
+                    <Typography
                       sx={{
                         color:
                           location.pathname === "/admin-dash/products"
                             ? "#fff"
                             : "#9DA4AE",
-                        textAlign: "center",
+                        fontSize: "14px",
                       }}
-                    />
+                    >
+                      List
+                    </Typography>
                   </ListItemButton>
                 </Link>
                 <Link
@@ -150,25 +181,36 @@ const Permenant = ({ drawerWidth }) => {
                     textDecoration: "none",
                   }}
                 >
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemText
-                      primary="Add Product"
+                  <ListItemButton sx={{ ml: 8 }}>
+                    <Typography
                       sx={{
                         color:
-                          location.pathname === "/admin-dash/products/add"
+                          location.pathname === "/admin-dash/products"
                             ? "#fff"
                             : "#9DA4AE",
-                        textAlign: "center",
+                        fontSize: "14px",
                       }}
-                    />
+                    >
+                      Add
+                    </Typography>
                   </ListItemButton>
                 </Link>
               </List>
             </Collapse>
             {/* USERS */}
             <ListItem>
-              <ListItemButton onClick={handleUserClick}>
-                <ListItemIcon>
+              <ListItemButton
+                onClick={handleUserClick}
+                sx={{
+                  background:
+                    location.pathname === "/admin-dash/users" ||
+                    location.pathname === "/admin-dash/users/add"
+                      ? "rgba(0, 167, 111, 0.08)"
+                      : null,
+                  borderRadius: "10px",
+                }}
+              >
+                <Box sx={{ display: "flex", mr: 9 }}>
                   <PersonIcon
                     sx={{
                       color:
@@ -176,19 +218,24 @@ const Permenant = ({ drawerWidth }) => {
                         location.pathname === "/admin-dash/users/add"
                           ? "#90EE90"
                           : "#9DA4AE",
+                      mr: ".6rem",
                     }}
                   />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Users"
-                  sx={{
-                    color:
-                      location.pathname === "/admin-dash/users" ||
-                      location.pathname === "/admin-dash/users/add"
-                        ? "#fff"
-                        : "#9DA4AE",
-                  }}
-                />
+
+                  <Typography
+                    sx={{
+                      color:
+                        location.pathname === "/admin-dash/users" ||
+                        location.pathname === "/admin-dash/users/add"
+                          ? "#fff"
+                          : "#9DA4AE",
+                      fontSize: "14px",
+                      mr: "1rem",
+                    }}
+                  >
+                    Users
+                  </Typography>
+                </Box>
                 {openUser ? (
                   <ExpandLess sx={{ color: "#9DA4AE" }} />
                 ) : (
@@ -204,16 +251,18 @@ const Permenant = ({ drawerWidth }) => {
                     textDecoration: "none",
                   }}
                 >
-                  <ListItemButton sx={{ pl: 4, textAlign: "center" }}>
-                    <ListItemText
-                      primary="List Users"
+                  <ListItemButton sx={{ ml: 8, textAlign: "center" }}>
+                    <Typography
                       sx={{
                         color:
                           location.pathname === "/admin-dash/users"
                             ? "#fff"
                             : "#9DA4AE",
+                        fontSize: "14px",
                       }}
-                    />
+                    >
+                      List
+                    </Typography>
                   </ListItemButton>
                 </Link>
                 <Link
@@ -222,16 +271,18 @@ const Permenant = ({ drawerWidth }) => {
                     textDecoration: "none",
                   }}
                 >
-                  <ListItemButton sx={{ pl: 4, textAlign: "center" }}>
-                    <ListItemText
-                      primary="Add User"
+                  <ListItemButton sx={{ ml: 8, textAlign: "center" }}>
+                    <Typography
                       sx={{
                         color:
                           location.pathname === "/admin-dash/users/add"
                             ? "#fff"
                             : "#9DA4AE",
+                        fontSize: "14px",
                       }}
-                    />
+                    >
+                      Add
+                    </Typography>
                   </ListItemButton>
                 </Link>
               </List>
@@ -245,26 +296,37 @@ const Permenant = ({ drawerWidth }) => {
                   textDecoration: "none",
                 }}
               >
-                <ListItemButton>
-                  <ListItemIcon>
-                    <BookmarksIcon
-                      sx={{
-                        color:
-                          location.pathname === "/admin-dash/orders"
-                            ? "#90EE90"
-                            : "#9DA4AE",
-                      }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Orders"
+                <ListItemButton
+                  sx={{
+                    background:
+                      location.pathname === "/admin-dash/orders"
+                        ? "rgba(0, 167, 111, 0.08)"
+                        : null,
+                    borderRadius: "10px",
+                    width: "208px",
+                  }}
+                >
+                  <BookmarksIcon
+                    sx={{
+                      color:
+                        location.pathname === "/admin-dash/orders"
+                          ? "#90EE90"
+                          : "#9DA4AE",
+                      mr: ".6rem",
+                    }}
+                  />
+
+                  <Typography
                     sx={{
                       color:
                         location.pathname === "/admin-dash/orders"
                           ? "#fff"
                           : "#9DA4AE",
+                      fontSize: "14px",
                     }}
-                  />
+                  >
+                    Orders
+                  </Typography>
                 </ListItemButton>
               </Link>
             </ListItem>

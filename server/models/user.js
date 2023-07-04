@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
       minLength: 6,
       trim: true,
     },
-    roles: {
+    role: {
       type: [String],
       default: ["Employee"],
     },
@@ -34,6 +34,8 @@ const userSchema = new mongoose.Schema(
 userSchema.pre("save", async function (next) {
   try {
     if (!this.password) return next();
+
+    console.log("per svae running");
 
     //generating salt to use for hashing
     const salt = await bcrypt.genSalt(10);
