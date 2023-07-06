@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useGetUsersQuery, useDeleteUserMutation } from "./usersApiSlice";
+import { useState } from "react";
+import { useGetUsersQuery } from "./usersApiSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { dialogAction } from "../../../store/slices/dialog";
@@ -12,6 +12,7 @@ import {
   Menu,
   MenuItem,
   Tooltip,
+  Button,
 } from "@mui/material";
 import QuickUpdate from "./QuickUpdate";
 import QuickDelete from "./QuickDelete";
@@ -21,6 +22,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./usersList.css";
 import MuiDialog from "../../UI/Dialog/MuiDialog";
+import AddIcon from "@mui/icons-material/Add";
 
 const UsersList = () => {
   const navigate = useNavigate();
@@ -44,27 +46,6 @@ const UsersList = () => {
     isError,
     error,
   } = useGetUsersQuery();
-
-  // const [
-  //   deleteUser,
-  //   {
-  //     data: deleteData,
-  //     isSuccess: delSuccess,
-  //     isError: isDeleteError,
-  //     error: deleteError,
-  //   },
-  // ] = useDeleteUserMutation();
-
-  // useEffect(() => {
-  //   if (delSuccess) {
-  //     console.log("successfully deleted user");
-  //     console.log(deleteData);
-  //   }
-
-  //   if (isDeleteError) {
-  //     console.log(deleteError);
-  //   }
-  // }, [delSuccess, isDeleteError, deleteError, deleteData]);
 
   const handleCheckboxClick = (params, event) => {
     event.stopPropagation(); // Prevents the row click event from being triggered
@@ -129,6 +110,11 @@ const UsersList = () => {
           setAnchorEl(null);
         };
 
+        const handleEditUser = () => {
+          setAnchorEl(null);
+          navigate(`/admin-dash/users/${rowInfo?.id}`);
+        };
+
         const nameParts = rowInfo?.name.split(" ");
         const firstname = nameParts ? nameParts[0] : "";
         const lastname = nameParts ? nameParts[1] : "";
@@ -182,7 +168,7 @@ const UsersList = () => {
                     <Typography sx={{ color: "red" }}>Delete</Typography>
                   </Box>
                 </MenuItem>
-                <MenuItem onClick={handleMenuClose}>
+                <MenuItem onClick={handleEditUser}>
                   <Box
                     sx={{
                       display: "flex",
@@ -217,12 +203,18 @@ const UsersList = () => {
 
   let content;
 
-  if (isError) {
-    console.log(error);
-    // navigate("/unauthorized");
-  }
-
   if (isLoading) content = <CircularProgress />;
+
+  if (isError) {
+    content = (
+      <>
+        <Typography sx={{ color: "#fff", fontFamily: "Montserrat" }}>
+          {error?.data.message}
+        </Typography>
+        ;
+      </>
+    );
+  }
 
   if (isSuccess) {
     const { ids } = users;
@@ -240,11 +232,16 @@ const UsersList = () => {
 
     content = (
       <Grid container>
-        <Grid item xs={12} sm={12} md={12} lg={12} mb={6} sx={{ p: "10px" }}>
+        <Grid item xs={4} sm={7} md={8} lg={8} mb={6} sx={{ p: "10px" }}>
           <Box sx={{ mb: ".8rem" }}>
             <Typography
               variant="h4"
-              sx={{ fontSize: "1.5rem", fontWeight: 700, color: "#fff" }}
+              sx={{
+                fontSize: "1.5rem",
+                fontWeight: 700,
+                fontFamily: "Montserrat",
+                color: "#fff",
+              }}
             >
               Users List
             </Typography>
@@ -253,7 +250,7 @@ const UsersList = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              width: "200px",
+              fontFamily: "Montserrat",
             }}
           >
             <Link
@@ -289,7 +286,34 @@ const UsersList = () => {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={10} md={12} lg={11}>
+        <Grid
+          item
+          xs={3}
+          sm={4}
+          md={3}
+          lg={3}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => navigate("/admin-dash/users/add")}
+            sx={{
+              background: "#fff",
+              color: "rgb(33, 43, 54)",
+              fontFamily: "Montserrat",
+              fontWeight: 700,
+              fontSize: "0.775rem",
+            }}
+          >
+            New User
+          </Button>
+        </Grid>
+        <Grid item xs={7} sm={11} md={11} lg={11}>
           <DataGrid
             rows={userContent}
             columns={columns}
@@ -302,13 +326,13 @@ const UsersList = () => {
             checkboxSelection
             rowHeight={75}
             onCellClick={handleCheckboxClick}
-            // onRowClick={handleRowClick}
             selectionModel={selectedRows}
             sx={{
               background: "rgb(22, 28, 36)",
               color: "#fff",
               border: "none",
-              borderRadius: "25px",
+              fontFamily: "Montserrat",
+              borderRadius: "15px",
               "& .MuiDataGrid-row": {
                 color: "#fff",
               },

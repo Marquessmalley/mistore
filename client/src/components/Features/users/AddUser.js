@@ -100,7 +100,12 @@ const AddUser = () => {
         <Box sx={{ mb: ".8rem" }}>
           <Typography
             variant="h4"
-            sx={{ fontSize: "1.5rem", fontWeight: 700, color: "#fff" }}
+            sx={{
+              fontSize: "1.5rem",
+              fontWeight: 700,
+              color: "#fff",
+              fontFamily: "Montserrat",
+            }}
           >
             Create a new user
           </Typography>
@@ -110,7 +115,8 @@ const AddUser = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            width: "200px",
+            width: "300px",
+            fontFamily: "Montserrat",
           }}
         >
           <Link

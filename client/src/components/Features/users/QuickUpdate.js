@@ -33,7 +33,7 @@ const QuickUpdate = ({
   useEffect(() => {
     if (isSuccess) {
       handleDialogClose();
-      navigate(`/admin-dash/users/${id}`);
+      // navigate(`/admin-dash/users/${id}`);
     }
 
     if (isError) {

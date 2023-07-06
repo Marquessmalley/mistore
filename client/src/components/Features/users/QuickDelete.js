@@ -2,15 +2,8 @@ import { Typography, Box, Button } from "@mui/material";
 import { useDeleteUserMutation } from "./usersApiSlice";
 
 const QuickDelete = ({ id, handleDialogClose }) => {
-  const [
-    deleteUser,
-    {
-      data: deleteData,
-      isSuccess: delSuccess,
-      isError: isDeleteError,
-      error: deleteError,
-    },
-  ] = useDeleteUserMutation();
+  const [deleteUser, { data, isSuccess, isError, error }] =
+    useDeleteUserMutation();
 
   const handleDeleteUser = async () => {
     await deleteUser(id);

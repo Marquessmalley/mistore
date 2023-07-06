@@ -5,9 +5,8 @@ import Signup from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import AdminLayout from "./components/Layouts/Admins/AdminLayout";
 import Users from "./pages/admin/Users";
-import EditUser from "./components/Features/users/EditUser";
 import AddUser from "./components/Features/users/AddUser";
-import User from "./components/Features/users/User";
+import EditUser from "./components/Features/users/EditUser";
 import Unauthorized from "./components/Errors/Unauthorized";
 import Overview from "./pages/admin/Overview";
 import Orders from "./pages/admin/Orders";
@@ -31,8 +30,7 @@ function App() {
           <Route path="users">
             <Route index element={<Users />} />
             <Route path="add" element={<AddUser />} />
-            <Route path="edit" element={<EditUser />} />
-            <Route path=":id" element={<User />} />
+            <Route path=":id" element={<EditUser />} />
           </Route>
           <Route path="products">
             <Route index element={<ListProducts />} />
