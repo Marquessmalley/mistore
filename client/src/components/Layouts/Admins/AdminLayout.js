@@ -13,7 +13,12 @@ const AdminLayout = () => {
   const handleToggleDrawer = () => setMobileOpen(!mobileOpen);
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box
+      sx={{
+        display: "flex",
+        background: "rgb(9, 20, 34)",
+      }}
+    >
       <Header
         handleToggleDrawer={handleToggleDrawer}
         drawerWidth={drawerWidth}
