@@ -1,5 +1,5 @@
 import { usersApiSlice } from "./usersApiSlice";
-import { store } from "../../../store/index";
+import { store } from "../../store/index";
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 

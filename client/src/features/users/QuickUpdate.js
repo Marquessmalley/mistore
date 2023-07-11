@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, TextField, Button, MenuItem, Alert } from "@mui/material";
-import { roles } from "../../../Constants/roles";
+import { roles } from "../../constants/roles";
 import { useUpdateUserMutation } from "./usersApiSlice";
 
 const QuickUpdate = ({

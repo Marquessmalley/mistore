@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useGetUsersQuery } from "./usersApiSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { dialogAction } from "../../../store/slices/dialog";
+import { dialogAction } from "../../store/slices/dialog";
 import {
   CircularProgress,
   Box,
@@ -21,7 +21,7 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./usersList.css";
-import MuiDialog from "../../UI/Dialog/MuiDialog";
+import MuiDialog from "../../components/UI/Dialog/MuiDialog";
 import AddIcon from "@mui/icons-material/Add";
 
 const UsersList = () => {

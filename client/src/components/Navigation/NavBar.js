@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -11,18 +11,40 @@ import {
   Avatar,
   IconButton,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authActions } from "../../store/slices/authSlice";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useLogoutMutation } from "../../features/auth/authApiSlice";
 
 const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const [logout, { isSuccess, isError, error }] = useLogoutMutation();
+  const open = Boolean(anchorEl);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(authActions.logout());
+      navigate("/login");
+    }
+
+    if (isError) {
+      console.log(error);
+    }
+  }, [isSuccess, dispatch, isError, error, navigate]);
+
+  const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
+
+  const handleLogout = async () => await logout();
 
   return (
     <AppBar
@@ -105,7 +127,7 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
                 open={open}
                 onClose={handleMenuClose}
               >
-                <MenuItem>
+                <MenuItem onClick={handleLogout}>
                   <LogoutIcon />
                   Logout
                 </MenuItem>

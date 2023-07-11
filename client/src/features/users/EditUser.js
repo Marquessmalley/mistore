@@ -13,7 +13,7 @@ import {
   Alert,
 } from "@mui/material";
 import { useUpdateUserMutation, useDeleteUserMutation } from "./usersApiSlice";
-import { roles } from "../../../Constants/roles";
+import { roles } from "../../constants/roles";
 
 const EditUser = () => {
   const navigate = useNavigate();

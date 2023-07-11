@@ -11,7 +11,7 @@ const {
 
 const verifyJwt = require("../middleware/verifyJwt");
 
-// router.use(verifyJwt);
+router.use(verifyJwt);
 
 router.get("/", getUsers);
 router.get("/:id", getUser);

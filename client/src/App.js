@@ -1,18 +1,19 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
-import Login from "./pages/auth/Login";
-import Signup from "./pages/auth/Signup";
-import ForgotPassword from "./pages/auth/ForgotPassword";
+import Login from "./features/auth/Login";
+import Signup from "./features/auth/Signup";
+import ForgotPassword from "./features/auth/ForgotPassword";
 import AdminLayout from "./components/Layouts/Admins/AdminLayout";
 import Users from "./pages/admin/Users";
-import AddUser from "./components/Features/users/AddUser";
-import EditUser from "./components/Features/users/EditUser";
+import AddUser from "./features/users/AddUser";
+import EditUser from "./features/users/EditUser";
 import Unauthorized from "./components/Errors/Unauthorized";
 import Overview from "./pages/admin/Overview";
 import Orders from "./pages/admin/Orders";
-import ListProducts from "./components/Features/products/ListProducts";
-import AddProducts from "./components/Features/products/AddProduct";
-import Prefetch from "./components/Features/users/Prefetch";
+import ListProducts from "./features/products/ListProducts";
+import AddProducts from "./features/products/AddProduct";
+import Prefetch from "./features/users/Prefetch";
+import PersistLogin from "./features/auth/PersistLogin";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
       {/* PRIVATE ADMIN ROUTES */}
+      {/* <Route element={<PersistLogin />}> */}
       <Route element={<Prefetch />}>
         <Route path="admin-dash" element={<AdminLayout />}>
           <Route index element={<Overview />} />
@@ -41,6 +43,7 @@ function App() {
         </Route>
 
         <Route path="unauthorized" element={<Unauthorized />} />
+        {/* </Route> */}
       </Route>
     </Routes>
   );
