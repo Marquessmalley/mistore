@@ -9,15 +9,18 @@ module.exports.login = async (req, res, next) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      res
+      return res
         .status(400)
-        .json({ message: "Email and password are required.", error: true });
+        .json({ message: "All fields are required", error: true });
     }
 
     const user = await User.findOne({ email: email });
 
     if (!user) {
-      res.status(400).json({ message: "User does not exist", errror: true });
+      return res.status(400).json({
+        message: "User does not exist. Please try again.",
+        errror: true,
+      });
     }
 
     const pass = await user.correctPassword(password, user.password);
@@ -62,7 +65,8 @@ module.exports.login = async (req, res, next) => {
       sameSite: "None", // cross-site cookie
       maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expir
     });
-    res.json({ messgae: "User successfully logged in", accessToken });
+
+    res.json({ message: "User successfully logged in", accessToken });
   } catch (err) {
     console.log(err);
   }
