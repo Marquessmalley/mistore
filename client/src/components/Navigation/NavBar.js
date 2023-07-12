@@ -11,7 +11,7 @@ import {
   Avatar,
   IconButton,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../../store/slices/authSlice";
 import SearchIcon from "@mui/icons-material/Search";
@@ -20,15 +20,27 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
+import "./navBar.css";
+import jwtDecode from "jwt-decode";
 
 const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [anchorEl, setAnchorEl] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const token = useSelector((state) => state.auth.token);
 
   const [logout, { isSuccess, isError, error }] = useLogoutMutation();
   const open = Boolean(anchorEl);
+
+  useEffect(() => {
+    let decoded;
+    if (token) {
+      decoded = jwtDecode(token);
+      setUser(decoded?.userInfo);
+    }
+  }, [token]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -45,6 +57,7 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
   const handleMenuClose = () => setAnchorEl(null);
 
   const handleLogout = async () => await logout();
+  console.log(user);
 
   return (
     <AppBar
@@ -77,11 +90,16 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
                 },
               }}
             >
-              <Typography variant="h5" mt={2} mb={1}>
-                Welcome back, Marques
+              <Typography
+                variant="h5"
+                mt={2}
+                mb={1}
+                sx={{ fontFamily: "Montserrat" }}
+              >
+                Welcome back, {user?.firstname}
               </Typography>
-              <Typography variant="p">
-                Here's what's happening with your sore today.
+              <Typography variant="p" sx={{ fontFamily: "Montserrat" }}>
+                Here's what's happening with your store today.
               </Typography>
             </Box>
           </Grid>
@@ -109,9 +127,11 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
                 onClick={handleMenuClick}
                 endIcon={<KeyboardArrowDownIcon sx={{ color: "#fff" }} />}
               >
-                <Avatar sx={{ width: 24, height: 24 }}>M</Avatar>
+                <Avatar sx={{ width: 24, height: 24 }}>
+                  {user?.firstname[0]}
+                </Avatar>
                 <p style={{ color: "#fff", fontSize: "10px" }}>
-                  Marques Smalley
+                  {user?.firstname + " " + user?.lastname}
                 </p>
               </Button>
               <Menu

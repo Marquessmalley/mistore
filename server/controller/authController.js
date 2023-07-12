@@ -85,14 +85,14 @@ module.exports.refresh = (req, res, next) => {
     async (err, decode) => {
       try {
         if (err) res.status(403).json({ message: "Forbiden" });
-        const user = await User.findOne({ email: decode.userInfo.email });
+        const user = await User.findOne({
+          email: decode.userInfo.email,
+        }).select("-password");
+        console.log(user);
         if (!user) res.status(401).json({ message: "User unauthorized" });
         const accessToken = jwt.sign(
           {
-            userInfo: {
-              username: user.email,
-              roles: user.roles,
-            },
+            userInfo: user,
           },
           process.env.ACCESS_TOKEN_SECRET,
           { expiresIn: "15m" }

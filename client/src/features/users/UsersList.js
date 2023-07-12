@@ -206,12 +206,12 @@ const UsersList = () => {
   if (isLoading) content = <CircularProgress />;
 
   if (isError) {
+    console.log(error);
     content = (
       <>
         <Typography sx={{ color: "#fff", fontFamily: "Montserrat" }}>
-          {error?.data.message}
+          {error?.data?.message}
         </Typography>
-        ;
       </>
     );
   }

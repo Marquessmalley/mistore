@@ -25,25 +25,25 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
       {/* PRIVATE ADMIN ROUTES */}
-      {/* <Route element={<PersistLogin />}> */}
-      <Route element={<Prefetch />}>
-        <Route path="admin-dash" element={<AdminLayout />}>
-          <Route index element={<Overview />} />
-          <Route path="users">
-            <Route index element={<Users />} />
-            <Route path="add" element={<AddUser />} />
-            <Route path=":id" element={<EditUser />} />
-          </Route>
-          <Route path="products">
-            <Route index element={<ListProducts />} />
-            <Route path="add" element={<AddProducts />} />
+      <Route element={<PersistLogin />}>
+        <Route element={<Prefetch />}>
+          <Route path="admin-dash" element={<AdminLayout />}>
+            <Route index element={<Overview />} />
+            <Route path="users">
+              <Route index element={<Users />} />
+              <Route path="add" element={<AddUser />} />
+              <Route path=":id" element={<EditUser />} />
+            </Route>
+            <Route path="products">
+              <Route index element={<ListProducts />} />
+              <Route path="add" element={<AddProducts />} />
+            </Route>
+
+            <Route path="orders" element={<Orders />} />
           </Route>
 
-          <Route path="orders" element={<Orders />} />
+          <Route path="unauthorized" element={<Unauthorized />} />
         </Route>
-
-        <Route path="unauthorized" element={<Unauthorized />} />
-        {/* </Route> */}
       </Route>
     </Routes>
   );

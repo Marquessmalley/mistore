@@ -19,7 +19,6 @@ const Login = () => {
   const [passwordErr, setPasswordErr] = useState(false);
 
   const [login, { data, isSuccess, isError, error }] = useLoginMutation();
-  console.log(error);
 
   useEffect(() => {
     if (isSuccess) {
