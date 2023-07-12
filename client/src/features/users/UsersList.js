@@ -20,9 +20,11 @@ import { DataGrid } from "@mui/x-data-grid";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 import "./usersList.css";
 import MuiDialog from "../../components/UI/Dialog/MuiDialog";
-import AddIcon from "@mui/icons-material/Add";
+import AdminHeader from "../../components/UI/Headers/AdminHeader";
+import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
 
 const UsersList = () => {
   const navigate = useNavigate();
@@ -232,88 +234,22 @@ const UsersList = () => {
 
     content = (
       <Grid container>
-        <Grid item xs={4} sm={7} md={8} lg={8} mb={6} sx={{ p: "10px" }}>
-          <Box sx={{ mb: ".8rem" }}>
-            <Typography
-              variant="h4"
-              sx={{
-                fontSize: "1.5rem",
-                fontWeight: 700,
-                fontFamily: "Montserrat",
-                color: "#fff",
-              }}
-            >
-              Users List
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              fontFamily: "Montserrat",
-            }}
-          >
-            <Link
-              to="/admin-dash"
-              style={{
-                textDecoration: "none",
-                fontSize: "0.975rem",
-                fontWeight: 400,
-                color: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              Dashboard
-            </Link>
-            <span
-              style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "50px",
-                background: "rgb(145, 158, 171)",
-                margin: ".8rem",
-              }}
-            ></span>
-            <Typography
-              variant="p"
-              sx={{
-                fontSize: "0.975rem",
-                fontWeight: 500,
-                color: "rgb(145, 158, 171)",
-              }}
-            >
-              List
-            </Typography>
-          </Box>
+        <Grid item xs={11} sm={11} md={11} lg={11} mb={6} sx={{ p: "10px" }}>
+          <AdminHeader
+            headerTitle="Users List"
+            breadCrumbs={
+              <MuiBreadcrumbs
+                crumbs={[{ label: "Dashboard", to: "/admin-dash" }, "List"]}
+              />
+            }
+            btn={true}
+            btnText={"New User"}
+            btnPath="/admin-dash/users/add"
+            icon={<AddIcon />}
+          />
         </Grid>
-        <Grid
-          item
-          xs={3}
-          sm={4}
-          md={3}
-          lg={3}
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-          }}
-        >
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={() => navigate("/admin-dash/users/add")}
-            sx={{
-              background: "#fff",
-              color: "rgb(33, 43, 54)",
-              fontFamily: "Montserrat",
-              fontWeight: 700,
-              fontSize: "0.775rem",
-            }}
-          >
-            New User
-          </Button>
-        </Grid>
-        <Grid item xs={7} sm={11} md={11} lg={11}>
+
+        <Grid item xs={8} sm={11} md={11} lg={11}>
           <DataGrid
             rows={userContent}
             columns={columns}
@@ -333,6 +269,9 @@ const UsersList = () => {
               border: "none",
               fontFamily: "Montserrat",
               borderRadius: "15px",
+              "@media screen and (max-width: 600px)": {
+                width: 475,
+              },
               "& .MuiDataGrid-row": {
                 color: "#fff",
               },

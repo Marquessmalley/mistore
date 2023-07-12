@@ -57,7 +57,6 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
   const handleMenuClose = () => setAnchorEl(null);
 
   const handleLogout = async () => await logout();
-  console.log(user);
 
   return (
     <AppBar
