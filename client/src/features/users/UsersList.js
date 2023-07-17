@@ -175,7 +175,6 @@ const UsersList = () => {
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
-
                       width: 90,
                     }}
                   >
@@ -271,23 +270,6 @@ const UsersList = () => {
               borderRadius: "15px",
               "@media screen and (max-width: 600px)": {
                 width: 475,
-              },
-              "& .MuiDataGrid-row": {
-                color: "#fff",
-              },
-              "& 	.MuiDataGrid-checkboxInput": {
-                color: "rgb(118, 118, 118)",
-                transform: "scale(.8)",
-              },
-              "& .MuiDataGrid-columnHeaders ": {
-                fontSize: "16px",
-                background: "#919EAB1f",
-              },
-              "& .MuiDataGrid-withBorderColor": {
-                borderBottom: ".2px dashed #637381",
-              },
-              "& .MuiTablePagination-toolbar": {
-                color: "#fff",
               },
             }}
           />

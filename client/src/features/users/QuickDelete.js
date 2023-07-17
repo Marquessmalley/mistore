@@ -43,8 +43,6 @@ const QuickDelete = ({ id, handleDialogClose }) => {
           sx={{
             fontSize: ".775rem",
             fontWeight: 700,
-
-            borderRadius: "8px",
             color: "#fff",
             borderColor: "#fff",
             "&:hover": {

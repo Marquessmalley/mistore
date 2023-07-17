@@ -113,23 +113,23 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
             >
               <SearchIcon sx={{ marginRight: "15px" }} />
               <NotificationsNoneIcon sx={{ marginRight: "15px" }} />
+
               <Button
                 sx={{
-                  background: "#171412",
+                  background: "#fff",
                   display: "flex",
                   justifyContent: "space-between",
                   width: 185,
                   height: 40,
-                  borderRadius: "15px",
                   opacity: 1.5,
                 }}
                 onClick={handleMenuClick}
-                endIcon={<KeyboardArrowDownIcon sx={{ color: "#fff" }} />}
+                endIcon={<KeyboardArrowDownIcon sx={{}} />}
               >
-                <Avatar sx={{ width: 24, height: 24 }}>
+                <Avatar sx={{ width: 24, height: 24, color: "black" }}>
                   {user?.firstname[0]}
                 </Avatar>
-                <p style={{ color: "#fff", fontSize: "10px" }}>
+                <p style={{ color: "black", fontSize: "10px" }}>
                   {user?.firstname + " " + user?.lastname}
                 </p>
               </Button>

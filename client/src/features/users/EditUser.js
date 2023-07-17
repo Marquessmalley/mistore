@@ -281,24 +281,6 @@ const EditUser = () => {
                 mr: "1rem",
                 ml: "2rem",
                 color: "#fff",
-                "& .MuiInputLabel-root": {
-                  color: "rgb(99, 115, 129)", // Customize label color
-                },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "rgb(99, 115, 129)", // Outline border color (default)
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#fff", // Outline border color when focused
-                  },
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#fff", // Label color when focused
-                },
-                "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                  {
-                    borderColor: "#fff", // Change this to the desired outline color on hover
-                  },
               }}
             />
             <TextField
@@ -320,24 +302,6 @@ const EditUser = () => {
               }}
               sx={{
                 width: "45%",
-                "& .MuiInputLabel-root": {
-                  color: "rgb(99, 115, 129)", // Customize label color
-                },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "rgb(99, 115, 129)", // Outline border color (default)
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#fff", // Outline border color when focused
-                  },
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#fff", // Label color when focused
-                },
-                "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                  {
-                    borderColor: "#fff", // Change this to the desired outline color on hover
-                  },
               }}
             />
             <TextField
@@ -361,24 +325,6 @@ const EditUser = () => {
                 width: "45%",
                 mr: "1rem",
                 ml: "2rem",
-                "& .MuiInputLabel-root": {
-                  color: "rgb(99, 115, 129)", // Customize label color
-                },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "rgb(99, 115, 129)", // Outline border color (default)
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#fff", // Outline border color when focused
-                  },
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#fff", // Label color when focused
-                },
-                "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                  {
-                    borderColor: "#fff", // Change this to the desired outline color on hover
-                  },
               }}
             />
             <TextField
@@ -400,24 +346,6 @@ const EditUser = () => {
               }}
               sx={{
                 width: "45%",
-                "& .MuiInputLabel-root": {
-                  color: "rgb(99, 115, 129)", // Customize label color
-                },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "rgb(99, 115, 129)", // Outline border color (default)
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#fff", // Outline border color when focused
-                  },
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#fff", // Label color when focused
-                },
-                "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                  {
-                    borderColor: "#fff", // Change this to the desired outline color on hover
-                  },
               }}
             >
               {roles.map((role) => (
@@ -443,7 +371,6 @@ const EditUser = () => {
                   fontSize: "0.775rem",
                   fontWeight: 700,
                   padding: "6px 12px",
-                  borderRadius: "8px",
                 }}
                 type="submit"
               >

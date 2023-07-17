@@ -9,7 +9,7 @@ import {
   Button,
   Alert,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCreateUserMutation } from "./usersApiSlice";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import AdminHeader from "../../components/UI/Headers/AdminHeader";
@@ -214,24 +214,6 @@ const AddUser = () => {
               width: "45%",
               mr: "1rem",
               color: "#fff",
-              "& .MuiInputLabel-root": {
-                color: "rgb(99, 115, 129)", // Customize label color
-              },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "rgb(99, 115, 129)", // Outline border color (default)
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#fff", // Outline border color when focused
-                },
-              },
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "#fff", // Label color when focused
-              },
-              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: "#fff", // Change this to the desired outline color on hover
-                },
             }}
           />
           <TextField
@@ -253,24 +235,6 @@ const AddUser = () => {
             }}
             sx={{
               width: "45%",
-              "& .MuiInputLabel-root": {
-                color: "rgb(99, 115, 129)", // Customize label color
-              },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "rgb(99, 115, 129)", // Outline border color (default)
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#fff", // Outline border color when focused
-                },
-              },
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "#fff", // Label color when focused
-              },
-              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: "#fff", // Change this to the desired outline color on hover
-                },
             }}
           />
           <TextField
@@ -293,24 +257,6 @@ const AddUser = () => {
             sx={{
               width: "45%",
               mr: "1rem",
-              "& .MuiInputLabel-root": {
-                color: "rgb(99, 115, 129)", // Customize label color
-              },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "rgb(99, 115, 129)", // Outline border color (default)
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#fff", // Outline border color when focused
-                },
-              },
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "#fff", // Label color when focused
-              },
-              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: "#fff", // Change this to the desired outline color on hover
-                },
             }}
           />
           <TextField
@@ -332,24 +278,6 @@ const AddUser = () => {
             }}
             sx={{
               width: "45%",
-              "& .MuiInputLabel-root": {
-                color: "rgb(99, 115, 129)", // Customize label color
-              },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "rgb(99, 115, 129)", // Outline border color (default)
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#fff", // Outline border color when focused
-                },
-              },
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "#fff", // Label color when focused
-              },
-              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: "#fff", // Change this to the desired outline color on hover
-                },
             }}
           >
             {roles.map((role) => (
@@ -377,24 +305,6 @@ const AddUser = () => {
             }}
             sx={{
               width: "45%",
-              "& .MuiInputLabel-root": {
-                color: "rgb(99, 115, 129)", // Customize label color
-              },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "rgb(99, 115, 129)", // Outline border color (default)
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#fff", // Outline border color when focused
-                },
-              },
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "#fff", // Label color when focused
-              },
-              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: "#fff", // Change this to the desired outline color on hover
-                },
             }}
           />
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -406,7 +316,6 @@ const AddUser = () => {
                 fontSize: "0.775rem",
                 fontWeight: 700,
                 padding: "6px 12px",
-                borderRadius: "8px",
               }}
               type="submit"
             >
