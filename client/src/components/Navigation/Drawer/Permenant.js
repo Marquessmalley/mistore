@@ -34,7 +34,7 @@ const Permenant = ({ drawerWidth }) => {
     <Drawer
       variant="permanent"
       sx={{
-        display: { xs: "none", sm: "block" },
+        display: { xs: "none", sm: "none", md: "block", lg: "block" },
         "& .MuiDrawer-paper": {
           boxSizing: "border-box",
           width: drawerWidth,
@@ -67,7 +67,7 @@ const Permenant = ({ drawerWidth }) => {
                 to="/admin-dash"
                 style={{
                   textDecoration: "none",
-                  color: "transparent",
+                  color: "#fff",
                 }}
               >
                 <ListItemButton
@@ -157,6 +157,7 @@ const Permenant = ({ drawerWidth }) => {
                   to="/admin-dash/products"
                   style={{
                     textDecoration: "none",
+                    color: "#fff",
                   }}
                 >
                   <ListItemButton
@@ -181,6 +182,7 @@ const Permenant = ({ drawerWidth }) => {
                   to="/admin-dash/products/add"
                   style={{
                     textDecoration: "none",
+                    color: "#fff",
                   }}
                 >
                   <ListItemButton sx={{ ml: 8 }}>
@@ -251,6 +253,7 @@ const Permenant = ({ drawerWidth }) => {
                   to="/admin-dash/users"
                   style={{
                     textDecoration: "none",
+                    color: "#fff",
                   }}
                 >
                   <ListItemButton sx={{ ml: 8, textAlign: "center" }}>
@@ -271,6 +274,7 @@ const Permenant = ({ drawerWidth }) => {
                   to="/admin-dash/users/add"
                   style={{
                     textDecoration: "none",
+                    color: "#fff",
                   }}
                 >
                   <ListItemButton sx={{ ml: 8, textAlign: "center" }}>
@@ -296,6 +300,7 @@ const Permenant = ({ drawerWidth }) => {
                 to="/admin-dash/orders"
                 style={{
                   textDecoration: "none",
+                  color: "#fff",
                 }}
               >
                 <ListItemButton

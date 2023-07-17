@@ -35,7 +35,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
       open={mobileOpen}
       onClose={handleToggleDrawer}
       sx={{
-        display: { xs: "block", sm: "none" },
+        display: { xs: "block", sm: "block", md: "none", lg: "none" },
         "& .MuiDrawer-paper": {
           boxSizing: "border-box",
           width: drawerWidth,
@@ -67,6 +67,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                 to="/admin-dash"
                 style={{
                   textDecoration: "none",
+                  color: "#fff",
                 }}
               >
                 <ListItemButton
@@ -155,6 +156,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   to="/admin-dash/products"
                   style={{
                     textDecoration: "none",
+                    color: "#fff",
                   }}
                 >
                   <ListItemButton sx={{ ml: 8 }}>
@@ -175,6 +177,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   to="/admin-dash/products/add"
                   style={{
                     textDecoration: "none",
+                    color: "#fff",
                   }}
                 >
                   <ListItemButton sx={{ ml: 8 }}>
@@ -245,6 +248,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   to="/admin-dash/users"
                   style={{
                     textDecoration: "none",
+                    color: "#fff",
                   }}
                 >
                   <ListItemButton sx={{ ml: 8, textAlign: "center" }}>
@@ -265,6 +269,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   to="/admin-dash/users/add"
                   style={{
                     textDecoration: "none",
+                    color: "#fff",
                   }}
                 >
                   <ListItemButton sx={{ ml: 8, textAlign: "center" }}>
@@ -289,6 +294,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                 to="/admin-dash/orders"
                 style={{
                   textDecoration: "none",
+                  color: "#fff",
                 }}
               >
                 <ListItemButton

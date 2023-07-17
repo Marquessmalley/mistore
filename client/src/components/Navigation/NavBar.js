@@ -10,6 +10,7 @@ import {
   MenuItem,
   Avatar,
   IconButton,
+  Fab,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -17,8 +18,8 @@ import { authActions } from "../../store/slices/authSlice";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
 import "./navBar.css";
 import jwtDecode from "jwt-decode";
@@ -63,20 +64,31 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
       position="fixed"
       sx={{
         background: "rgb(9, 20, 34)",
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
+        width: { md: `calc(100% - ${drawerWidth}px)` },
         ml: { sm: `${drawerWidth}px` },
         pb: "2rem",
       }}
     >
       <Toolbar>
         <Grid container sx={{ display: "flex", alignItems: "center" }}>
-          <Grid item xs={6} sm={6} md={6} lg={6}>
+          <Grid
+            item
+            xs={6}
+            sm={9}
+            md={9}
+            lg={6}
+            sx={{
+              "@media screen and (max-width: 899px)": {
+                display: "flex",
+              },
+            }}
+          >
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2, display: { sm: "none" } }}
+              sx={{ mr: 2, display: { md: "none" } }}
               onClick={handleToggleDrawer}
             >
               <MenuIcon />
@@ -85,7 +97,7 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
               sx={{
                 display: {
                   xs: "none",
-                  md: "block",
+                  sm: "block",
                 },
               }}
             >
@@ -95,14 +107,14 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
                 mb={1}
                 sx={{ fontFamily: "Montserrat" }}
               >
-                Welcome back, {user?.firstname}
+                Welcome back, {user?.firstname} {user?.lastname}
               </Typography>
               <Typography variant="p" sx={{ fontFamily: "Montserrat" }}>
                 Here's what's happening with your store today.
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={6} sm={6} md={6} lg={6}>
+          <Grid item xs={6} sm={3} md={3} lg={6}>
             <Box
               sx={{
                 display: "flex",
@@ -113,26 +125,9 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
             >
               <SearchIcon sx={{ marginRight: "15px" }} />
               <NotificationsNoneIcon sx={{ marginRight: "15px" }} />
-
-              <Button
-                sx={{
-                  background: "#fff",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: 185,
-                  height: 40,
-                  opacity: 1.5,
-                }}
-                onClick={handleMenuClick}
-                endIcon={<KeyboardArrowDownIcon sx={{}} />}
-              >
-                <Avatar sx={{ width: 24, height: 24, color: "black" }}>
-                  {user?.firstname[0]}
-                </Avatar>
-                <p style={{ color: "black", fontSize: "10px" }}>
-                  {user?.firstname + " " + user?.lastname}
-                </p>
-              </Button>
+              <Fab size="small" onClick={handleMenuClick}>
+                <PersonIcon />
+              </Fab>
               <Menu
                 anchorOrigin={{
                   vertical: "bottom",
