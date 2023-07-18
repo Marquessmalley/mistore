@@ -26,7 +26,7 @@ const AdminLayout = () => {
       <Box
         component="nav"
         sx={{
-          width: { sm: hidePermanentDrawer ? 0 : drawerWidth },
+          width: { md: hidePermanentDrawer ? 0 : drawerWidth },
           flexShrink: { sm: 0 },
         }}
       >

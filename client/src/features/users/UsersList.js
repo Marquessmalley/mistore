@@ -248,7 +248,7 @@ const UsersList = () => {
           />
         </Grid>
 
-        <Grid item xs={8} sm={11} md={11} lg={11}>
+        <Grid item xs={8} sm={12} md={12} lg={12}>
           <DataGrid
             rows={userContent}
             columns={columns}
