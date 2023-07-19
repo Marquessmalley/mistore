@@ -10,7 +10,7 @@ import EditUser from "./features/users/EditUser";
 import Unauthorized from "./components/Errors/Unauthorized";
 import Overview from "./pages/admin/Overview";
 import Orders from "./pages/admin/Orders";
-import ListProducts from "./features/products/ListProducts";
+import ProductsList from "./features/products/ProductsList";
 import AddProducts from "./features/products/AddProduct";
 import Prefetch from "./features/users/Prefetch";
 import PersistLogin from "./features/auth/PersistLogin";
@@ -35,7 +35,7 @@ function App() {
               <Route path=":id" element={<EditUser />} />
             </Route>
             <Route path="products">
-              <Route index element={<ListProducts />} />
+              <Route index element={<ProductsList />} />
               <Route path="add" element={<AddProducts />} />
             </Route>
 

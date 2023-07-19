@@ -26,8 +26,10 @@ app.use(xss());
 
 const authRoutes = require("./routes/authRoutes");
 const usersRoutes = require("./routes/usersRoutes");
+const productsRoutes = require("./routes/productsRoutes");
 
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
+app.use("/products", productsRoutes);
 
 module.exports = app;

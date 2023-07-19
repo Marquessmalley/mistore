@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import { useUpdateUserMutation, useDeleteUserMutation } from "./usersApiSlice";
 import { roles } from "../../constants/roles";
+import AdminHeader from "../../components/UI/Headers/AdminHeader";
+import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
 
 const EditUser = () => {
   const navigate = useNavigate();
@@ -106,79 +108,19 @@ const EditUser = () => {
     <Grid container>
       {/* HEADER */}
       <Grid item xs={12} sm={12} md={12} lg={12} mb={6} sx={{ p: "10px" }}>
-        <Box sx={{ mb: ".8rem" }}>
-          <Typography
-            variant="h4"
-            sx={{
-              fontSize: "1.5rem",
-              fontWeight: 700,
-              color: "#fff",
-              fontFamily: "Montserrat",
-            }}
-          >
-            Edit
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "300px",
-            fontFamily: "Montserrat",
-          }}
-        >
-          <Link
-            to="/admin-dash"
-            style={{
-              textDecoration: "none",
-              fontSize: "0.975rem",
-              fontWeight: 400,
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            Dashboard
-          </Link>
-          <span
-            style={{
-              width: "6px",
-              height: "6px",
-              borderRadius: "50px",
-              background: "rgb(145, 158, 171)",
-            }}
-          ></span>
-          <Link
-            to="/admin-dash/users"
-            style={{
-              textDecoration: "none",
-              fontSize: "0.975rem",
-              fontWeight: 400,
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            Users
-          </Link>
-          <span
-            style={{
-              width: "6px",
-              height: "6px",
-              borderRadius: "50px",
-              background: "rgb(145, 158, 171)",
-            }}
-          ></span>
-          <Typography
-            variant="p"
-            sx={{
-              fontSize: "0.975rem",
-              fontWeight: 500,
-              color: "rgb(145, 158, 171)",
-            }}
-          >
-            {user?.firstname + " " + user?.lastname}
-          </Typography>
-        </Box>
+        <AdminHeader
+          headerTitle="Edit User"
+          breadCrumbs={
+            <MuiBreadcrumbs
+              crumbs={[
+                { label: "Dashboard", to: "/admin-dash" },
+                { label: "Users", to: "/admin-dash/users" },
+                `${user?.firstname} ${user?.lastname}`,
+              ]}
+            />
+          }
+          btn={false}
+        />
       </Grid>
       {/* USER PROFILE */}
       <Grid
