@@ -31,36 +31,57 @@ module.exports.getProduct = async (req, res, next) => {
 
 module.exports.createProduct = async (req, res, next) => {
   try {
-    const { name, description, price, quantity, size } = req.body;
+    const {
+      name,
+      description,
+      images,
+      category,
+      price,
+      colors,
+      quantity,
+      sizes,
+      gender,
+    } = req.body;
 
     const product = await Product.create({
       name,
       description,
-      price,
+      images,
+      category,
       quantity,
-      size,
+      sizes,
+      colors,
+      gender,
+      price,
     });
 
     res.status(200).json({ message: "Product created successfully", product });
   } catch (err) {
+    // product validation error
     if (err.name === "ValidationError") {
       return res.status(400).json({
         message: "Validation error. Make sure fields filled out correctly.",
-        err,
+        err: err,
       });
+    }
+    // duplicate product names
+    if (err.code === 11000) {
+      return res
+        .status(400)
+        .json({ message: "Product already exists.", error: true });
     }
   }
 };
 module.exports.updateProduct = async (req, res, next) => {
   try {
-    const { name, description, quantity, price, size } = req.body;
+    const { name, description, quantity, category, price, size } = req.body;
     const { id } = req.params;
     const product = await Product.findById(id);
     if (!product) {
       res.status(404).json({ message: "Product not found" });
     }
 
-    if (!name || !description || !quantity || !price || !size) {
+    if (!name || !description || !category || !quantity || !price || !size) {
       return res
         .status(400)
         .json({ message: "Make sure all fields are entered" });
@@ -68,6 +89,7 @@ module.exports.updateProduct = async (req, res, next) => {
 
     product.name = name;
     product.description = description;
+    product.category = category;
     product.quantity = quantity;
     product.price = price;
     product.size = size;

@@ -65,24 +65,73 @@ const UsersList = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: "250" },
     {
       field: "name",
       headerName: "Name",
       width: 250,
       renderCell: (params) => {
         return (
-          <Link to={`/admin-dash/users/${params.row.id}`} className="link">
+          <Link
+            to={`/admin-dash/users/${params.row.id}`}
+            className="link"
+            style={{
+              fontSize: "0.875rem",
+              fontWeight: 600,
+              opacity: 0.8,
+              textDecoration: "none",
+              color: "#fff",
+            }}
+          >
             {params.row.name}
           </Link>
         );
       },
     },
-    { field: "email", headerName: "Email", width: 250 },
+    {
+      field: "email",
+      headerName: "Email",
+      width: 250,
+      renderCell: (params) => {
+        return (
+          <div>
+            <p
+              style={{
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                opacity: 0.8,
+                textDecoration: "none",
+                color: "#fff",
+              }}
+            >
+              {params.row.email}
+            </p>
+          </div>
+        );
+      },
+    },
     {
       field: "role",
       headerName: "Role",
       width: 250,
+      renderCell: (params) => {
+        return (
+          <div>
+            <p
+              style={{
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                opacity: 0.8,
+              }}
+            >
+              {params.row.role}
+            </p>
+          </div>
+        );
+      },
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
       renderCell: (params) => {
         // DIALOG FUNCTIONS
         const handleEditDialogOpen = () => {
@@ -120,81 +169,72 @@ const UsersList = () => {
         const firstname = nameParts ? nameParts[0] : "";
         const lastname = nameParts ? nameParts[1] : "";
         return (
-          <div
-            style={{
-              width: 250,
-              display: "flex",
-              justifyContent: "space-around",
-            }}
-          >
-            <p>{params.row.role}</p>
-            <div>
-              <Tooltip title="Quick edit" placement="bottom" arrow>
-                <IconButton onClick={handleEditDialogOpen}>
-                  <ModeEditIcon sx={{ color: "#fff" }} />
-                </IconButton>
-              </Tooltip>
-              <MuiDialog
-                title={"Quick Update"}
-                dialogOpen={editFormDialogOpen}
-                handleDialogClose={handleEditDialogClose}
-                content={
-                  <QuickUpdate
-                    id={rowInfo?.id}
-                    firstname={firstname}
-                    lastname={lastname}
-                    email={rowInfo?.email}
-                    role={rowInfo?.role}
-                    handleDialogClose={handleEditDialogClose}
-                  />
-                }
-              />
-              <IconButton onClick={handleMenuOpen}>
-                <MoreVertIcon sx={{ color: "#fff" }} />
+          <div>
+            <Tooltip title="Quick edit" placement="bottom" arrow>
+              <IconButton onClick={handleEditDialogOpen}>
+                <ModeEditIcon sx={{ color: "#fff" }} />
               </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-              >
-                <MenuItem onClick={handleDeleteUserDialogOpen}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: 90,
-                    }}
-                  >
-                    <DeleteIcon sx={{ color: "red" }} />
-                    <Typography sx={{ color: "red" }}>Delete</Typography>
-                  </Box>
-                </MenuItem>
-                <MenuItem onClick={handleEditUser}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: 90,
-                    }}
-                  >
-                    <ModeEditIcon />
-                    <Typography>Edit</Typography>
-                  </Box>
-                </MenuItem>
-              </Menu>
+            </Tooltip>
+            <MuiDialog
+              title={"Quick Update"}
+              dialogOpen={editFormDialogOpen}
+              handleDialogClose={handleEditDialogClose}
+              content={
+                <QuickUpdate
+                  id={rowInfo?.id}
+                  firstname={firstname}
+                  lastname={lastname}
+                  email={rowInfo?.email}
+                  role={rowInfo?.role}
+                  handleDialogClose={handleEditDialogClose}
+                />
+              }
+            />
+            <IconButton onClick={handleMenuOpen}>
+              <MoreVertIcon sx={{ color: "#fff" }} />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={handleDeleteUserDialogOpen}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: 90,
+                  }}
+                >
+                  <DeleteIcon sx={{ color: "red" }} />
+                  <Typography sx={{ color: "red" }}>Delete</Typography>
+                </Box>
+              </MenuItem>
+              <MenuItem onClick={handleEditUser}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: 90,
+                  }}
+                >
+                  <ModeEditIcon />
+                  <Typography>Edit</Typography>
+                </Box>
+              </MenuItem>
+            </Menu>
 
-              <MuiDialog
-                title={"Delete"}
-                dialogOpen={deleteDialogOpen}
-                handleDialogClose={handleDeleteUserDialogClose}
-                content={
-                  <QuickDelete
-                    id={rowInfo?.id}
-                    handleDialogClose={handleDeleteUserDialogClose}
-                  />
-                }
-              />
-            </div>
+            <MuiDialog
+              title={"Delete"}
+              dialogOpen={deleteDialogOpen}
+              handleDialogClose={handleDeleteUserDialogClose}
+              content={
+                <QuickDelete
+                  id={rowInfo?.id}
+                  handleDialogClose={handleDeleteUserDialogClose}
+                />
+              }
+            />
           </div>
         );
       },

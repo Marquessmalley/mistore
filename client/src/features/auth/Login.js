@@ -120,6 +120,11 @@ const Login = () => {
                 onChange={handleFormChange}
                 error={emailErr}
                 helperText={emailErr ? "Email required" : null}
+                InputProps={{
+                  style: {
+                    color: "#fff", // Change the text color to red
+                  },
+                }}
               />
               <TextField
                 id="password"
@@ -133,6 +138,11 @@ const Login = () => {
                 onChange={handleFormChange}
                 error={passwordErr}
                 helperText={passwordErr ? "Password required" : null}
+                InputProps={{
+                  style: {
+                    color: "#fff", // Change the text color to red
+                  },
+                }}
               />
               <label htmlFor="persist" style={{ color: "#fff" }}>
                 I am not a alien

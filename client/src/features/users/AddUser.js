@@ -96,9 +96,17 @@ const AddUser = () => {
   };
 
   return (
-    <Grid container>
+    <Grid container sx={{ height: "81vh" }}>
       {/* HEADER */}
-      <Grid item xs={12} sm={12} md={12} lg={12} mb={6} sx={{ p: "10px" }}>
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={12}
+        // mb={6}
+        sx={{ p: "10px" }}
+      >
         <AdminHeader
           headerTitle="New User"
           breadCrumbs={
@@ -131,6 +139,7 @@ const AddUser = () => {
           padding: "80px 24px 40px",
           mr: "1rem",
           mb: "1rem",
+          height: "50vh",
         }}
       >
         <Box
@@ -188,6 +197,7 @@ const AddUser = () => {
           background: "rgb(33, 43, 54)",
           padding: "24px",
           borderRadius: "20px",
+          height: "50vh",
         }}
       >
         {isError && <Alert severity="error">{errMsg}</Alert>}

@@ -11,6 +11,7 @@ import Unauthorized from "./components/Errors/Unauthorized";
 import Overview from "./pages/admin/Overview";
 import Orders from "./pages/admin/Orders";
 import ProductsList from "./features/products/ProductsList";
+import EditProduct from "./features/products/EditProduct";
 import AddProducts from "./features/products/AddProduct";
 import Prefetch from "./features/users/Prefetch";
 import PersistLogin from "./features/auth/PersistLogin";
@@ -37,6 +38,7 @@ function App() {
             <Route path="products">
               <Route index element={<ProductsList />} />
               <Route path="add" element={<AddProducts />} />
+              <Route path=":id" element={<EditProduct />} />
             </Route>
 
             <Route path="orders" element={<Orders />} />

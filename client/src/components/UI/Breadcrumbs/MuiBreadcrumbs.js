@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const MuiBreadcrumbs = ({ crumbs }) => {
   const lastbreadcrumb = crumbs[crumbs.length - 1];
-  console.log(crumbs.slice(0, crumbs.length - 1));
 
   return (
     <>
