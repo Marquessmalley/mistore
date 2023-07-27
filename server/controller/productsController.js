@@ -74,14 +74,24 @@ module.exports.createProduct = async (req, res, next) => {
 };
 module.exports.updateProduct = async (req, res, next) => {
   try {
-    const { name, description, quantity, category, price, size } = req.body;
+    const {
+      name,
+      description,
+      quantity,
+      category,
+      price,
+      sizes,
+      colors,
+      gender,
+    } = req.body;
     const { id } = req.params;
+
     const product = await Product.findById(id);
     if (!product) {
       res.status(404).json({ message: "Product not found" });
     }
 
-    if (!name || !description || !category || !quantity || !price || !size) {
+    if (!name || !description || !category || !quantity || !price || !sizes) {
       return res
         .status(400)
         .json({ message: "Make sure all fields are entered" });
@@ -92,13 +102,16 @@ module.exports.updateProduct = async (req, res, next) => {
     product.category = category;
     product.quantity = quantity;
     product.price = price;
-    product.size = size;
+    product.sizes = sizes;
+    product.colors = colors;
+    product.gender = gender;
 
     const updatedProduct = await product.save();
     res
       .status(200)
       .json({ message: "Product updated successfully", updatedProduct });
   } catch (err) {
+    console.log(err);
     // Validation error handler
     if (err.name === "ValidationError") {
       return res.status(400).json({

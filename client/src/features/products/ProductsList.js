@@ -24,6 +24,7 @@ import { useGetProductsQuery } from "./productsApiSlice";
 import { dialogAction } from "../../store/slices/dialog";
 import MuiDialog from "../../components/UI/Dialog/MuiDialog";
 import QuickDelete from "./QuickDelete";
+
 const ProductsList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

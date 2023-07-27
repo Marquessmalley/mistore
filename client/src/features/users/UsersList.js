@@ -3,6 +3,7 @@ import { useGetUsersQuery } from "./usersApiSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { dialogAction } from "../../store/slices/dialog";
+import { selectUsersResult } from "./usersApiSlice";
 import {
   CircularProgress,
   Box,

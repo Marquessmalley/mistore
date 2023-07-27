@@ -22,11 +22,14 @@ const AddProduct = () => {
   // STATE
   const [selectedColors, setSelectedColors] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState([]);
+
   const [files, setFiles] = useState([]);
   const fileInputRef = useRef();
+
   const [maleChecked, setMaleChecked] = useState(false);
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [gender, setGender] = useState([]);
+
   const [productData, setProductData] = useState({
     name: "",
     description: "",
