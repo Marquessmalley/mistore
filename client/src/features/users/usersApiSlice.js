@@ -60,8 +60,10 @@ export const {
   useDeleteUserMutation,
 } = usersApiSlice;
 
+//executes selector function for this api endpoint to get all users
 export const selectUsersResult = usersApiSlice.endpoints.getUsers.select();
 
+// creates memoized selector
 export const selectUsersData = createSelector(
   selectUsersResult,
   (usersResult) => usersResult.data // normalized state object with ids & entities

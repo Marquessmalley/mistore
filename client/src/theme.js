@@ -17,6 +17,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: "Montserrat",
+        },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {

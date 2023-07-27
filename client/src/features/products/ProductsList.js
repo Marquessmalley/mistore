@@ -1,53 +1,47 @@
 import { useState } from "react";
-import { useGetUsersQuery } from "./usersApiSlice";
-import { useNavigate, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { dialogAction } from "../../store/slices/dialog";
-import { selectUsersResult } from "./usersApiSlice";
 import {
-  CircularProgress,
-  Box,
   Grid,
+  CircularProgress,
+  LinearProgress,
   Typography,
   IconButton,
   Menu,
   MenuItem,
-  Tooltip,
+  Box,
 } from "@mui/material";
-import QuickUpdate from "./QuickUpdate";
-import QuickDelete from "./QuickDelete";
 import { DataGrid } from "@mui/x-data-grid";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import "./usersList.css";
-import MuiDialog from "../../components/UI/Dialog/MuiDialog";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { format } from "date-fns";
+import { enUS } from "date-fns/locale"; // This is for English locale, you can change it as needed
 import AdminHeader from "../../components/UI/Headers/AdminHeader";
 import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import { useGetProductsQuery } from "./productsApiSlice";
+import { dialogAction } from "../../store/slices/dialog";
+import MuiDialog from "../../components/UI/Dialog/MuiDialog";
+import QuickDelete from "./QuickDelete";
 
-const UsersList = () => {
+const ProductsList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const editFormDialogOpen = useSelector(
-    (state) => state.dialog.editFormDialogOpen
-  );
-
   const deleteDialogOpen = useSelector(
-    (state) => state.dialog.deleteUserDialogOpen
+    (state) => state.dialog.deleteProductDialogOpen
   );
-
   const [rowInfo, setRowInfo] = useState();
   const [selectedRows, setSelectedRows] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const {
-    data: users,
+    data: products,
     isLoading,
     isSuccess,
     isError,
     error,
-  } = useGetUsersQuery();
+  } = useGetProductsQuery();
 
   const handleCheckboxClick = (params, event) => {
     event.stopPropagation(); // Prevents the row click event from being triggered
@@ -67,35 +61,14 @@ const UsersList = () => {
 
   const columns = [
     {
-      field: "name",
-      headerName: "Name",
-      width: 250,
-      renderCell: (params) => {
-        return (
-          <Link
-            to={`/admin-dash/users/${params.row.id}`}
-            className="link"
-            style={{
-              fontSize: "0.875rem",
-              fontWeight: 600,
-              opacity: 0.8,
-              textDecoration: "none",
-              color: "#fff",
-            }}
-          >
-            {params.row.name}
-          </Link>
-        );
-      },
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      width: 250,
+      field: "product",
+      headerName: "Product",
+      width: 200,
       renderCell: (params) => {
         return (
           <div>
-            <p
+            <Link
+              to={`/admin-dash/products/${params.row.id}`}
               style={{
                 fontSize: "0.875rem",
                 fontWeight: 600,
@@ -104,52 +77,108 @@ const UsersList = () => {
                 color: "#fff",
               }}
             >
-              {params.row.email}
-            </p>
+              {params?.row.product}
+            </Link>
+            <Typography
+              sx={{
+                fontWeight: 400,
+                fontSize: "0.875rem",
+                color: "rgb(99, 115, 129)",
+              }}
+            >
+              {params?.row.category}
+            </Typography>
           </div>
         );
       },
     },
     {
-      field: "role",
-      headerName: "Role",
-      width: 250,
+      field: "date",
+      headerName: "Created at",
+      width: 200,
+      renderCell: (params) => {
+        const formattedDate = format(params.row.date, "dd MMM yyyy", {
+          locale: enUS,
+        });
+        const formattedTime = format(params.row.date, "h:mm a", {
+          locale: enUS,
+        });
+        return (
+          <div>
+            <Typography
+              sx={{ fontSize: "0.875rem", fontWeight: 600, opacity: 0.8 }}
+            >
+              {formattedDate}
+            </Typography>
+            <Typography
+              sx={{
+                fontWeight: 400,
+                fontSize: "0.875rem",
+                color: "rgb(99, 115, 129)",
+              }}
+            >
+              {formattedTime}
+            </Typography>
+          </div>
+        );
+      },
+    },
+    {
+      field: "quantity",
+      headerName: "Quantity",
+      width: 200,
       renderCell: (params) => {
         return (
           <div>
-            <p
-              style={{
-                fontSize: "0.875rem",
-                fontWeight: 600,
-                opacity: 0.8,
+            <LinearProgress
+              variant="determinate"
+              value={params.row.quantity}
+              sx={{
+                background: "rgba(255, 171, 0, 0.24)",
+                borderRadius: "5px",
+                width: "80px",
+                mb: "8px",
               }}
+            />
+            <Typography
+              sx={{ fontSize: "0.75rem", color: "rgb(145, 158, 171)" }}
             >
-              {params.row.role}
-            </p>
+              {params.row.quantity} stocked
+            </Typography>
           </div>
         );
       },
     },
     {
-      field: "actions",
+      field: "price",
+      headerName: "Price",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div
+            style={{
+              width: 250,
+            }}
+          >
+            <Typography sx={{ fontSize: "0.875rem", fontWeight: 600 }}>
+              ${params.row.price}
+            </Typography>
+          </div>
+        );
+      },
+    },
+    {
+      field: "action",
       headerName: "Actions",
       renderCell: (params) => {
-        // DIALOG FUNCTIONS
-        const handleEditDialogOpen = () => {
-          setRowInfo(params?.row);
-          dispatch(dialogAction.handleFormOpen());
-        };
-
-        const handleEditDialogClose = () =>
-          dispatch(dialogAction.handleFormClose());
-
-        const handleDeleteUserDialogOpen = () => {
-          dispatch(dialogAction.handleDeleteDialogOpen());
+        const handleDeleteProductDialogOpen = () => {
+          dispatch(dialogAction.handleDeleteProductDialogOpen());
           setAnchorEl(null);
         };
-
-        const handleDeleteUserDialogClose = () =>
-          dispatch(dialogAction.handleDeleteDialogClose());
+        const handleDeleteProductDialogClose = () => {
+          dispatch(dialogAction.handleDeleteProductDialogClose());
+          setAnchorEl(null);
+        };
 
         // MENU FUNCTIONS
         const handleMenuOpen = (event) => {
@@ -161,36 +190,12 @@ const UsersList = () => {
           setAnchorEl(null);
         };
 
-        const handleEditUser = () => {
+        const handleEditProduct = () => {
           setAnchorEl(null);
-          navigate(`/admin-dash/users/${rowInfo?.id}`);
+          navigate(`/admin-dash/products/${rowInfo?.id}`);
         };
-
-        const nameParts = rowInfo?.name.split(" ");
-        const firstname = nameParts ? nameParts[0] : "";
-        const lastname = nameParts ? nameParts[1] : "";
         return (
           <div>
-            <Tooltip title="Quick edit" placement="bottom" arrow>
-              <IconButton onClick={handleEditDialogOpen}>
-                <ModeEditIcon sx={{ color: "#fff" }} />
-              </IconButton>
-            </Tooltip>
-            <MuiDialog
-              title={"Quick Update"}
-              dialogOpen={editFormDialogOpen}
-              handleDialogClose={handleEditDialogClose}
-              content={
-                <QuickUpdate
-                  id={rowInfo?.id}
-                  firstname={firstname}
-                  lastname={lastname}
-                  email={rowInfo?.email}
-                  role={rowInfo?.role}
-                  handleDialogClose={handleEditDialogClose}
-                />
-              }
-            />
             <IconButton onClick={handleMenuOpen}>
               <MoreVertIcon sx={{ color: "#fff" }} />
             </IconButton>
@@ -199,7 +204,7 @@ const UsersList = () => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={handleDeleteUserDialogOpen}>
+              <MenuItem onClick={handleDeleteProductDialogOpen}>
                 <Box
                   sx={{
                     display: "flex",
@@ -211,7 +216,7 @@ const UsersList = () => {
                   <Typography sx={{ color: "red" }}>Delete</Typography>
                 </Box>
               </MenuItem>
-              <MenuItem onClick={handleEditUser}>
+              <MenuItem onClick={handleEditProduct}>
                 <Box
                   sx={{
                     display: "flex",
@@ -224,15 +229,14 @@ const UsersList = () => {
                 </Box>
               </MenuItem>
             </Menu>
-
             <MuiDialog
               title={"Delete"}
               dialogOpen={deleteDialogOpen}
-              handleDialogClose={handleDeleteUserDialogClose}
+              handleDialogClose={handleDeleteProductDialogClose}
               content={
                 <QuickDelete
                   id={rowInfo?.id}
-                  handleDialogClose={handleDeleteUserDialogClose}
+                  handleDialogClose={handleDeleteProductDialogClose}
                 />
               }
             />
@@ -244,10 +248,14 @@ const UsersList = () => {
 
   let content;
 
-  if (isLoading) content = <CircularProgress />;
-
+  if (isLoading) {
+    content = (
+      <>
+        <CircularProgress />
+      </>
+    );
+  }
   if (isError) {
-    console.log(error);
     content = (
       <>
         <Typography sx={{ color: "#fff", fontFamily: "Montserrat" }}>
@@ -258,40 +266,43 @@ const UsersList = () => {
   }
 
   if (isSuccess) {
-    const { ids } = users;
-    const userContent = ids.length
+    const { ids } = products;
+
+    const productContent = ids?.length
       ? ids.map((id) => {
-          const fullname = `${users.entities[id].firstname} ${users.entities[id].lastname}`;
+          const date = new Date(products?.entities[id].createdAt);
+
           return {
-            id: users.entities[id].id,
-            name: fullname,
-            email: users.entities[id].email,
-            role: users.entities[id].role,
+            id: products?.entities[id].id,
+            product: products?.entities[id].name,
+            category: products?.entities[id].category,
+            date: date,
+            quantity: products?.entities[id].quantity,
+            price: products?.entities[id].price,
           };
         })
       : null;
 
     content = (
-      <Grid container>
+      <Grid container sx={{ height: "78vh" }}>
         <Grid item xs={11} sm={11} md={11} lg={11} mb={6} sx={{ p: "10px" }}>
           <AdminHeader
-            headerTitle="Users List"
+            headerTitle="Products"
             breadCrumbs={
               <MuiBreadcrumbs
-                crumbs={[{ label: "Dashboard", to: "/admin-dash" }, "List"]}
+                crumbs={[{ label: "Dashboard", to: "/admin-dash" }, "Products"]}
               />
             }
             btn={true}
-            btnText={"New User"}
-            btnPath="/admin-dash/users/add"
+            btnText={"New Product"}
+            btnPath="/admin-dash/products/add"
             icon={<AddIcon />}
           />
         </Grid>
-
         <Grid item xs={8} sm={12} md={12} lg={12}>
           <DataGrid
-            rows={userContent}
             columns={columns}
+            rows={productContent}
             initialState={{
               pagination: {
                 paginationModel: { page: 0, pageSize: 5 },
@@ -299,9 +310,9 @@ const UsersList = () => {
             }}
             pageSizeOptions={[5, 10]}
             checkboxSelection
-            rowHeight={75}
             onCellClick={handleCheckboxClick}
             selectionModel={selectedRows}
+            rowHeight={75}
             sx={{
               background: "rgb(22, 28, 36)",
               color: "#fff",
@@ -317,8 +328,7 @@ const UsersList = () => {
       </Grid>
     );
   }
-
-  return <>{content}</>;
+  return <>{content};</>;
 };
 
-export default UsersList;
+export default ProductsList;

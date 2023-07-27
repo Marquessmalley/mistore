@@ -64,6 +64,7 @@ const Login = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        background: "rgb(9, 20, 34)",
       }}
     >
       <Grid
@@ -81,7 +82,7 @@ const Login = () => {
         <Hidden mdDown>
           <Grid item md={6} lg={6}>
             <Box>
-              <h1>IMAGE</h1>
+              <h1 style={{ color: "#fff" }}>IMAGE</h1>
             </Box>
           </Grid>
         </Hidden>
@@ -102,7 +103,7 @@ const Login = () => {
           <Grid item lg={10}>
             <form onSubmit={handleFormSubmit}>
               <Box>
-                <h2>LOGIN</h2>
+                <h2 style={{ color: "#fff" }}>LOGIN</h2>
                 {isError && (
                   <Alert severity="error">{error?.data?.message}</Alert>
                 )}
@@ -119,6 +120,11 @@ const Login = () => {
                 onChange={handleFormChange}
                 error={emailErr}
                 helperText={emailErr ? "Email required" : null}
+                InputProps={{
+                  style: {
+                    color: "#fff", // Change the text color to red
+                  },
+                }}
               />
               <TextField
                 id="password"
@@ -132,8 +138,13 @@ const Login = () => {
                 onChange={handleFormChange}
                 error={passwordErr}
                 helperText={passwordErr ? "Password required" : null}
+                InputProps={{
+                  style: {
+                    color: "#fff", // Change the text color to red
+                  },
+                }}
               />
-              <label htmlFor="persist">
+              <label htmlFor="persist" style={{ color: "#fff" }}>
                 I am not a alien
                 <input
                   id="persist"
@@ -154,14 +165,17 @@ const Login = () => {
                 <Button type="submit" variant="contained" color="primary">
                   Continue
                 </Button>
-                <span>
-                  <Link to="/signup" style={{ textDecoration: "none" }}>
+                <span style={{ color: "#fff" }}>
+                  <Link
+                    to="/signup"
+                    style={{ textDecoration: "none", color: "#fff" }}
+                  >
                     Sign up
                   </Link>
-                  {" / "}
+                  {"/"}
                   <Link
                     to="/forgot-password"
-                    style={{ textDecoration: "none" }}
+                    style={{ textDecoration: "none", color: "#fff" }}
                   >
                     Forgot Password
                   </Link>

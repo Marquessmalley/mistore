@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { useRefreshMutation } from "./authApiSlice";
 import usePersist from "../../utils/hooks/usePersist";
 import { useSelector } from "react-redux";
+import Unauthorized from "../../components/Errors/Unauthorized";
 
 const PersistLogin = () => {
   const [persist] = usePersist();
@@ -16,11 +17,9 @@ const PersistLogin = () => {
   useEffect(() => {
     console.log("effect Ran", effectRan);
     if (effectRan.current === true) {
-      console.log("yo");
       // React 18 Strict Mode
       const verifyRefreshToken = async () => {
         try {
-          console.log("running");
           await refresh();
         } catch (err) {
           console.log(err);
@@ -43,8 +42,7 @@ const PersistLogin = () => {
   } else if (isSuccess) {
     content = <Outlet />;
   } else if (isError) {
-    console.log(isError);
-    <p>{error}</p>;
+    content = <Unauthorized />;
   }
 
   return <>{content}</>;

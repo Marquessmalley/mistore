@@ -1,44 +1,56 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Grid,
-  Box,
-  Typography,
   TextField,
+  Button,
+  Typography,
+  Box,
+  Alert,
   MenuItem,
   Checkbox,
   FormControlLabel,
-  Button,
-  Alert,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import AdminHeader from "../../components/UI/Headers/AdminHeader";
 import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
-import { colors, sizes, categories } from "../../constants/productAttributes";
-import { useCreateProductMutation } from "./productsApiSlice";
+import { useSelector } from "react-redux";
+import { useParams, useNavigate, useNavigation } from "react-router-dom";
+import {
+  useUpdateProductMutation,
+  selectProductById,
+} from "./productsApiSlice";
+import { colors, categories, sizes } from "../../constants/productAttributes";
 
-const AddProduct = () => {
+const EditProduct = () => {
   const navigate = useNavigate();
+  const params = useParams();
+  const { id } = params;
 
-  // STATE
-  const [selectedColors, setSelectedColors] = useState([]);
-  const [selectedSizes, setSelectedSizes] = useState([]);
+  const product = useSelector((state) => selectProductById(state, id));
 
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState(product?.images);
   const fileInputRef = useRef();
 
-  const [maleChecked, setMaleChecked] = useState(false);
-  const [femaleChecked, setFemaleChecked] = useState(false);
-  const [gender, setGender] = useState([]);
+  const [selectedColors, setSelectedColors] = useState(product?.colors || []);
+  const [selectedSizes, setSelectedSizes] = useState(product?.sizes || []);
+
+  const [gender, setGender] = useState(product?.gender);
+  const [maleChecked, setMaleChecked] = useState(
+    product?.gender[0] === "Men" ?? false
+  );
+  const [femaleChecked, setFemaleChecked] = useState(
+    product?.gender[0] === "Women" || product?.gender[1] === "Women"
+  );
 
   const [productData, setProductData] = useState({
-    name: "",
-    description: "",
+    id: id,
+    name: product?.name,
+    description: product?.description,
     // images: [],
-    quantity: 0,
-    category: "",
-    colors: [],
-    sizes: [],
-    price: 0,
+    quantity: product?.quantity,
+    category: product?.category,
+    colors: product?.colors,
+    sizes: product?.sizes,
+    price: product?.price,
   });
 
   // ERROR STATES
@@ -50,18 +62,8 @@ const AddProduct = () => {
   const [sizesErr, setSizesErr] = useState(false);
   const [priceErr, setPriceErr] = useState(false);
 
-  const [createProduct, { isSuccess, isError, error }] =
-    useCreateProductMutation();
-
-  useEffect(() => {
-    setProductData((prevState) => ({
-      ...prevState,
-      images: files,
-      colors: selectedColors,
-      sizes: selectedSizes,
-      gender: gender,
-    }));
-  }, [files, selectedColors, selectedSizes, gender]);
+  const [updateProduct, { isSuccess, isError, error }] =
+    useUpdateProductMutation();
 
   useEffect(() => {
     if (isError) {
@@ -82,12 +84,34 @@ const AddProduct = () => {
     }
   }, [isSuccess, navigate, isError, error]);
 
-  // FORM HANDLERS
+  useEffect(() => {
+    const storedFormData = localStorage.getItem(`productForm:${id}`);
+
+    if (storedFormData) {
+      const formData = JSON.parse(storedFormData);
+      setProductData(formData);
+      setSelectedColors(formData?.colors || []);
+      setSelectedSizes(formData?.sizes || []);
+      setGender(formData?.gender);
+    }
+    return () => {
+      localStorage.removeItem(`productForm:${id}`);
+    };
+  }, [id, product]);
+
+  useEffect(() => {
+    setProductData((prevState) => ({
+      ...prevState,
+      // images: files,
+      colors: selectedColors,
+      sizes: selectedSizes,
+      gender: gender,
+    }));
+  }, [selectedColors, selectedSizes, gender, id]);
+
+  // COLORS LOGIC
   const handleColorChange = (e) => {
     setSelectedColors(e.target.value);
-  };
-  const handleSizeChange = (e) => {
-    setSelectedSizes(e.target.value);
   };
   const renderSelectedColors = () => {
     if (selectedColors.length === 0) {
@@ -95,12 +119,38 @@ const AddProduct = () => {
     }
     return selectedColors.join(", ");
   };
+
+  // SIZES LOGIC
+  const handleSizeChange = (e) => {
+    setSelectedSizes(e.target.value);
+  };
   const renderSelectedSizes = () => {
     if (selectedSizes.length === 0) {
       return "Select Sizes";
     }
     return selectedSizes.join(", ");
   };
+
+  // GENDER LOGIC
+  const handleMaleChange = (e) => {
+    setMaleChecked(e.target.checked);
+  };
+  const handleFemaleChange = (e) => {
+    setFemaleChecked(e.target.checked);
+  };
+
+  useEffect(() => {
+    let updatedGender = [];
+    if (maleChecked) {
+      updatedGender = [...updatedGender, "Men"];
+    }
+    if (femaleChecked) {
+      updatedGender = [...updatedGender, "Women"];
+    }
+    setGender(updatedGender);
+  }, [maleChecked, femaleChecked]);
+
+  // FILE LOGIC
   const handleFileDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -116,22 +166,11 @@ const AddProduct = () => {
   const handleFileChange = (e) => {
     setFiles([...files, ...e.target.files]);
   };
-  const handleMaleChange = (e) => {
-    setMaleChecked(e.target.checked);
-  };
-  const handleFemaleChange = (e) => {
-    setFemaleChecked(e.target.checked);
-  };
+
   useEffect(() => {
-    let updatedGender = [];
-    if (maleChecked) {
-      updatedGender = [...updatedGender, "Mens"];
-    }
-    if (femaleChecked) {
-      updatedGender = [...updatedGender, "Womens"];
-    }
-    setGender(updatedGender);
-  }, [maleChecked, femaleChecked]);
+    if (product !== undefined)
+      localStorage.setItem(`productForm:${id}`, JSON.stringify(product));
+  }, [product, id]);
 
   const handleFormChange = (e) => {
     return setProductData((prevState) => ({
@@ -147,7 +186,6 @@ const AddProduct = () => {
       description,
       // images,
       sizes,
-      colors,
       category,
       quantity,
       price,
@@ -160,37 +198,26 @@ const AddProduct = () => {
     if (!sizes) setSizesErr(true);
     if (!price) setPriceErr(true);
 
-    await createProduct({
-      name,
-      description,
-      // images,
-      sizes,
-      colors,
-      category,
-      quantity,
-      price,
-    });
+    await updateProduct(productData);
   };
 
   return (
     <Grid container>
-      <Grid item xs={12} sm={12} md={12} lg={12}>
+      <Grid item xs={11} sm={11} md={11} lg={11} mb={6} sx={{ p: "10px" }}>
         <AdminHeader
-          headerTitle="Add Product"
+          headerTitle="Edit Product"
           breadCrumbs={
             <MuiBreadcrumbs
               crumbs={[
                 { label: "Dashboard", to: "/admin-dash" },
-                { label: "Products", to: "/admin-dash/products" },
-                "Add",
+                { label: "Product", to: "/admin-dash/products" },
+                product?.name,
               ]}
             />
           }
           btn={false}
         />
       </Grid>
-      {/* CONTENT */}
-      {/* DETAILS SECTION */}
       <Grid item mt={5} xs={12} sm={12} md={4} lg={5}>
         <Box>
           <Typography sx={{ fontWeight: 700, lineHeight: 1.5, color: "#fff" }}>
@@ -302,20 +329,20 @@ const AddProduct = () => {
               Drop files here or click to browse through your machine
             </Typography>
             <div style={{ width: "100%" }}>
-              <ul style={{ display: "flex", alignItems: "center" }}>
+              {/* <ul style={{ display: "flex", alignItems: "center" }}>
                 {files.map((file, index) => (
                   <li
                     key={index}
                     style={{ margin: "0.275rem", listStyle: "none" }}
                   >
                     <img
-                      src={URL.createObjectURL(file)}
+                      // src={URL.createObjectURL(file)}
                       alt={file.name}
                       style={{ maxWidth: "100px", maxHeight: "100px" }}
                     />
                   </li>
                 ))}
-              </ul>
+              </ul> */}
             </div>
           </div>
         </Box>
@@ -379,7 +406,7 @@ const AddProduct = () => {
             select
             variant="outlined"
             margin="normal"
-            value={productData.category}
+            value={productData?.category}
             onChange={handleFormChange}
             error={categoryErr}
             InputProps={{
@@ -558,11 +585,11 @@ const AddProduct = () => {
         sx={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem" }}
       >
         <Button variant="contained" type="submit" onClick={handleSubmit}>
-          Create Product
+          Update Product
         </Button>
       </Grid>
     </Grid>
   );
 };
 
-export default AddProduct;
+export default EditProduct;
