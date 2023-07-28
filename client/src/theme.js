@@ -71,6 +71,14 @@ const theme = createTheme({
         },
       },
     },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          background: "rgb(33, 43, 54)",
+          borderRaidus: "16px",
+        },
+      },
+    },
   },
 });
 
