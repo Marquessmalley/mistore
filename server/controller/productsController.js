@@ -81,7 +81,7 @@ module.exports.createProduct = async (req, res, next) => {
 module.exports.updateProduct = async (req, res, next) => {
   try {
     const images = req.files.map((file) => file.path);
-
+    console.log(images);
     const {
       id,
       name,
@@ -95,6 +95,8 @@ module.exports.updateProduct = async (req, res, next) => {
     } = req.body;
     const selectedColors = JSON.parse(colors);
     const selectedSizes = JSON.parse(sizes);
+    const selectedGender = JSON.parse(gender);
+    console.log(gender);
 
     const product = await Product.findById(id);
     if (!product) {
@@ -114,8 +116,13 @@ module.exports.updateProduct = async (req, res, next) => {
     product.price = price;
     product.sizes = selectedSizes;
     product.colors = selectedColors;
-    product.gender = gender;
-    product.images = [...product.images, ...images];
+    product.gender = selectedGender;
+
+    if (images.length === 0) {
+      product.images = [];
+    } else {
+      product.images = [...product.images, ...images];
+    }
 
     const updatedProduct = await product.save();
     res

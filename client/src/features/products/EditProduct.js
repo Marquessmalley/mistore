@@ -9,6 +9,7 @@ import {
   MenuItem,
   Checkbox,
   FormControlLabel,
+  IconButton,
 } from "@mui/material";
 import AdminHeader from "../../components/UI/Headers/AdminHeader";
 import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
@@ -19,6 +20,7 @@ import {
   selectProductById,
 } from "./productsApiSlice";
 import { colors, categories, sizes } from "../../constants/productAttributes";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const EditProduct = () => {
   const navigate = useNavigate();
@@ -34,28 +36,18 @@ const EditProduct = () => {
   const [selectedSizes, setSelectedSizes] = useState(product?.sizes || []);
 
   const [gender, setGender] = useState(
-    product?.gender && product?.gender.length > 0 ? product?.gender : null
+    product?.gender && product?.gender.length > 0 ? product?.gender : []
   );
 
   const [maleChecked, setMaleChecked] = useState(
     gender && gender[0] === "Mens" ? true : false
   );
+
   const [femaleChecked, setFemaleChecked] = useState(
     product?.gender[0] === "Womens" || product?.gender[1] === "Womens"
   );
 
-  const [productData, setProductData] = useState({
-    id: id,
-    name: product?.name,
-    description: product?.description,
-    images: product?.images,
-    quantity: product?.quantity,
-    category: product?.category,
-    colors: product?.colors,
-    sizes: product?.sizes,
-    gender: product?.gender,
-    price: product?.price,
-  });
+  const [productData, setProductData] = useState({});
 
   // ERROR STATES
   const [errMessage, setErrMessage] = useState("");
@@ -68,6 +60,29 @@ const EditProduct = () => {
 
   const [updateProduct, { isSuccess, isError, error }] =
     useUpdateProductMutation();
+
+  useEffect(() => {
+    if (product) {
+      setProductData({
+        id: id,
+        name: product?.name,
+        description: product?.description,
+        images: product?.images,
+        quantity: product?.quantity,
+        category: product?.category,
+        colors: product?.colors,
+        sizes: product?.sizes,
+        price: product?.price,
+        gender: product.gender,
+      });
+
+      // Set initial checkbox values based on gender array
+      if (product.gender) {
+        setMaleChecked(product.gender.includes("Mens"));
+        setFemaleChecked(product.gender.includes("Womens"));
+      }
+    }
+  }, [product, id]);
 
   useEffect(() => {
     if (isError) {
@@ -143,16 +158,30 @@ const EditProduct = () => {
     setFemaleChecked(e.target.checked);
   };
 
+  // useEffect(() => {
+  //   if (gender) {
+  //     console.log("setting male/female to checked");
+  //     setMaleChecked(gender.includes("Mens"));
+  //     setFemaleChecked(gender.includes("Womens"));
+  //   }
+  // }, [gender]);
+
   useEffect(() => {
-    if (gender && gender[0] === "Mens") {
-      setMaleChecked(true);
+    // Only update the gender state if at least one checkbox is checked
+    if (maleChecked || femaleChecked) {
+      let updatedGender = [];
+      if (maleChecked) {
+        updatedGender = [...updatedGender, "Mens"];
+      }
+      if (femaleChecked) {
+        updatedGender = [...updatedGender, "Womens"];
+      }
+      setGender(updatedGender);
+    } else {
+      // Both checkboxes are unchecked, set gender to an empty array
+      setGender([]);
     }
-    if (gender && gender[0] === "Womens") {
-      setFemaleChecked(true);
-    } else if (gender && gender[1] === "Womens") {
-      setFemaleChecked(true);
-    }
-  }, [maleChecked, femaleChecked, gender]);
+  }, [maleChecked, femaleChecked]);
 
   // FILE LOGIC
   const handleFileDrop = (e) => {
@@ -170,6 +199,10 @@ const EditProduct = () => {
   const handleFileChange = (e) => {
     setFiles([...files, ...e.target.files]);
   };
+  const handleFileRemove = (fileRemove) => {
+    const updatedFiles = files.filter((file) => file !== fileRemove);
+    setFiles(updatedFiles);
+  };
 
   useEffect(() => {
     if (product !== undefined)
@@ -185,8 +218,17 @@ const EditProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { id, name, description, sizes, colors, category, quantity, price } =
-      productData;
+    const {
+      id,
+      name,
+      description,
+      sizes,
+      colors,
+      category,
+      quantity,
+      gender,
+      price,
+    } = productData;
 
     if (!name) setNameErr(true);
     if (!description) setDescErr(true);
@@ -203,15 +245,17 @@ const EditProduct = () => {
     formData.append("category", category);
     formData.append("colors", JSON.stringify(colors));
     formData.append("sizes", JSON.stringify(sizes));
+    formData.append("gender", JSON.stringify(gender));
     formData.append("price", productData.price);
 
     // Append the selected files to the FormData
     for (let i = 0; i < files.length; i++) {
       formData.append("images", files[i]);
     }
+
     await updateProduct(formData);
   };
-
+  console.log(gender);
   return (
     <Grid container>
       <Grid item xs={11} sm={11} md={11} lg={11} mb={6} sx={{ p: "10px" }}>
@@ -339,37 +383,56 @@ const EditProduct = () => {
             >
               Drop files here or click to browse through your machine
             </Typography>
-            <div style={{ width: "100%" }}>
-              <ul style={{ display: "flex", alignItems: "center" }}>
-                {files?.map((file, index) => {
-                  let exisitingFile;
-                  let newFile;
-                  if (typeof file === "string") {
-                    exisitingFile = file.replace("public/", "");
-                  }
-                  if (typeof file === "object") {
-                    newFile = URL.createObjectURL(file);
-                  }
+          </div>
+          <div style={{ width: "100%" }}>
+            <ul style={{ display: "flex", alignItems: "center" }}>
+              {files?.map((file, index) => {
+                let exisitingFile;
+                let newFile;
+                if (typeof file === "string") {
+                  exisitingFile = file.replace("public/", "");
+                }
+                if (typeof file === "object") {
+                  newFile = URL.createObjectURL(file);
+                }
 
-                  return (
-                    <li
-                      key={index}
-                      style={{ margin: "0.275rem", listStyle: "none" }}
+                return (
+                  <li
+                    key={index}
+                    style={{
+                      margin: "0.275rem",
+                      listStyle: "none",
+                      position: "relative",
+                    }}
+                  >
+                    <img
+                      src={
+                        exisitingFile
+                          ? `http://localhost:8000/${exisitingFile}`
+                          : newFile
+                      }
+                      alt="img"
+                      style={{ maxWidth: "100px", maxHeight: "100px" }}
+                    />
+                    <IconButton
+                      size="small"
+                      onClick={() => handleFileRemove(file)}
+                      style={{
+                        position: "absolute",
+                        top: 5,
+                        right: 5,
+                        borderRadius: 50,
+                        background: "rgba(22, 28, 36, 0.48)",
+                      }}
                     >
-                      <img
-                        src={
-                          exisitingFile
-                            ? `http://localhost:8000/${exisitingFile}`
-                            : newFile
-                        }
-                        alt="img"
-                        style={{ maxWidth: "100px", maxHeight: "100px" }}
+                      <ClearIcon
+                        sx={{ color: "#fff", width: "14px", height: "14px" }}
                       />
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+                    </IconButton>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </Box>
       </Grid>
