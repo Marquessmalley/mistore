@@ -12,7 +12,7 @@ const productSchema = new mongoose.mongoose.Schema(
       required: [true, "Product description is required"],
     },
     images: {
-      type: [String],
+      type: Array,
     },
     category: {
       type: String,
@@ -24,17 +24,17 @@ const productSchema = new mongoose.mongoose.Schema(
       required: [true, "Product quantity is required"],
     },
     sizes: {
-      type: [String],
+      type: Array,
       required: [true, "Product size is required"],
     },
     colors: {
-      type: [String],
+      type: Array,
       // required: [true, "Product colors is required"],
     },
 
     gender: {
       type: [String],
-      enum: ["Men", "Women"], // Restricting the possible values
+      enum: ["Mens", "Womens"], // Restricting the possible values
     },
 
     price: {

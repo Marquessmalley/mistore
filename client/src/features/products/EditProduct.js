@@ -13,7 +13,7 @@ import {
 import AdminHeader from "../../components/UI/Headers/AdminHeader";
 import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
 import { useSelector } from "react-redux";
-import { useParams, useNavigate, useNavigation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   useUpdateProductMutation,
   selectProductById,
@@ -33,23 +33,27 @@ const EditProduct = () => {
   const [selectedColors, setSelectedColors] = useState(product?.colors || []);
   const [selectedSizes, setSelectedSizes] = useState(product?.sizes || []);
 
-  const [gender, setGender] = useState(product?.gender);
+  const [gender, setGender] = useState(
+    product?.gender && product?.gender.length > 0 ? product?.gender : null
+  );
+
   const [maleChecked, setMaleChecked] = useState(
-    product?.gender[0] === "Men" ?? false
+    gender && gender[0] === "Mens" ? true : false
   );
   const [femaleChecked, setFemaleChecked] = useState(
-    product?.gender[0] === "Women" || product?.gender[1] === "Women"
+    product?.gender[0] === "Womens" || product?.gender[1] === "Womens"
   );
 
   const [productData, setProductData] = useState({
     id: id,
     name: product?.name,
     description: product?.description,
-    // images: [],
+    images: product?.images,
     quantity: product?.quantity,
     category: product?.category,
     colors: product?.colors,
     sizes: product?.sizes,
+    gender: product?.gender,
     price: product?.price,
   });
 
@@ -86,10 +90,10 @@ const EditProduct = () => {
 
   useEffect(() => {
     const storedFormData = localStorage.getItem(`productForm:${id}`);
-
     if (storedFormData) {
       const formData = JSON.parse(storedFormData);
       setProductData(formData);
+      setFiles(formData?.images);
       setSelectedColors(formData?.colors || []);
       setSelectedSizes(formData?.sizes || []);
       setGender(formData?.gender);
@@ -102,12 +106,12 @@ const EditProduct = () => {
   useEffect(() => {
     setProductData((prevState) => ({
       ...prevState,
-      // images: files,
+      images: files,
       colors: selectedColors,
       sizes: selectedSizes,
       gender: gender,
     }));
-  }, [selectedColors, selectedSizes, gender, id]);
+  }, [selectedColors, selectedSizes, gender, files, id]);
 
   // COLORS LOGIC
   const handleColorChange = (e) => {
@@ -140,15 +144,15 @@ const EditProduct = () => {
   };
 
   useEffect(() => {
-    let updatedGender = [];
-    if (maleChecked) {
-      updatedGender = [...updatedGender, "Men"];
+    if (gender && gender[0] === "Mens") {
+      setMaleChecked(true);
     }
-    if (femaleChecked) {
-      updatedGender = [...updatedGender, "Women"];
+    if (gender && gender[0] === "Womens") {
+      setFemaleChecked(true);
+    } else if (gender && gender[1] === "Womens") {
+      setFemaleChecked(true);
     }
-    setGender(updatedGender);
-  }, [maleChecked, femaleChecked]);
+  }, [maleChecked, femaleChecked, gender]);
 
   // FILE LOGIC
   const handleFileDrop = (e) => {
@@ -181,15 +185,8 @@ const EditProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {
-      name,
-      description,
-      // images,
-      sizes,
-      category,
-      quantity,
-      price,
-    } = productData;
+    const { id, name, description, sizes, colors, category, quantity, price } =
+      productData;
 
     if (!name) setNameErr(true);
     if (!description) setDescErr(true);
@@ -198,7 +195,21 @@ const EditProduct = () => {
     if (!sizes) setSizesErr(true);
     if (!price) setPriceErr(true);
 
-    await updateProduct(productData);
+    const formData = new FormData();
+    formData.append("id", id);
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("quantity", quantity);
+    formData.append("category", category);
+    formData.append("colors", JSON.stringify(colors));
+    formData.append("sizes", JSON.stringify(sizes));
+    formData.append("price", productData.price);
+
+    // Append the selected files to the FormData
+    for (let i = 0; i < files.length; i++) {
+      formData.append("images", files[i]);
+    }
+    await updateProduct(formData);
   };
 
   return (
@@ -329,20 +340,35 @@ const EditProduct = () => {
               Drop files here or click to browse through your machine
             </Typography>
             <div style={{ width: "100%" }}>
-              {/* <ul style={{ display: "flex", alignItems: "center" }}>
-                {files.map((file, index) => (
-                  <li
-                    key={index}
-                    style={{ margin: "0.275rem", listStyle: "none" }}
-                  >
-                    <img
-                      // src={URL.createObjectURL(file)}
-                      alt={file.name}
-                      style={{ maxWidth: "100px", maxHeight: "100px" }}
-                    />
-                  </li>
-                ))}
-              </ul> */}
+              <ul style={{ display: "flex", alignItems: "center" }}>
+                {files?.map((file, index) => {
+                  let exisitingFile;
+                  let newFile;
+                  if (typeof file === "string") {
+                    exisitingFile = file.replace("public/", "");
+                  }
+                  if (typeof file === "object") {
+                    newFile = URL.createObjectURL(file);
+                  }
+
+                  return (
+                    <li
+                      key={index}
+                      style={{ margin: "0.275rem", listStyle: "none" }}
+                    >
+                      <img
+                        src={
+                          exisitingFile
+                            ? `http://localhost:8000/${exisitingFile}`
+                            : newFile
+                        }
+                        alt="img"
+                        style={{ maxWidth: "100px", maxHeight: "100px" }}
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
         </Box>
@@ -406,7 +432,7 @@ const EditProduct = () => {
             select
             variant="outlined"
             margin="normal"
-            value={productData?.category}
+            value={productData?.category ? productData.category : []}
             onChange={handleFormChange}
             error={categoryErr}
             InputProps={{
@@ -418,11 +444,13 @@ const EditProduct = () => {
               width: "250px",
             }}
           >
-            {categories.map((category) => (
-              <MenuItem key={category} value={category}>
-                {category}
-              </MenuItem>
-            ))}
+            {categories?.map((category) => {
+              return (
+                <MenuItem key={category} value={category}>
+                  {category}
+                </MenuItem>
+              );
+            })}
           </TextField>
         </Box>
 

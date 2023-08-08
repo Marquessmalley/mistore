@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
@@ -15,8 +16,10 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
+app.use("/images", express.static(path.join(__dirname, "/public/images")));
 app.use(express.json());
 app.use(cookieParser());
+// app.use("/public/images", express.static(path.join(__dirname, "uploads")));
 // set security http headers
 app.use(helmet());
 // data sanitization against nosql query injection

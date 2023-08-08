@@ -9,12 +9,14 @@ import {
   FormControlLabel,
   Button,
   Alert,
+  IconButton,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AdminHeader from "../../components/UI/Headers/AdminHeader";
 import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
 import { colors, sizes, categories } from "../../constants/productAttributes";
 import { useCreateProductMutation } from "./productsApiSlice";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const AddProduct = () => {
   const navigate = useNavigate();
@@ -33,7 +35,7 @@ const AddProduct = () => {
   const [productData, setProductData] = useState({
     name: "",
     description: "",
-    // images: [],
+    images: [],
     quantity: 0,
     category: "",
     colors: [],
@@ -101,6 +103,7 @@ const AddProduct = () => {
     }
     return selectedSizes.join(", ");
   };
+
   const handleFileDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -109,6 +112,7 @@ const AddProduct = () => {
 
     setFiles([...files, ...dropFiles]);
   };
+
   const handleFileClick = () => {
     fileInputRef.current.click();
   };
@@ -116,6 +120,13 @@ const AddProduct = () => {
   const handleFileChange = (e) => {
     setFiles([...files, ...e.target.files]);
   };
+  const handleFileRemove = (fileRemove) => {
+    // let updatedFiles = [...files];
+    // updatedFiles.splice(index, 1);
+    const updatedFiles = files.filter((file) => file !== fileRemove);
+    setFiles(updatedFiles);
+  };
+
   const handleMaleChange = (e) => {
     setMaleChecked(e.target.checked);
   };
@@ -145,11 +156,11 @@ const AddProduct = () => {
     const {
       name,
       description,
-      // images,
       sizes,
       colors,
       category,
       quantity,
+      gender,
       price,
     } = productData;
 
@@ -160,16 +171,22 @@ const AddProduct = () => {
     if (!sizes) setSizesErr(true);
     if (!price) setPriceErr(true);
 
-    await createProduct({
-      name,
-      description,
-      // images,
-      sizes,
-      colors,
-      category,
-      quantity,
-      price,
-    });
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("quantity", quantity);
+    formData.append("category", category);
+    formData.append("colors", JSON.stringify(colors));
+    formData.append("sizes", JSON.stringify(sizes));
+    formData.append("gender", JSON.stringify(gender));
+    formData.append("price", productData.price);
+
+    // Append the selected files to the FormData
+    for (let i = 0; i < files.length; i++) {
+      formData.append("images", files[i]);
+    }
+
+    await createProduct(formData);
   };
 
   return (
@@ -276,7 +293,7 @@ const AddProduct = () => {
             onDragOver={(e) => e.preventDefault()}
             style={{
               background: "rgba(145, 158, 171, 0.08)",
-              padding: "40px",
+              padding: "60px",
               border: "1px dashed rgba(145, 158, 171, 0.2)",
               borderRadius: "8px",
               display: "flex",
@@ -301,22 +318,47 @@ const AddProduct = () => {
             >
               Drop files here or click to browse through your machine
             </Typography>
-            <div style={{ width: "100%" }}>
-              <ul style={{ display: "flex", alignItems: "center" }}>
-                {files.map((file, index) => (
-                  <li
-                    key={index}
-                    style={{ margin: "0.275rem", listStyle: "none" }}
+          </div>
+          <div style={{ width: "100%" }}>
+            <ul
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+              }}
+            >
+              {files.map((file, index) => (
+                <li
+                  key={index}
+                  style={{
+                    margin: "0.275rem",
+                    listStyle: "none",
+                    position: "relative",
+                  }}
+                >
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={file.name}
+                    style={{ maxWidth: "100px", maxHeight: "100px" }}
+                  />
+                  <IconButton
+                    size="small"
+                    onClick={() => handleFileRemove(file)}
+                    style={{
+                      position: "absolute",
+                      top: 5,
+                      right: 5,
+                      borderRadius: 50,
+                      background: "rgba(22, 28, 36, 0.48)",
+                    }}
                   >
-                    <img
-                      src={URL.createObjectURL(file)}
-                      alt={file.name}
-                      style={{ maxWidth: "100px", maxHeight: "100px" }}
+                    <ClearIcon
+                      sx={{ color: "#fff", width: "14px", height: "14px" }}
                     />
-                  </li>
-                ))}
-              </ul>
-            </div>
+                  </IconButton>
+                </li>
+              ))}
+            </ul>
           </div>
         </Box>
       </Grid>
@@ -557,7 +599,18 @@ const AddProduct = () => {
         lg={12}
         sx={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem" }}
       >
-        <Button variant="contained" type="submit" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          type="submit"
+          onClick={handleSubmit}
+          sx={{
+            background: "#fff",
+            color: "rgb(33, 43, 54)",
+            fontSize: "0.775rem",
+            fontWeight: 700,
+            padding: "6px 12px",
+          }}
+        >
           Create Product
         </Button>
       </Grid>

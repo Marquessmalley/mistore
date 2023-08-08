@@ -31,10 +31,11 @@ module.exports.getProduct = async (req, res, next) => {
 
 module.exports.createProduct = async (req, res, next) => {
   try {
+    const images = req.files.map((file) => file.path);
+    // console.log(images);
     const {
       name,
       description,
-      images,
       category,
       price,
       colors,
@@ -42,6 +43,11 @@ module.exports.createProduct = async (req, res, next) => {
       sizes,
       gender,
     } = req.body;
+    console.log(req.body);
+
+    const selectedColors = JSON.parse(colors);
+    const selectedSizes = JSON.parse(sizes);
+    const selectedGender = JSON.parse(gender);
 
     const product = await Product.create({
       name,
@@ -49,9 +55,9 @@ module.exports.createProduct = async (req, res, next) => {
       images,
       category,
       quantity,
-      sizes,
-      colors,
-      gender,
+      sizes: selectedSizes,
+      colors: selectedColors,
+      gender: selectedGender,
       price,
     });
 
@@ -74,7 +80,10 @@ module.exports.createProduct = async (req, res, next) => {
 };
 module.exports.updateProduct = async (req, res, next) => {
   try {
+    const images = req.files.map((file) => file.path);
+
     const {
+      id,
       name,
       description,
       quantity,
@@ -84,7 +93,8 @@ module.exports.updateProduct = async (req, res, next) => {
       colors,
       gender,
     } = req.body;
-    const { id } = req.params;
+    const selectedColors = JSON.parse(colors);
+    const selectedSizes = JSON.parse(sizes);
 
     const product = await Product.findById(id);
     if (!product) {
@@ -102,9 +112,10 @@ module.exports.updateProduct = async (req, res, next) => {
     product.category = category;
     product.quantity = quantity;
     product.price = price;
-    product.sizes = sizes;
-    product.colors = colors;
+    product.sizes = selectedSizes;
+    product.colors = selectedColors;
     product.gender = gender;
+    product.images = [...product.images, ...images];
 
     const updatedProduct = await product.save();
     res
@@ -122,6 +133,12 @@ module.exports.updateProduct = async (req, res, next) => {
     // Invalid product id
     if (err.name === "CastError") {
       return res.status(404).json({ message: "Invalid product ID" });
+    }
+    // duplicate product names
+    if (err.code === 11000) {
+      return res
+        .status(400)
+        .json({ message: "Product already exists.", error: true });
     }
   }
 };
