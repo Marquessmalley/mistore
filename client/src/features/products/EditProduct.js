@@ -223,12 +223,30 @@ const EditProduct = () => {
       price,
     } = productData;
 
-    if (!name) setNameErr(true);
-    if (!description) setDescErr(true);
-    if (!category) setCategoryErr(true);
-    if (!quantity) setQuantityErr(true);
-    if (!sizes) setSizesErr(true);
-    if (!price) setPriceErr(true);
+    if (!name) {
+      setNameErr(true);
+      return;
+    }
+    if (!description) {
+      setDescErr(true);
+      return;
+    }
+    if (!category) {
+      setCategoryErr(true);
+      return;
+    }
+    if (!quantity) {
+      setQuantityErr(true);
+      return;
+    }
+    if (!sizes) {
+      setSizesErr(true);
+      return;
+    }
+    if (!price || price === 0) {
+      setPriceErr(true);
+      return;
+    }
 
     const formData = new FormData();
     formData.append("id", id);
