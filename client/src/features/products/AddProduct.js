@@ -17,6 +17,7 @@ import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
 import { colors, sizes, categories } from "../../constants/productAttributes";
 import { useCreateProductMutation } from "./productsApiSlice";
 import ClearIcon from "@mui/icons-material/Clear";
+import "./products.css";
 
 const AddProduct = () => {
   const navigate = useNavigate();
@@ -188,6 +189,7 @@ const AddProduct = () => {
 
     await createProduct(formData);
   };
+  // console.log(files);
 
   return (
     <Grid container>
@@ -291,15 +293,7 @@ const AddProduct = () => {
             onDrop={handleFileDrop}
             onClick={handleFileClick}
             onDragOver={(e) => e.preventDefault()}
-            style={{
-              background: "rgba(145, 158, 171, 0.08)",
-              padding: "60px",
-              border: "1px dashed rgba(145, 158, 171, 0.2)",
-              borderRadius: "8px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+            className="image-div"
           >
             <input
               type="file"

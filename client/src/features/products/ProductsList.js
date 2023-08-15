@@ -63,31 +63,56 @@ const ProductsList = () => {
     {
       field: "product",
       headerName: "Product",
-      width: 200,
+      width: 210,
       renderCell: (params) => {
+        let productImage = "";
+        if (params.row.images.length > 0) {
+          productImage = params.row.images[0].replace("public/", "");
+        }
+
         return (
-          <div>
-            <Link
-              to={`/admin-dash/products/${params.row.id}`}
-              style={{
-                fontSize: "0.875rem",
-                fontWeight: 600,
-                opacity: 0.8,
-                textDecoration: "none",
-                color: "#fff",
-              }}
-            >
-              {params?.row.product}
-            </Link>
-            <Typography
-              sx={{
-                fontWeight: 400,
-                fontSize: "0.875rem",
-                color: "rgb(99, 115, 129)",
-              }}
-            >
-              {params?.row.category}
-            </Typography>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: 150,
+            }}
+          >
+            {productImage && (
+              <img
+                src={`http://localhost:8000/${productImage}`}
+                alt="img"
+                style={{
+                  maxWidth: "60px",
+                  maxHeight: "60px",
+                  borderRadius: "2px",
+                }}
+              />
+            )}
+            <div>
+              <Link
+                to={`/admin-dash/products/${params.row.id}`}
+                style={{
+                  fontSize: "0.875rem",
+                  fontWeight: 600,
+                  opacity: 0.8,
+                  textDecoration: "none",
+                  color: "#fff",
+                }}
+              >
+                {params?.row.product}
+              </Link>
+              <Typography
+                sx={{
+                  fontWeight: 400,
+                  fontSize: "0.875rem",
+                  color: "rgb(99, 115, 129)",
+                }}
+              >
+                {params?.row.category}
+              </Typography>
+            </div>
           </div>
         );
       },
@@ -279,53 +304,72 @@ const ProductsList = () => {
             date: date,
             quantity: products?.entities[id].quantity,
             price: products?.entities[id].price,
+            images: products?.entities[id].images,
           };
         })
       : null;
 
     content = (
-      <Grid container sx={{ height: "78vh" }}>
-        <Grid item xs={11} sm={11} md={11} lg={11} mb={6} sx={{ p: "10px" }}>
-          <AdminHeader
-            headerTitle="Products"
-            breadCrumbs={
-              <MuiBreadcrumbs
-                crumbs={[{ label: "Dashboard", to: "/admin-dash" }, "Products"]}
-              />
-            }
-            btn={true}
-            btnText={"New Product"}
-            btnPath="/admin-dash/products/add"
-            icon={<AddIcon />}
-          />
+      <div style={{ height: "78vh" }}>
+        <Grid
+          container
+          sx={{
+            height: "60vh",
+          }}
+        >
+          <Grid item xs={11} sm={11} md={11} lg={11} mb={6} sx={{ p: "10px" }}>
+            <AdminHeader
+              headerTitle="Products"
+              breadCrumbs={
+                <MuiBreadcrumbs
+                  crumbs={[
+                    { label: "Dashboard", to: "/admin-dash" },
+                    "Products",
+                  ]}
+                />
+              }
+              btn={true}
+              btnText={"New Product"}
+              btnPath="/admin-dash/products/add"
+              icon={<AddIcon />}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={8}
+            sm={12}
+            md={12}
+            lg={12}
+            // sx={{ background: "green" }}
+          >
+            <DataGrid
+              columns={columns}
+              rows={productContent}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 5 },
+                },
+              }}
+              pageSizeOptions={[5, 10]}
+              checkboxSelection
+              onCellClick={handleCheckboxClick}
+              selectionModel={selectedRows}
+              rowHeight={75}
+              sx={{
+                background: "rgb(22, 28, 36)",
+                color: "#fff",
+                border: "none",
+                fontFamily: "Montserrat",
+                borderRadius: "15px",
+
+                "@media screen and (max-width: 600px)": {
+                  width: 475,
+                },
+              }}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={8} sm={12} md={12} lg={12}>
-          <DataGrid
-            columns={columns}
-            rows={productContent}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
-              },
-            }}
-            pageSizeOptions={[5, 10]}
-            checkboxSelection
-            onCellClick={handleCheckboxClick}
-            selectionModel={selectedRows}
-            rowHeight={75}
-            sx={{
-              background: "rgb(22, 28, 36)",
-              color: "#fff",
-              border: "none",
-              fontFamily: "Montserrat",
-              borderRadius: "15px",
-              "@media screen and (max-width: 600px)": {
-                width: 475,
-              },
-            }}
-          />
-        </Grid>
-      </Grid>
+      </div>
     );
   }
   return <>{content};</>;

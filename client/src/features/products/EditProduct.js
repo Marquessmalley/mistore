@@ -21,6 +21,7 @@ import {
 } from "./productsApiSlice";
 import { colors, categories, sizes } from "../../constants/productAttributes";
 import ClearIcon from "@mui/icons-material/Clear";
+import "./products.css";
 
 const EditProduct = () => {
   const navigate = useNavigate();
@@ -158,14 +159,6 @@ const EditProduct = () => {
     setFemaleChecked(e.target.checked);
   };
 
-  // useEffect(() => {
-  //   if (gender) {
-  //     console.log("setting male/female to checked");
-  //     setMaleChecked(gender.includes("Mens"));
-  //     setFemaleChecked(gender.includes("Womens"));
-  //   }
-  // }, [gender]);
-
   useEffect(() => {
     // Only update the gender state if at least one checkbox is checked
     if (maleChecked || femaleChecked) {
@@ -255,7 +248,8 @@ const EditProduct = () => {
 
     await updateProduct(formData);
   };
-  console.log(gender);
+  console.log(files);
+
   return (
     <Grid container>
       <Grid item xs={11} sm={11} md={11} lg={11} mb={6} sx={{ p: "10px" }}>
@@ -356,15 +350,7 @@ const EditProduct = () => {
             onDrop={handleFileDrop}
             onClick={handleFileClick}
             onDragOver={(e) => e.preventDefault()}
-            style={{
-              background: "rgba(145, 158, 171, 0.08)",
-              padding: "40px",
-              border: "1px dashed rgba(145, 158, 171, 0.2)",
-              borderRadius: "8px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+            className="image-div"
           >
             <input
               type="file"

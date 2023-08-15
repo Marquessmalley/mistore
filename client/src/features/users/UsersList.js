@@ -272,49 +272,51 @@ const UsersList = () => {
       : null;
 
     content = (
-      <Grid container>
-        <Grid item xs={11} sm={11} md={11} lg={11} mb={6} sx={{ p: "10px" }}>
-          <AdminHeader
-            headerTitle="Users List"
-            breadCrumbs={
-              <MuiBreadcrumbs
-                crumbs={[{ label: "Dashboard", to: "/admin-dash" }, "List"]}
-              />
-            }
-            btn={true}
-            btnText={"New User"}
-            btnPath="/admin-dash/users/add"
-            icon={<AddIcon />}
-          />
-        </Grid>
+      <div style={{ height: "81vh" }}>
+        <Grid container>
+          <Grid item xs={11} sm={11} md={11} lg={11} mb={6} sx={{ p: "10px" }}>
+            <AdminHeader
+              headerTitle="Users List"
+              breadCrumbs={
+                <MuiBreadcrumbs
+                  crumbs={[{ label: "Dashboard", to: "/admin-dash" }, "List"]}
+                />
+              }
+              btn={true}
+              btnText={"New User"}
+              btnPath="/admin-dash/users/add"
+              icon={<AddIcon />}
+            />
+          </Grid>
 
-        <Grid item xs={8} sm={12} md={12} lg={12}>
-          <DataGrid
-            rows={userContent}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
-              },
-            }}
-            pageSizeOptions={[5, 10]}
-            checkboxSelection
-            rowHeight={75}
-            onCellClick={handleCheckboxClick}
-            selectionModel={selectedRows}
-            sx={{
-              background: "rgb(22, 28, 36)",
-              color: "#fff",
-              border: "none",
-              fontFamily: "Montserrat",
-              borderRadius: "15px",
-              "@media screen and (max-width: 600px)": {
-                width: 475,
-              },
-            }}
-          />
+          <Grid item xs={8} sm={12} md={12} lg={12}>
+            <DataGrid
+              rows={userContent}
+              columns={columns}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 5 },
+                },
+              }}
+              pageSizeOptions={[5, 10]}
+              checkboxSelection
+              rowHeight={75}
+              onCellClick={handleCheckboxClick}
+              selectionModel={selectedRows}
+              sx={{
+                background: "rgb(22, 28, 36)",
+                color: "#fff",
+                border: "none",
+                fontFamily: "Montserrat",
+                borderRadius: "15px",
+                "@media screen and (max-width: 600px)": {
+                  width: 475,
+                },
+              }}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     );
   }
 

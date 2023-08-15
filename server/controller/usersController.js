@@ -40,15 +40,27 @@ module.exports.getUser = async (req, res, next) => {
 // @access private
 module.exports.createUser = async (req, res, next) => {
   try {
+    const image = req.file ? req.file.path : undefined;
     const { firstname, lastname, email, password, role } = req.body;
-
-    const newUser = await User.create({
-      firstname,
-      lastname,
-      email,
-      password,
-      role,
-    });
+    let newUser;
+    if (image) {
+      newUser = await User.create({
+        firstname,
+        lastname,
+        email,
+        password,
+        role,
+        image,
+      });
+    } else {
+      newUser = await User.create({
+        firstname,
+        lastname,
+        email,
+        password,
+        role,
+      });
+    }
 
     res.status(201).json({
       message: "User created successfully",
@@ -74,16 +86,14 @@ module.exports.createUser = async (req, res, next) => {
 // @access private
 module.exports.updateUser = async (req, res, next) => {
   try {
-    const id = req.params.id;
-    console.log(id);
+    const image = req.file ? req.file.path : undefined;
 
+    const { id, firstname, lastname, email, role } = req.body;
     const user = await User.findById(id);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    const { firstname, lastname, email, role } = req.body;
 
     if (!firstname || !lastname || !email || !role) {
       return res
@@ -95,6 +105,10 @@ module.exports.updateUser = async (req, res, next) => {
     user.lastname = lastname;
     user.email = email;
     user.role = role;
+
+    if (image !== undefined) {
+      user.image = image;
+    }
 
     const updatedUser = await user.save();
 

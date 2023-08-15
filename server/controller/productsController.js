@@ -32,7 +32,6 @@ module.exports.getProduct = async (req, res, next) => {
 module.exports.createProduct = async (req, res, next) => {
   try {
     const images = req.files.map((file) => file.path);
-    // console.log(images);
     const {
       name,
       description,
@@ -43,7 +42,6 @@ module.exports.createProduct = async (req, res, next) => {
       sizes,
       gender,
     } = req.body;
-    console.log(req.body);
 
     const selectedColors = JSON.parse(colors);
     const selectedSizes = JSON.parse(sizes);
@@ -81,7 +79,7 @@ module.exports.createProduct = async (req, res, next) => {
 module.exports.updateProduct = async (req, res, next) => {
   try {
     const images = req.files.map((file) => file.path);
-    console.log(images);
+
     const {
       id,
       name,
@@ -96,7 +94,6 @@ module.exports.updateProduct = async (req, res, next) => {
     const selectedColors = JSON.parse(colors);
     const selectedSizes = JSON.parse(sizes);
     const selectedGender = JSON.parse(gender);
-    console.log(gender);
 
     const product = await Product.findById(id);
     if (!product) {
@@ -118,10 +115,14 @@ module.exports.updateProduct = async (req, res, next) => {
     product.colors = selectedColors;
     product.gender = selectedGender;
 
-    if (images.length === 0) {
-      product.images = [];
-    } else {
+    if (req.body.images && req.body.images.length > 0 && images.length > 0) {
       product.images = [...product.images, ...images];
+    } else if (images.length === 0 && req.body.images) {
+      product.images = req.body.images;
+    } else if (images.length === 0 && !req.body.images) {
+      product.images = [];
+    } else if (images.length > 0 && !req.body.images) {
+      product.images = [...images];
     }
 
     const updatedProduct = await product.save();
