@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://mistrains-frontend.s3-website.us-east-2.amazonaws.com/",
+    origin: "http://mistrains-frontend.s3-website.us-east-2.amazonaws.com",
     credentials: true, //alows cookie to be sent from client request
     optionsSuccessStatus: 200,
   })
