@@ -30,7 +30,7 @@ module.exports.login = async (req, res, next) => {
         .status(400)
         .json({ message: "Incorrect password", errror: true });
     }
-
+    console.log(user);
     const accessToken = jwt.sign(
       {
         userInfo: {
@@ -44,6 +44,7 @@ module.exports.login = async (req, res, next) => {
         expiresIn: "15m",
       }
     );
+    console.log(accessToken);
     const refreshToken = jwt.sign(
       {
         userInfo: {

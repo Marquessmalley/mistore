@@ -38,10 +38,13 @@ const PersistLogin = () => {
   let content;
 
   if (isLoading) {
+    console.log("PERSISTSLOGIN: loading...");
     content = <p>Loading...</p>;
   } else if (isSuccess) {
+    console.log("PERSISTSLOGIN:succdss");
     content = <Outlet />;
   } else if (isError) {
+    console.log("PERSISTSLOGIN: ERROR");
     content = <Unauthorized />;
   }
 
