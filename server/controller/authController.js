@@ -59,6 +59,7 @@ module.exports.login = async (req, res, next) => {
         expiresIn: "7d",
       }
     );
+    console.log(refreshToken);
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true, // accessible only by web server
