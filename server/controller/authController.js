@@ -30,7 +30,7 @@ module.exports.login = async (req, res, next) => {
         .status(400)
         .json({ message: "Incorrect password", errror: true });
     }
-    console.log(user);
+
     const accessToken = jwt.sign(
       {
         userInfo: {
@@ -44,7 +44,7 @@ module.exports.login = async (req, res, next) => {
         expiresIn: "15m",
       }
     );
-    console.log(accessToken);
+
     const refreshToken = jwt.sign(
       {
         userInfo: {
@@ -62,7 +62,7 @@ module.exports.login = async (req, res, next) => {
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true, // accessible only by web server
-      secure: true, // https
+      // secure: true, // https
       // sameSite: "None", // cross-site cookie
       maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expir
     });
