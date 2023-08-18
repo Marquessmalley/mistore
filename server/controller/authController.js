@@ -64,7 +64,7 @@ module.exports.login = async (req, res, next) => {
     res.cookie("jwt", refreshToken, {
       httpOnly: true, // accessible only by web server
       secure: false, // https
-      sameSite: "None", // cross-site cookie
+      // sameSite: "None", // cross-site cookie
       maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expir
     });
 
