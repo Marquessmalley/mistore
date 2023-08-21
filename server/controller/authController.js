@@ -65,6 +65,8 @@ module.exports.login = async (req, res, next) => {
       httpOnly: true, // accessible only by web server
       secure: false, // https
       maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expir
+      domain: "http://mistrains-frontend.s3-website.us-east-2.amazonaws.com", // Replace with your domain
+      path: "/admin-dash", // Replace with your desired path
     });
 
     res.json({ message: "User successfully logged in", accessToken });
