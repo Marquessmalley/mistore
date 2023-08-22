@@ -8,6 +8,17 @@ const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
 
 const app = express();
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "http://mistrains-frontend.s3-website.us-east-2.amazonaws.com"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  next();
+});
 
 app.use(
   cors({
