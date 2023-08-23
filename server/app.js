@@ -11,7 +11,7 @@ const app = express();
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "http://mistrains-frontend.s3-website.us-east-2.amazonaws.com"
+    "https://d9x2mvvjewir2.cloudfront.net"
   );
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 
 app.use(
   cors({
-    origin: "http://mistrains-frontend.s3-website.us-east-2.amazonaws.com",
+    origin: "https://d9x2mvvjewir2.cloudfront.net",
     // origin: "http://localhost:3000",
     credentials: true, //alows cookie to be sent from client request
     optionsSuccessStatus: 200,
