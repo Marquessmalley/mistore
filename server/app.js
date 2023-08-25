@@ -22,8 +22,7 @@ const app = express();
 
 app.use(
   cors({
-    // origin: "https://d9x2mvvjewir2.cloudfront.net",
-    origin: "http://localhost:3000",
+    origin: "https://mistrain.onrender.com",
     credentials: true, //alows cookie to be sent from client request
     optionsSuccessStatus: 200,
   })
