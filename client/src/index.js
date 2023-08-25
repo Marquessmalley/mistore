@@ -9,7 +9,10 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import theme from "./theme";
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 
-if (process.env.NODE_ENV === "production") disableReactDevTools();
+if (process.env.NODE_ENV === "production") {
+  console.log("running");
+  disableReactDevTools();
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

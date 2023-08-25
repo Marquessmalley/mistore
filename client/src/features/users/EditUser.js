@@ -14,9 +14,28 @@ import {
   IconButton,
 } from "@mui/material";
 import { useUpdateUserMutation, useDeleteUserMutation } from "./usersApiSlice";
-import { roles } from "../../constants/roles";
+// import { roles } from "../../constants/roles";
 import AdminHeader from "../../components/UI/Headers/AdminHeader";
 import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
+
+const roles = [
+  {
+    label: "Customer",
+    value: "Customer",
+  },
+  {
+    label: "Employee",
+    value: "Employee",
+  },
+  {
+    label: "Admin",
+    value: "Admin",
+  },
+  {
+    label: "Manager",
+    value: "Manager",
+  },
+];
 
 const EditUser = () => {
   const navigate = useNavigate();
