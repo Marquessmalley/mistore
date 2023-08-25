@@ -7,6 +7,9 @@ import store from "./store/index";
 import { Provider } from "react-redux";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import theme from "./theme";
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+
+if (process.env.NODE_ENV === "production") disableReactDevTools();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

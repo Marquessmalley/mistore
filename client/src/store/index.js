@@ -12,6 +12,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: false,
 });
 
 setupListeners(store.dispatch); //A utility used to enable refetchOnFocus and refetchOnReconnect behaviors.
