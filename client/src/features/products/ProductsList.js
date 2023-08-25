@@ -261,6 +261,7 @@ const ProductsList = () => {
               content={
                 <QuickDelete
                   id={rowInfo?.id}
+                  row={rowInfo}
                   handleDialogClose={handleDeleteProductDialogClose}
                 />
               }

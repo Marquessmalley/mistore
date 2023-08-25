@@ -1,7 +1,7 @@
 import { Typography, Box, Button } from "@mui/material";
 import { useDeleteProductMutation } from "./productsApiSlice";
 
-const QuickDelete = ({ id, handleDialogClose }) => {
+const QuickDelete = ({ id, handleDialogClose, row }) => {
   const [deleteProduct, { data, isSuccess, isError, error }] =
     useDeleteProductMutation();
 

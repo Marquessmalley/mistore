@@ -8,7 +8,6 @@ import Unauthorized from "../../components/Errors/Unauthorized";
 const PersistLogin = () => {
   const [persist] = usePersist();
   const token = useSelector((state) => state.auth.token);
-  console.log(token);
 
   const [refresh, { data, isLoading, isSuccess, isError, error }] =
     useRefreshMutation();
@@ -21,7 +20,6 @@ const PersistLogin = () => {
       // React 18 Strict Mode
       const verifyRefreshToken = async () => {
         try {
-          console.log("verifyRefreshToken running");
           await refresh();
         } catch (err) {
           console.log(err);
@@ -40,13 +38,10 @@ const PersistLogin = () => {
   let content;
 
   if (isLoading) {
-    console.log("PERSISTSLOGIN: loading...");
     content = <p>Loading...</p>;
   } else if (isSuccess) {
-    console.log("PERSISTSLOGIN:succdss");
     content = <Outlet />;
   } else if (isError) {
-    console.log("PERSISTSLOGIN: ERROR");
     content = <Unauthorized />;
   }
 

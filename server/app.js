@@ -8,22 +8,22 @@ const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
 
 const app = express();
-app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://d9x2mvvjewir2.cloudfront.net"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+// app.use((req, res, next) => {
+//   res.setHeader(
+//     "Access-Control-Allow-Origin",
+//     "https://d9x2mvvjewir2.cloudfront.net"
+//   );
+//   res.setHeader("Access-Control-Allow-Credentials", "true");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-  next();
-});
+//   next();
+// });
 
 app.use(
   cors({
-    origin: "https://d9x2mvvjewir2.cloudfront.net",
-    // origin: "http://localhost:3000",
+    // origin: "https://d9x2mvvjewir2.cloudfront.net",
+    origin: "http://localhost:3000",
     credentials: true, //alows cookie to be sent from client request
     optionsSuccessStatus: 200,
   })
@@ -43,9 +43,6 @@ const authRoutes = require("./routes/authRoutes");
 const usersRoutes = require("./routes/usersRoutes");
 const productsRoutes = require("./routes/productsRoutes");
 
-app.get("/", (req, res) => {
-  res.json("Hello EC2 Instance");
-});
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
