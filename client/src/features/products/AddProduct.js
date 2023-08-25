@@ -14,10 +14,25 @@ import {
 import { useNavigate } from "react-router-dom";
 import AdminHeader from "../../components/UI/Headers/AdminHeader";
 import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
-import { colors, sizes, categories } from "../../constants/productAttributes";
+// import { colors, sizes, categories } from "../../constants/productAttributes";
 import { useCreateProductMutation } from "./productsApiSlice";
 import ClearIcon from "@mui/icons-material/Clear";
 import "./products.css";
+
+const colors = [
+  "Red",
+  "Blue",
+  "Green",
+  "Yellow",
+  "Orange",
+  "Black",
+  "White",
+  "Brown",
+];
+
+const sizes = ["Extra Small", "Small", "Medium", "Large", "Extra Large"];
+
+const categories = ["T-Shirt", "Hoodie", "Shorts", "Pants", "Other"];
 
 const AddProduct = () => {
   const navigate = useNavigate();

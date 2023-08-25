@@ -19,9 +19,24 @@ import {
   useUpdateProductMutation,
   selectProductById,
 } from "./productsApiSlice";
-import { colors, categories, sizes } from "../../constants/productAttributes";
+// import { colors, categories, sizes } from "../../constants/productAttributes";
 import ClearIcon from "@mui/icons-material/Clear";
 import "./products.css";
+
+const colors = [
+  "Red",
+  "Blue",
+  "Green",
+  "Yellow",
+  "Orange",
+  "Black",
+  "White",
+  "Brown",
+];
+
+const sizes = ["Extra Small", "Small", "Medium", "Large", "Extra Large"];
+
+const categories = ["T-Shirt", "Hoodie", "Shorts", "Pants", "Other"];
 
 const EditProduct = () => {
   const navigate = useNavigate();
