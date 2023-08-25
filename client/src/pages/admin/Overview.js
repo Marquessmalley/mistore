@@ -76,7 +76,7 @@ const Overview = () => {
   return (
     <Grid container spacing={2} sx={{ display: "flex" }}>
       {commerceStats.map((stat) => (
-        <Grid item xs={12} sm={4} md={4} lg={4}>
+        <Grid item xs={12} sm={4} md={4} lg={4} key={stat.id}>
           <MuiCard stat={stat} />
         </Grid>
       ))}

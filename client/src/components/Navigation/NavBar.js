@@ -5,10 +5,8 @@ import {
   Toolbar,
   AppBar,
   Grid,
-  Button,
   Menu,
   MenuItem,
-  Avatar,
   IconButton,
   Fab,
 } from "@mui/material";
@@ -23,6 +21,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
 import "./navBar.css";
 import jwtDecode from "jwt-decode";
+import { selectUserById } from "../../features/users/usersApiSlice";
 
 const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
   const dispatch = useDispatch();
@@ -39,6 +38,7 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
     let decoded;
     if (token) {
       decoded = jwtDecode(token);
+
       setUser(decoded?.userInfo);
     }
   }, [token]);
@@ -53,6 +53,8 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
       console.log(error);
     }
   }, [isSuccess, dispatch, isError, error, navigate]);
+
+  const loggedInUser = useSelector((state) => selectUserById(state, user?._id));
 
   const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
@@ -107,7 +109,7 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
                 mb={1}
                 sx={{ fontFamily: "Montserrat" }}
               >
-                Welcome back, {user?.firstname} {user?.lastname}
+                Welcome back, {loggedInUser?.firstname} {loggedInUser?.lastname}
               </Typography>
               <Typography variant="p" sx={{ fontFamily: "Montserrat" }}>
                 Here's what's happening with your store today.
