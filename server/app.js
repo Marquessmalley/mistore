@@ -12,6 +12,7 @@ const app = express();
 app.use(
   cors({
     origin: "https://mistrain.onrender.com",
+
     credentials: true, //alows cookie to be sent from client request
     optionsSuccessStatus: 200,
   })
