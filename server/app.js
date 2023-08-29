@@ -16,6 +16,7 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
+
 app.use("/images", express.static(path.join(__dirname, "/public/images")));
 app.use(express.json());
 app.use(cookieParser());

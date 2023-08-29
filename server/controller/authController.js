@@ -59,13 +59,13 @@ module.exports.login = async (req, res, next) => {
         expiresIn: "7d",
       }
     );
-    console.log(refreshToken);
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true, // accessible only by web server
       secure: true, // The Secure flag ensures that cookies are only transmitted over secure (HTTPS) connections
       sameSite: "None", // cross-site cookie
       maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expir
+      domain: ".onrender.com",
     });
 
     res.json({ message: "User successfully logged in", accessToken });
