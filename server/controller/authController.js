@@ -64,7 +64,7 @@ module.exports.login = async (req, res, next) => {
       httpOnly: true, // accessible only by web server
       secure: true, // The Secure flag ensures that cookies are only transmitted over secure (HTTPS) connections
       sameSite: "None", // cross-site cookie
-      domain: "https://mistrain.onrender.com",
+      domain: ".onrender.com",
       path: "/admin-dash",
       maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expir
     });
