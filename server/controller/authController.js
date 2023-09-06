@@ -68,7 +68,6 @@ module.exports.login = async (req, res, next) => {
       sameSite: "None", // cross-site cookie
       maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expir
       domain: ".mistrain.onrender.com",
-      path: "/",
     });
 
     res.json({ message: "User successfully logged in", accessToken });
