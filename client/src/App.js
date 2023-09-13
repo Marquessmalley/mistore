@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/home/Home";
 import Login from "./features/auth/Login";
 import Signup from "./features/auth/Signup";
 import ForgotPassword from "./features/auth/ForgotPassword";
+import StoreFront from "./pages/storefront/index";
 import AdminLayout from "./components/Layouts/Admins/AdminLayout";
 import Users from "./pages/admin/Users";
 import AddUser from "./features/users/AddUser";
@@ -16,16 +16,21 @@ import AddProducts from "./features/products/AddProduct";
 import Prefetch from "./features/users/Prefetch";
 import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from "./features/auth/RequireAuth";
+import Splash from "./pages/storefront/Splash";
 
 function App() {
   return (
     <Routes>
       {/* PUBLIC ROUTES */}
-      <Route path="/" element={<Home />} />
+
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="unauthorized" element={<Unauthorized />} />
+
+      {/* STOREFRONT */}
+      <Route path="/" element={<Splash />} />
+      <Route path="/store" element={<StoreFront />}></Route>
 
       {/* PRIVATE ADMIN ROUTES */}
       <Route element={<PersistLogin />}>
@@ -49,6 +54,8 @@ function App() {
           </Route>
         </Route>
       </Route>
+
+      {/* END */}
     </Routes>
   );
 }
