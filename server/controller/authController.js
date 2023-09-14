@@ -6,8 +6,6 @@ const jwt = require("jsonwebtoken");
 // @access Public
 module.exports.login = async (req, res, next) => {
   try {
-    const userAgent = req.headers["user-agent"];
-    console.log(userAgent);
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -65,9 +63,9 @@ module.exports.login = async (req, res, next) => {
     res.cookie("jwt", refreshToken, {
       httpOnly: true, // accessible only by web server
       secure: true, // The Secure flag ensures that cookies are only transmitted over secure (HTTPS) connections
-      sameSite: "lax", // cross-site cookie
-      maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expir
+      sameSite: "None", // cross-site cookie
       domain: ".mistrain.onrender.com",
+      maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expir
     });
 
     res.json({ message: "User successfully logged in", accessToken });
