@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 import Header from "./Header";
-import Permenant from "../../Navigation/Drawer/Permenant";
-import Temporary from "../../Navigation/Drawer/Temporary";
+import Permenant from "../../Navigations/AdminNavigation/Drawer/Permenant";
+import Temporary from "../../Navigations/AdminNavigation/Drawer/Temporary";
 
 const AdminLayout = () => {
   const [hidePermanentDrawer, setHidePermanentDrawer] = useState(false);
@@ -23,6 +23,7 @@ const AdminLayout = () => {
         handleToggleDrawer={handleToggleDrawer}
         drawerWidth={drawerWidth}
       />
+      {/* DRAWER */}
       <Box
         component="nav"
         sx={{
@@ -37,6 +38,7 @@ const AdminLayout = () => {
         />
         {!hidePermanentDrawer && <Permenant drawerWidth={drawerWidth} />}
       </Box>
+      {/* MAIN CONTENT */}
       <Box
         sx={{
           flexGrow: 1,

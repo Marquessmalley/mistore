@@ -12,16 +12,16 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { authActions } from "../../store/slices/authSlice";
+import { authActions } from "../../../store/slices/authSlice";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
-import { useLogoutMutation } from "../../features/auth/authApiSlice";
+import { useLogoutMutation } from "../../../features/auth/authApiSlice";
 import "./navBar.css";
 import jwtDecode from "jwt-decode";
-import { selectUserById } from "../../features/users/usersApiSlice";
+import { selectUserById } from "../../../features/users/usersApiSlice";
 
 const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
   const dispatch = useDispatch();

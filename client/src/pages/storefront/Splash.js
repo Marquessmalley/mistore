@@ -33,7 +33,7 @@ const Splash = () => {
             zIndex: -1,
           }}
         >
-          <source src={smokeSign} type="video/mp4" />
+          <source src={smokeVideo} type="video/mp4" />
         </video>
         <Box
           sx={{

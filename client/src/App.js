@@ -4,6 +4,7 @@ import Signup from "./features/auth/Signup";
 import ForgotPassword from "./features/auth/ForgotPassword";
 import StoreFront from "./pages/storefront/index";
 import AdminLayout from "./components/Layouts/Admins/AdminLayout";
+import StoreFrontLayout from "./components/Layouts/StoreFront/StoreFrontLayout";
 import Users from "./pages/admin/Users";
 import AddUser from "./features/users/AddUser";
 import EditUser from "./features/users/EditUser";
@@ -30,7 +31,10 @@ function App() {
 
       {/* STOREFRONT */}
       <Route path="/" element={<Splash />} />
-      <Route path="/store" element={<StoreFront />}></Route>
+
+      <Route element={<Prefetch />}>
+        <Route path="/store" element={<StoreFrontLayout />}></Route>
+      </Route>
 
       {/* PRIVATE ADMIN ROUTES */}
       <Route element={<PersistLogin />}>

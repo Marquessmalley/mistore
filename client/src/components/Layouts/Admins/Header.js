@@ -1,4 +1,4 @@
-import NavBar from "../../Navigation/NavBar";
+import NavBar from "../../Navigations/AdminNavigation/NavBar";
 
 const Header = ({ handleToggleDrawer, drawerWidth }) => {
   return (
