@@ -14,7 +14,7 @@ import SearchBox from "../../UI/SearchBox/SearchBox";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const Navbar = () => {
+const Navbar = ({ handleToggleDrawer }) => {
   return (
     <AppBar component="nav">
       <Toolbar sx={{ display: "flex", justifyContent: "space-around" }}>
@@ -23,7 +23,7 @@ const Navbar = () => {
           color="inherit"
           aria-label="open drawer"
           edge="start"
-          //   onClick={handleDrawerToggle}
+          onClick={handleToggleDrawer}
           sx={{ mr: 2, display: { md: "none" } }}
         >
           <MenuIcon />
