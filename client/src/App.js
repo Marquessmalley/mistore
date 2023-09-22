@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./features/auth/Login";
 import Signup from "./features/auth/Signup";
 import ForgotPassword from "./features/auth/ForgotPassword";
-import StoreFront from "./pages/storefront/index";
+import Home from "./pages/storefront/index";
 import AdminLayout from "./components/Layouts/Admins/AdminLayout";
 import StoreFrontLayout from "./components/Layouts/StoreFront/StoreFrontLayout";
 import Users from "./pages/admin/Users";
@@ -33,7 +33,9 @@ function App() {
       <Route path="/" element={<Splash />} />
 
       <Route element={<Prefetch />}>
-        <Route path="/store" element={<StoreFrontLayout />}></Route>
+        <Route path="/store" element={<StoreFrontLayout />}>
+          <Route index element={<Home />} />
+        </Route>
       </Route>
 
       {/* PRIVATE ADMIN ROUTES */}
