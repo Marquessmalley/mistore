@@ -1,1 +1,1 @@
-export const storeNavItems = ["Home", "Mens", "Womens", "Lifestyle"];
+export const storeNavItems = ["Home", "Catalog", "Lifestyle"];

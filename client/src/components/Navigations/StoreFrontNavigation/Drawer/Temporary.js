@@ -8,7 +8,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer }) => {
       open={mobileOpen}
       onClose={handleToggleDrawer}
       sx={{
-        display: { xs: "block", sm: "none" },
+        display: { xs: "block", sm: "block" },
         "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
       }}
     >
