@@ -18,6 +18,9 @@ import Prefetch from "./features/users/Prefetch";
 import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from "./features/auth/RequireAuth";
 import Splash from "./pages/storefront/Splash";
+import Products from "./pages/storefront/Products";
+import Product from "./pages/storefront/Product";
+import About from "./pages/storefront/About";
 
 function App() {
   return (
@@ -35,6 +38,11 @@ function App() {
       <Route element={<Prefetch />}>
         <Route path="/store" element={<StoreFrontLayout />}>
           <Route index element={<Home />} />
+          <Route path="products">
+            <Route index element={<Products />} />
+            <Route path=":id" element={<Product />} />
+          </Route>
+          <Route path="about" element={<About />} />
         </Route>
       </Route>
 

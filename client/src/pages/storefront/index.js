@@ -36,6 +36,7 @@ const Home = () => {
             fontWeight: "bold",
             marginBottom: "2rem",
             marginTop: "2rem",
+            textAlign: "center",
           }}
         >
           Explore Our Unique Collection

@@ -14,7 +14,19 @@ import SearchBox from "../../UI/SearchBox/SearchBox";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 
-export const storeNavItems = ["Home", "Catalog", "Lifestyle"];
+export const storeNavItems = [
+  {
+    id: 0,
+    name: "Home",
+    path: "/store",
+  },
+  {
+    id: 1,
+    name: "Products",
+    path: "/store/products",
+  },
+  { id: 2, name: "About", path: "/store/about" },
+];
 
 const Navbar = ({ handleToggleDrawer }) => {
   return (
@@ -42,8 +54,11 @@ const Navbar = ({ handleToggleDrawer }) => {
             {storeNavItems.map((item) => (
               <List key={item}>
                 <ListItem>
-                  <Link style={{ color: "#fff", textDecoration: "none" }}>
-                    {item}
+                  <Link
+                    style={{ color: "#fff", textDecoration: "none" }}
+                    to={item.path}
+                  >
+                    {item.name}
                   </Link>
                 </ListItem>
               </List>
