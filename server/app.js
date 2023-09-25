@@ -11,8 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    // origin: "https://mistrains.shop",
-    origin: "http://localhost:3000",
+    origin: "https://mistrains.shop",
     credentials: true, //alows cookie to be sent from client request
     optionsSuccessStatus: 200,
   })
