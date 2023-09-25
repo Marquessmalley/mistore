@@ -9,10 +9,12 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/MIS1.png";
-import { storeNavItems } from "constants/navItems";
+// import { storeNavItems } from "constants/navItems";
 import SearchBox from "../../UI/SearchBox/SearchBox";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
+
+export const storeNavItems = ["Home", "Catalog", "Lifestyle"];
 
 const Navbar = ({ handleToggleDrawer }) => {
   return (
