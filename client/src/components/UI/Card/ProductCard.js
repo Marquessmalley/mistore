@@ -10,53 +10,37 @@ import {
 import logo from "../../../assets/images/MIS1.png";
 
 const ProductCard = ({ data }) => {
-  console.log(data);
+  const imageUrl = data.images.map((image) => {
+    if (image.includes("public")) {
+      return image.replace("public/", "");
+    }
+    return image;
+  });
+
   return (
-    <Card
-      sx={{
-        position: "relative",
-        borderRadius: "10px",
-        margin: "10px",
-        height: "42vh",
-      }}
-    >
-      <Typography
-        sx={{
-          position: "absolute",
-          top: 0,
-          right: 15,
-          fontWeight: "bold",
-          color: "#fff",
-          background: "grey",
-          padding: "5px",
-          width: "25%",
-          textAlign: "center",
-          borderBottomLeftRadius: "5px",
-          borderBottomRightRadius: "5px",
-        }}
-      >
-        ${data.price}
-      </Typography>
-      <CardMedia component="img" height="200" image={logo} alt={"yo"} />
-      <CardContent
-        sx={{
-          color: "#fff",
-          background:
-            "linear-gradient(to top, #0d0f11, #191c1f, #24282c, #2f343a, #3b4149)",
-          borderTopLeftRadius: "25px",
-          borderTopRightRadius: "25px",
-        }}
-      >
-        <Box>
-          <Typography
-            sx={{ fontSize: "20px", fontWeight: "bold", marginBottom: "15px" }}
-          >
-            {data.name}
-          </Typography>
-          <Typography sx={{ background: "red", width: "75%" }}>
-            {data.description}
-          </Typography>
-        </Box>
+    <Card sx={{ maxWidth: 345, background: "white" }}>
+      {imageUrl.map((imageUrl, index) => (
+        <CardMedia
+          key={index} // Use a unique key for each image
+          component="img"
+          height="180"
+          src={`http://localhost:8000/${imageUrl}`} // Use the image URL from the array
+          alt={data.name}
+        />
+      ))}
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {data.name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {data.description}
+        </Typography>
+        <Typography variant="h6" color="text.secondary">
+          Price: ${data.price}
+        </Typography>
+        <Button variant="contained" color="primary">
+          Add to Cart
+        </Button>
       </CardContent>
     </Card>
   );

@@ -52,7 +52,7 @@ const Navbar = ({ handleToggleDrawer }) => {
         >
           <nav style={{ display: "flex" }}>
             {storeNavItems.map((item) => (
-              <List key={item}>
+              <List key={item.id}>
                 <ListItem>
                   <Link
                     style={{ color: "#fff", textDecoration: "none" }}

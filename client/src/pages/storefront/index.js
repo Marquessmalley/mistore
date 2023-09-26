@@ -1,7 +1,10 @@
 import React from "react";
 import { Grid, Typography, Box, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <Grid container sx={{ height: "85vh", background: "#E5E5E5" }}>
       <Grid
@@ -41,6 +44,7 @@ const Home = () => {
             borderRadius: "20px",
             width: "150px",
           }}
+          onClick={() => navigate("/store/products")}
         >
           Shop Now
         </Button>
