@@ -18,7 +18,7 @@ const ProductCard = ({ data }) => {
   });
 
   return (
-    <Card sx={{ maxWidth: 345, background: "white" }}>
+    <Card sx={{ background: "white" }}>
       {imageUrl.map((imageUrl, index) => (
         <CardMedia
           key={index} // Use a unique key for each image

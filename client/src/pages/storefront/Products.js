@@ -12,20 +12,12 @@ const Products = () => {
   const products = useSelector(selectAllProducts);
   return (
     <Grid container>
-      {/* SIDE DRAWER GRID ITEM */}
-      {/* <Grid item lg={3}>
-        <ResponsiveDarwer />
-      </Grid> */}
       {/* PRODUCTS GRID ITEM */}
-      <Grid item lg={9}>
-        <Grid container>
-          {products.map((product) => (
-            <Grid item m={2} key={product.id} lg={3}>
-              <ProductCard data={product} />
-            </Grid>
-          ))}
+      {products.map((product) => (
+        <Grid item m={3} key={product.id} xs={10} sm={5} md={5} lg={3}>
+          <ProductCard data={product} />
         </Grid>
-      </Grid>
+      ))}
     </Grid>
   );
 };

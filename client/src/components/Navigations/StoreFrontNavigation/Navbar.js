@@ -30,8 +30,13 @@ export const storeNavItems = [
 
 const Navbar = ({ handleToggleDrawer }) => {
   return (
-    <AppBar component="nav">
-      <Toolbar sx={{ display: "flex", justifyContent: "space-around" }}>
+    <AppBar component="nav" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+        }}
+      >
         {/* LOGO */}
         <IconButton
           color="inherit"
