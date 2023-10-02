@@ -8,16 +8,31 @@ import {
   selectAllProducts,
 } from "../../features/products/productsApiSlice";
 const Products = () => {
-  // const { data: products, isLoading, isError, error } = useGetProductsQuery();
-  const products = useSelector(selectAllProducts);
+  const { data: products, isLoading, isError, error } = useGetProductsQuery();
+  // const products = useSelector(selectAllProducts);
+
   return (
     <Grid container>
       {/* PRODUCTS GRID ITEM */}
-      {products.map((product) => (
-        <Grid item m={3} key={product.id} xs={10} sm={5} md={5} lg={3}>
-          <ProductCard data={product} />
+      {products?.ids.length ? (
+        products.ids.map((id) => (
+          <Grid
+            item
+            m={3}
+            key={products.entities[id]}
+            xs={10}
+            sm={5}
+            md={5}
+            lg={3}
+          >
+            <ProductCard data={products.entities[id]} />
+          </Grid>
+        ))
+      ) : (
+        <Grid item m={3} lg={12}>
+          <h1>No Products Available</h1>
         </Grid>
-      ))}
+      )}
     </Grid>
   );
 };
