@@ -1,5 +1,21 @@
 import React from "react";
-import { Drawer } from "@mui/material";
+import { Drawer, List, ListItem } from "@mui/material";
+import { Link } from "react-router-dom";
+
+export const storeNavItems = [
+  {
+    id: 0,
+    name: "Home",
+    path: "/store",
+  },
+  {
+    id: 1,
+    name: "Products",
+    path: "/store/products",
+  },
+  { id: 2, name: "About", path: "/store/about" },
+];
+
 const Temporary = ({ mobileOpen, handleToggleDrawer }) => {
   const drawerWidth = 240;
   return (
@@ -8,11 +24,28 @@ const Temporary = ({ mobileOpen, handleToggleDrawer }) => {
       open={mobileOpen}
       onClose={handleToggleDrawer}
       sx={{
+        zIndex: (theme) => theme.zIndex.drawer + 2,
         display: { xs: "block", sm: "block" },
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+        "& .MuiDrawer-paper": {
+          boxSizing: "border-box",
+          width: drawerWidth,
+        },
       }}
     >
-      Temporary
+      <nav>
+        {storeNavItems.map((item) => (
+          <List key={item.id}>
+            <ListItem>
+              <Link
+                style={{ color: "black", textDecoration: "none" }}
+                to={item.path}
+              >
+                {item.name}
+              </Link>
+            </ListItem>
+          </List>
+        ))}
+      </nav>
     </Drawer>
   );
 };

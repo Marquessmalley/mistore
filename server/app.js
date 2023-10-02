@@ -8,11 +8,11 @@ const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
 
 const app = express();
+console.log(process.env.DOMAIN);
 
 app.use(
   cors({
-    origin: "https://mistrains.shop",
-    // origin: "http://localhost:3000",
+    origin: process.env.DOMAIN,
     credentials: true, //alows cookie to be sent from client request
     optionsSuccessStatus: 200,
   })
