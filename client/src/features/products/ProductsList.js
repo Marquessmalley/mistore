@@ -81,7 +81,7 @@ const ProductsList = () => {
           >
             {productImage && (
               <img
-                src={`https://mistrain-api.onrender.com${productImage}`}
+                src={`https://mistrain-api.onrender.com/${productImage}`}
                 alt="img"
                 style={{
                   maxWidth: "60px",
