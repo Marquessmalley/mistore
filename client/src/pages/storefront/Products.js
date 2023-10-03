@@ -1,8 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import ProductCard from "../../components/UI/Card/ProductCard";
-import { useDispatch, useSelector } from "react-redux";
-import ResponsiveDarwer from "components/Navigations/StoreFrontNavigation/Drawer/ResponsiveDarwer";
 import {
   useGetProductsQuery,
   selectAllProducts,

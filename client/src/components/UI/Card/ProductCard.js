@@ -7,7 +7,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import logo from "../../../assets/images/MIS1.png";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ data }) => {
   const imageUrl = data.images.map((image) => {
@@ -29,9 +29,11 @@ const ProductCard = ({ data }) => {
         />
       ))}
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {data.name}
-        </Typography>
+        <Link to={`/store/products/${data.id}`}>
+          <Typography gutterBottom variant="h5" component="div">
+            {data.name}
+          </Typography>
+        </Link>
         <Typography variant="body2" color="text.secondary">
           {data.description}
         </Typography>

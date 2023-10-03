@@ -36,11 +36,12 @@ function App() {
       <Route path="/" element={<Splash />} />
 
       <Route element={<Prefetch />}>
-        <Route path="/store" element={<StoreFrontLayout />}>
+        <Route path="store" element={<StoreFrontLayout />}>
           <Route index element={<Home />} />
-          <Route path="products" element={<Products />}>
-            <Route path=":id" element={<Product />} />
-          </Route>
+          <Route path="products" element={<Products />} />
+
+          <Route path="products/:id" element={<Product />} />
+
           <Route path="about" element={<About />} />
         </Route>
       </Route>
