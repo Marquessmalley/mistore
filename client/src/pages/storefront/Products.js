@@ -5,6 +5,7 @@ import {
   useGetProductsQuery,
   selectAllProducts,
 } from "../../features/products/productsApiSlice";
+import CircularProgress from "@mui/material/CircularProgress";
 const Products = () => {
   const { data: products, isLoading, isError, error } = useGetProductsQuery();
   // const products = useSelector(selectAllProducts);
@@ -12,12 +13,25 @@ const Products = () => {
   return (
     <Grid container>
       {/* PRODUCTS GRID ITEM */}
-      {products?.ids.length ? (
+      {isLoading && (
+        <Grid
+          item
+          lg={10}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress />
+        </Grid>
+      )}
+      {products?.ids.length &&
         products.ids.map((id) => (
           <Grid
             item
             m={3}
-            key={products.entities[id]}
+            key={products.entities[id].id}
             xs={10}
             sm={5}
             md={5}
@@ -25,12 +39,7 @@ const Products = () => {
           >
             <ProductCard data={products.entities[id]} />
           </Grid>
-        ))
-      ) : (
-        <Grid item m={3} lg={12}>
-          <h1>No Products Available</h1>
-        </Grid>
-      )}
+        ))}
     </Grid>
   );
 };
