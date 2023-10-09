@@ -29,7 +29,10 @@ const ProductCard = ({ data }) => {
         />
       ))}
       <CardContent>
-        <Link to={`/store/products/${data.id}`}>
+        <Link
+          to={`/store/products/${data.id}`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
           <Typography gutterBottom variant="h5" component="div">
             {data.name}
           </Typography>
