@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Typography, Button, IconButton } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectProductById } from "../../features/products/productsApiSlice";
+import { selectProductById } from "../../../features/products/productsApiSlice";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Product = () => {

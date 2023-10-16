@@ -18,9 +18,14 @@ import Prefetch from "./features/users/Prefetch";
 import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from "./features/auth/RequireAuth";
 import Splash from "./pages/storefront/Splash";
-import Products from "./pages/storefront/Products";
-import Product from "./pages/storefront/Product";
+import Products from "./pages/storefront/product/Products";
+import Product from "./pages/storefront/product/Product";
 import About from "./pages/storefront/About";
+import Cart from "./pages/storefront/checkout/Cart";
+import CheckoutLayout from "./components/Layouts/StoreFront/CheckoutLayout";
+import Details from "./pages/storefront/checkout/Details";
+import Payment from "./pages/storefront/checkout/Payment";
+import Summary from "./pages/storefront/checkout/Summary";
 
 function App() {
   return (
@@ -38,11 +43,18 @@ function App() {
       <Route element={<Prefetch />}>
         <Route path="store" element={<StoreFrontLayout />}>
           <Route index element={<Home />} />
-          <Route path="products" element={<Products />} />
 
+          <Route path="products" element={<Products />} />
           <Route path="products/:id" element={<Product />} />
 
           <Route path="about" element={<About />} />
+
+          <Route element={<CheckoutLayout />}>
+            <Route path="cart" element={<Cart />} />
+            <Route path="details" element={<Details />} />
+            <Route path="payment" element={<Payment />} />
+            <Route path="review" element={<Summary />} />
+          </Route>
         </Route>
       </Route>
 

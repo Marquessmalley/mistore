@@ -1,10 +1,10 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import ProductCard from "../../components/UI/Card/ProductCard";
+import ProductCard from "../../../components/UI/Card/ProductCard";
 import {
   useGetProductsQuery,
   selectAllProducts,
-} from "../../features/products/productsApiSlice";
+} from "../../../features/products/productsApiSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 const Products = () => {
   const { data: products, isLoading, isError, error } = useGetProductsQuery();

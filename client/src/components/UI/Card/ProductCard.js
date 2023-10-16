@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
+// https://mistrain-api.onrender.com/${imageUrl}
+
 const ProductCard = ({ data }) => {
   const imageUrl = data.images.map((image) => {
     if (image.includes("public")) {
@@ -24,7 +26,7 @@ const ProductCard = ({ data }) => {
           key={index} // Use a unique key for each image
           component="img"
           height="180"
-          src={`https://mistrain-api.onrender.com/${imageUrl}`} // Use the image URL from the array
+          src={`http://localhost:8000/${imageUrl}`} // Use the image URL from the array
           alt={data.name}
         />
       ))}
