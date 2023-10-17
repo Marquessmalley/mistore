@@ -6,6 +6,7 @@ import {
   List,
   ListItem,
   IconButton,
+  Badge,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/MIS1.png";
@@ -13,6 +14,7 @@ import logo from "../../../assets/images/MIS1.png";
 import SearchBox from "../../UI/SearchBox/SearchBox";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useSelector } from "react-redux";
 
 export const storeNavItems = [
   {
@@ -29,6 +31,8 @@ export const storeNavItems = [
 ];
 
 const Navbar = ({ handleToggleDrawer }) => {
+  const cartItems = useSelector((state) => state.cart.items);
+  console.log(cartItems.length);
   return (
     <AppBar component="nav" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar
@@ -75,9 +79,14 @@ const Navbar = ({ handleToggleDrawer }) => {
         <SearchBox />
 
         {/* CART */}
-        <IconButton sx={{ marginLeft: "2rem" }}>
+
+        <Badge
+          badgeContent={cartItems.length}
+          sx={{ marginLeft: "2rem" }}
+          color="secondary"
+        >
           <ShoppingCartIcon sx={{ color: "#fff" }} />
-        </IconButton>
+        </Badge>
       </Toolbar>
     </AppBar>
   );

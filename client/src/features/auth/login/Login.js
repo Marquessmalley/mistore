@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { Grid, Box, TextField, Button, Hidden, Alert } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useLoginMutation } from "./authApiSlice";
-import { authActions } from "../../store/slices/authSlice";
-import usePersist from "../../utils/hooks/usePersist";
+import { useLoginMutation } from "../authApiSlice";
+import { authActions } from "../../../store/slices/authSlice";
+import usePersist from "../../../utils/hooks/usePersist";
 
 const Login = () => {
   const navigate = useNavigate();

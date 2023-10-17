@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./features/auth/Login";
+import Login from "./features/auth/login/Login";
 import Signup from "./features/auth/Signup";
 import ForgotPassword from "./features/auth/ForgotPassword";
 import Home from "./pages/storefront/index";

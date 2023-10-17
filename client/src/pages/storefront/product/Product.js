@@ -1,14 +1,19 @@
-import React from "react";
+import { useState } from "react";
 import { Grid, Typography, Button, IconButton } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectProductById } from "../../../features/products/productsApiSlice";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { addToCart } from "store/slices/cartSlice";
 
 const Product = () => {
   const { id } = useParams();
-  const product = useSelector((state) => selectProductById(state, id));
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const product = useSelector((state) => selectProductById(state, id));
+  const cart = useSelector((state) => state.cart);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   const imageUrl = product?.images.map((image) => {
     if (image.includes("public")) {
@@ -17,7 +22,21 @@ const Product = () => {
     return image;
   });
 
-  console.log(product);
+  const handleAddToCart = () => {
+    if (selectedSize !== null) {
+      const selectedProduct = {
+        id: product?.id,
+        name: product?.name,
+        gender: product?.gender,
+        images: product?.images,
+        price: product?.price,
+        qty: 1,
+        size: selectedSize,
+      };
+      dispatch(addToCart(selectedProduct));
+      navigate("/store/cart");
+    }
+  };
 
   return (
     <Grid container sx={{ background: "#E5E5E5" }}>
@@ -67,12 +86,20 @@ const Product = () => {
           <Typography>Sizes: </Typography>
           {product?.sizes.map((size) => (
             <Button
+              key={size}
               variant="contained"
               sx={{
                 margin: "1rem",
                 borderRadius: "35px",
                 padding: "1rem",
+                background: selectedSize === size ? "black" : "white",
+                color: selectedSize === size ? "white" : "black",
+                "&:hover": {
+                  backgroundColor: "black", // Background color on hover
+                  color: "white",
+                },
               }}
+              onClick={() => setSelectedSize(size)}
             >
               {size[0]}
             </Button>
@@ -85,7 +112,9 @@ const Product = () => {
         </Grid>
 
         <Grid item m={2}>
-          <Button variant="contained">Add To Cart</Button>
+          <Button variant="contained" onClick={handleAddToCart}>
+            Add To Cart
+          </Button>
         </Grid>
       </Grid>
     </Grid>
