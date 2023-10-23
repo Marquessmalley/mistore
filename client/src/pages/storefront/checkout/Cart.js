@@ -1,8 +1,11 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { removeItem } from "../../../store/slices/cartSlice";
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
   return (
@@ -29,12 +32,13 @@ const Cart = () => {
                   sx={{
                     border: "1px solid black",
                     display: "flex",
+                    alignItems: "center",
                     margin: "1rem",
                   }}
                 >
                   <div>
                     <img
-                      src={`http://localhost:8000/${imageUrl}`}
+                      src={`https://mistrain-api.onrender.com/${imageUrl}`}
                       alt="cart"
                       width="150"
                       height="200"
@@ -50,12 +54,17 @@ const Cart = () => {
                     </p>
                     <p>
                       <span style={{ fontWeight: "bold" }}>Qty: </span>
-                      {item.qty}
+                      {item.quantity}
                     </p>
                     <p>
-                      <span style={{ fontWeight: "bold" }}>Price: </span>
+                      <span style={{ fontWeight: "bold" }}>Price: </span>$
                       {item.price}
                     </p>
+                  </div>
+                  <div>
+                    <Button onClick={() => dispatch(removeItem(item.id))}>
+                      Remove
+                    </Button>
                   </div>
                 </Grid>
               );

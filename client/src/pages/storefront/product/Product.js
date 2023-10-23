@@ -30,14 +30,13 @@ const Product = () => {
         gender: product?.gender,
         images: product?.images,
         price: product?.price,
-        qty: 1,
+        quantity: 1,
         size: selectedSize,
       };
       dispatch(addToCart(selectedProduct));
       navigate("/store/cart");
     }
   };
-  console.log(cart);
   return (
     <Grid container sx={{ background: "#E5E5E5" }}>
       <Grid item xs={12}>
@@ -54,7 +53,8 @@ const Product = () => {
         sx={{ display: "flex", justifyContent: "center" }}
       >
         <img
-          src={`https://mistrain-api.onrender.com/${imageUrl}`}
+          // src={`https://mistrain-api.onrender.com/${imageUrl}`}
+          src={`http://localhost:8000/${imageUrl}`}
           alt="product"
           width="400"
           height="400"

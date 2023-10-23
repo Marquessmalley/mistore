@@ -8,8 +8,7 @@ import {
   IconButton,
   Badge,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import logo from "../../../assets/images/MIS1.png";
+import { Link, useNavigate } from "react-router-dom";
 // import { storeNavItems } from "constants/navItems";
 import SearchBox from "../../UI/SearchBox/SearchBox";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -31,6 +30,8 @@ export const storeNavItems = [
 ];
 
 const Navbar = ({ handleToggleDrawer }) => {
+  const navigate = useNavigate();
+
   const cartItems = useSelector((state) => state.cart.items);
 
   return (
@@ -79,14 +80,11 @@ const Navbar = ({ handleToggleDrawer }) => {
         <SearchBox />
 
         {/* CART */}
-
-        <Badge
-          badgeContent={cartItems.length}
-          sx={{ marginLeft: "2rem" }}
-          color="secondary"
-        >
-          <ShoppingCartIcon sx={{ color: "#fff" }} />
-        </Badge>
+        <IconButton aria-label="cart" onClick={() => navigate("/store/cart")}>
+          <Badge badgeContent={cartItems.length} color="secondary">
+            <ShoppingCartIcon sx={{ color: "#fff" }} />
+          </Badge>
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

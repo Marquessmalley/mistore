@@ -24,7 +24,8 @@ const ProductCard = ({ data }) => {
           key={index} // Use a unique key for each image
           component="img"
           height="180"
-          src={`https://mistrain-api.onrender.com/${imageUrl}`} // Use the image URL from the array
+          src={`https://mistrain-api.onrender.com/${imageUrl}`}
+          // src={`http://localhost:8000/${imageUrl}`}
           alt={data.name}
         />
       ))}
