@@ -53,8 +53,8 @@ const Product = () => {
         sx={{ display: "flex", justifyContent: "center" }}
       >
         <img
-          // src={`https://mistrain-api.onrender.com/${imageUrl}`}
-          src={`http://localhost:8000/${imageUrl}`}
+          src={`https://mistrain-api.onrender.com/${imageUrl}`}
+          // src={`http://localhost:8000/${imageUrl}`}
           alt="product"
           width="400"
           height="400"
