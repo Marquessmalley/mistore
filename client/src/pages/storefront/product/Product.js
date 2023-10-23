@@ -37,7 +37,7 @@ const Product = () => {
       navigate("/store/cart");
     }
   };
-
+  console.log(cart);
   return (
     <Grid container sx={{ background: "#E5E5E5" }}>
       <Grid item xs={12}>

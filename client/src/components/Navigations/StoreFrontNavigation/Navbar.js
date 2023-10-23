@@ -32,7 +32,7 @@ export const storeNavItems = [
 
 const Navbar = ({ handleToggleDrawer }) => {
   const cartItems = useSelector((state) => state.cart.items);
-  console.log(cartItems.length);
+
   return (
     <AppBar component="nav" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar
