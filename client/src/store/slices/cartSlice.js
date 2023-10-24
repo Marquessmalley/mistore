@@ -24,8 +24,15 @@ const cartSlice = createSlice({
       const newCart = state.items.filter((item) => item.id !== action.payload);
       state.items = newCart;
     },
+    calculateTotal: (state, action) => {
+      const cartTotal = state.items.reduce(
+        (acc, item) => (acc + item.price) * item.quantity,
+        0
+      );
+      state.totalCost = cartTotal;
+    },
   },
 });
 
-export const { addToCart, removeItem } = cartSlice.actions;
+export const { addToCart, removeItem, calculateTotal } = cartSlice.actions;
 export default cartSlice;
