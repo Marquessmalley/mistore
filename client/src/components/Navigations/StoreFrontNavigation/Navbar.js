@@ -9,25 +9,25 @@ import {
   Badge,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { storeNavItems } from "constants/navItems";
+// import { storeNavItems } from "constants/navItems";
 import SearchBox from "../../UI/SearchBox/SearchBox";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 
-// export const storeNavItems = [
-//   {
-//     id: 0,
-//     name: "Home",
-//     path: "/store",
-//   },
-//   {
-//     id: 1,
-//     name: "Products",
-//     path: "/store/products",
-//   },
-//   { id: 2, name: "About", path: "/store/about" },
-// ];
+export const storeNavItems = [
+  {
+    id: 0,
+    name: "Home",
+    path: "/store",
+  },
+  {
+    id: 1,
+    name: "Products",
+    path: "/store/products",
+  },
+  { id: 2, name: "About", path: "/store/about" },
+];
 
 const Navbar = ({ handleToggleDrawer }) => {
   const navigate = useNavigate();
