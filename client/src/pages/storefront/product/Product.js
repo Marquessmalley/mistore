@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectProductById } from "../../../features/products/productsApiSlice";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { addToCart } from "store/slices/cartSlice";
+import { v4 as uuidv4 } from "uuid";
 
 const Product = () => {
   const { id } = useParams();
@@ -23,9 +24,11 @@ const Product = () => {
   });
 
   const handleAddToCart = () => {
+    const uniqueId = uuidv4();
     if (selectedSize !== null) {
       const selectedProduct = {
-        id: product?.id,
+        cart_id: uniqueId,
+        prod_id: product?.id,
         name: product?.name,
         gender: product?.gender,
         images: product?.images,
@@ -34,7 +37,6 @@ const Product = () => {
         size: selectedSize,
       };
       dispatch(addToCart(selectedProduct));
-      navigate("/store/cart");
     }
   };
   return (

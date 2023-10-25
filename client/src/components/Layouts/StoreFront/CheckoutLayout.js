@@ -42,19 +42,13 @@ const CheckoutLayout = () => {
   }, [activeStep]);
 
   return (
-    <CheckoutContex.Provider value={{ activeStep }}>
+    <CheckoutContex.Provider value={{ activeStep, handleNext }}>
       <Grid container>
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
           <MuiStepper />
         </Grid>
         <Outlet />
         <Grid item xs={12}>
-          {activeStep === 0 && (
-            <Button variant="contained" onClick={handleNext}>
-              Checkout Now
-            </Button>
-          )}
-
           {activeStep === 1 && (
             <>
               <Button variant="contained" onClick={handleBack}>

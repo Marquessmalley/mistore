@@ -1,13 +1,16 @@
-import { useEffect } from "react";
-import { Grid, IconButton } from "@mui/material";
+import { useEffect, useContext } from "react";
+import { Grid, IconButton, Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { removeItem, calculateTotal } from "../../../store/slices/cartSlice";
+// import { removeItem, calculateTotal } from "../../../store/slices/cartSlice";
+import { removeItem, calculateTotal } from "store/slices/cartSlice";
 import CloseIcon from "@mui/icons-material/Close";
+import { CheckoutContex } from "components/Layouts/StoreFront/CheckoutLayout";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const { handleNext } = useContext(CheckoutContex);
 
   useEffect(() => {
     dispatch(calculateTotal());
@@ -19,7 +22,7 @@ const Cart = () => {
         <h1>My Cart </h1>
       </Grid>
       {cart.items.length === 0 ? (
-        <p>No cart items</p>
+        <p>Your cart is empty</p>
       ) : (
         <>
           <Grid item xs={12} md={8} lg={8}>
@@ -33,9 +36,8 @@ const Cart = () => {
               return (
                 <Grid
                   item
-                  key={item.id}
+                  key={item.cart_id}
                   sx={{
-                    // border: ".5px solid black",
                     borderRadius: "10px",
                     display: "flex",
                     alignItems: "flex-start",
@@ -73,7 +75,7 @@ const Cart = () => {
                   </div>
 
                   <div>
-                    <IconButton onClick={() => dispatch(removeItem(item.id))}>
+                    <IconButton onClick={() => dispatch(removeItem(item))}>
                       <CloseIcon />
                     </IconButton>
                   </div>
@@ -89,15 +91,28 @@ const Cart = () => {
             sx={{
               boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.8)",
               borderRadius: "10px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
             }}
           >
-            <h1 style={{ margin: "1rem" }}>Order Summary</h1>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <p>Total Cost: </p>
-              <p style={{ fontWeight: "bold", marginRight: "1rem" }}>
-                ${cart.totalCost}
-              </p>
+            <div
+              style={{
+                // display: "flex",
+                // flexDirection: "column",
+                margin: "1rem",
+              }}
+            >
+              <h1>Order Summary</h1>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <p>Total Cost: </p>
+                <p style={{ fontWeight: "bold" }}>${cart.totalCost}</p>
+              </div>
             </div>
+
+            <Button variant="contained" onClick={handleNext}>
+              Checkout Now
+            </Button>
           </Grid>
         </>
       )}
