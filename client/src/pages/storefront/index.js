@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
-
   return (
     <Grid container sx={{ height: "85vh", background: "#E5E5E5" }}>
       <Grid

@@ -2,7 +2,6 @@ import { useEffect, useContext } from "react";
 import { Grid, IconButton, Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-// import { removeItem, calculateTotal } from "../../../store/slices/cartSlice";
 import { removeItem, calculateTotal } from "store/slices/cartSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import { CheckoutContex } from "components/Layouts/StoreFront/CheckoutLayout";
@@ -49,8 +48,7 @@ const Cart = () => {
                 >
                   <div style={{ display: "flex", padding: "1rem" }}>
                     <img
-                      src={`https://mistrain-api.onrender.com/${imageUrl}`}
-                      // src={`http://localhost:8000/${imageUrl}`}
+                      src={`${process.env.REACT_APP_DOMAIN_KEY}/${imageUrl}`}
                       alt="cart"
                       width="150"
                       height="200"
