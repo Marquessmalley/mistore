@@ -22,9 +22,13 @@ const cartSlice = createSlice({
       }
     },
     removeItem: (state, action) => {
+      const { price, quantity } = action.payload;
+
       const newCart = state.items.filter(
         (item) => item.cart_id !== action.payload.cart_id
       );
+
+      state.totalCost = state.totalCost - price * quantity;
       state.items = newCart;
     },
     calculateTotal: (state, action) => {

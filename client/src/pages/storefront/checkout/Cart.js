@@ -21,7 +21,9 @@ const Cart = () => {
         <h1>My Cart </h1>
       </Grid>
       {cart.items.length === 0 ? (
-        <p>Your cart is empty</p>
+        <Grid item xs={12} md={8} lg={8}>
+          Your cart is empty
+        </Grid>
       ) : (
         <>
           <Grid item xs={12} md={8} lg={8}>
@@ -61,10 +63,34 @@ const Cart = () => {
                         <span style={{ fontWeight: "bold" }}>Size: </span>
                         {item.size}
                       </p>
-                      <p>
+                      <div>
                         <span style={{ fontWeight: "bold" }}>Qty: </span>
+                        <button
+                          style={{
+                            border: ".8px solid blue",
+                            marginRight: ".5rem",
+                            width: "30px",
+                            height: "30px",
+                            borderRadius: "15px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          +
+                        </button>
                         {item.quantity}
-                      </p>
+                        <button
+                          style={{
+                            border: ".8px solid blue",
+                            marginLeft: ".5rem",
+                            width: "30px",
+                            height: "30px",
+                            borderRadius: "15px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          -
+                        </button>
+                      </div>
                       <p>
                         <span style={{ fontWeight: "bold" }}>Price: </span>$
                         {item.price}
@@ -81,39 +107,41 @@ const Cart = () => {
               );
             })}
           </Grid>
-          <Grid
-            item
-            xs={12}
-            md={4}
-            lg={4}
-            sx={{
-              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.8)",
-              borderRadius: "10px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <div
-              style={{
-                // display: "flex",
-                // flexDirection: "column",
-                margin: "1rem",
-              }}
-            >
-              <h1>Order Summary</h1>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <p>Total Cost: </p>
-                <p style={{ fontWeight: "bold" }}>${cart.totalCost}</p>
-              </div>
-            </div>
-
-            <Button variant="contained" onClick={handleNext}>
-              Checkout Now
-            </Button>
-          </Grid>
         </>
       )}
+      <Grid
+        item
+        xs={12}
+        md={4}
+        lg={4}
+        sx={{
+          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.8)",
+          borderRadius: "10px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <div
+          style={{
+            margin: "1rem",
+          }}
+        >
+          <h1>Order Summary</h1>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <p>Total Cost: </p>
+            <p style={{ fontWeight: "bold" }}>${cart.totalCost}</p>
+          </div>
+        </div>
+
+        <Button
+          variant="contained"
+          onClick={handleNext}
+          disabled={cart.items.length === 0 ? true : false}
+        >
+          Checkout Now
+        </Button>
+      </Grid>
     </Grid>
   );
 };
