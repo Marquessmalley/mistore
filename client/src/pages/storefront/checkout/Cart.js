@@ -5,6 +5,10 @@ import { useDispatch } from "react-redux";
 import { removeItem, calculateTotal } from "store/slices/cartSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import { CheckoutContex } from "components/Layouts/StoreFront/CheckoutLayout";
+import {
+  handleAddQuantity,
+  handleSubtractQuantity,
+} from "store/slices/cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -74,6 +78,7 @@ const Cart = () => {
                             borderRadius: "15px",
                             cursor: "pointer",
                           }}
+                          onClick={() => dispatch(handleAddQuantity(item))}
                         >
                           +
                         </button>
@@ -87,6 +92,7 @@ const Cart = () => {
                             borderRadius: "15px",
                             cursor: "pointer",
                           }}
+                          onClick={() => dispatch(handleSubtractQuantity(item))}
                         >
                           -
                         </button>

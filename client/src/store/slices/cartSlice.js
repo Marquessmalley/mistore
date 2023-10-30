@@ -31,6 +31,31 @@ const cartSlice = createSlice({
       state.totalCost = state.totalCost - price * quantity;
       state.items = newCart;
     },
+    handleAddQuantity: (state, action) => {
+      console.log("yoo");
+      const { prod_id, cart_id } = action.payload;
+
+      const existingItem = state.items.find(
+        (item) => item.prod_id === prod_id && item.cart_id === cart_id
+      );
+      if (existingItem) {
+        existingItem.quantity += 1;
+        state.totalCost += existingItem.price;
+      }
+    },
+    handleSubtractQuantity: (state, action) => {
+      const { prod_id, cart_id } = action.payload;
+
+      const existingItem = state.items.find(
+        (item) => item.prod_id === prod_id && item.cart_id === cart_id
+      );
+      if (existingItem) {
+        if (existingItem.quantity > 1) {
+          existingItem.quantity -= 1;
+          state.totalCost -= existingItem.price;
+        }
+      }
+    },
     calculateTotal: (state, action) => {
       const cartTotal = state.items.reduce(
         (acc, item) => acc + item.price * item.quantity,
@@ -41,5 +66,11 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeItem, calculateTotal } = cartSlice.actions;
+export const {
+  addToCart,
+  removeItem,
+  calculateTotal,
+  handleAddQuantity,
+  handleSubtractQuantity,
+} = cartSlice.actions;
 export default cartSlice;
