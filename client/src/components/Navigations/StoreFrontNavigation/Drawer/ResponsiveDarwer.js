@@ -140,7 +140,10 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
         <form>
           {/* CATEGORY */}
           <ListItem>
-            <ListItemButton onClick={handleCategoryClick} sx={{}}>
+            <ListItemButton
+              onClick={handleCategoryClick}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Box sx={{ display: "flex", mr: 6 }}>
                 <Typography sx={{}}>Category</Typography>
               </Box>
@@ -171,7 +174,10 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
 
           {/* COLORS */}
           <ListItem>
-            <ListItemButton onClick={handleColorClick} sx={{}}>
+            <ListItemButton
+              onClick={handleColorClick}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Box sx={{ display: "flex", mr: 6 }}>
                 <Typography sx={{}}>Colors</Typography>
               </Box>
@@ -202,7 +208,10 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
 
           {/* PRICE */}
           <ListItem>
-            <ListItemButton onClick={handlePriceClick} sx={{}}>
+            <ListItemButton
+              onClick={handlePriceClick}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Box sx={{ display: "flex", mr: 6 }}>
                 <Typography sx={{}}>Price</Typography>
               </Box>
@@ -251,7 +260,10 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
         <form>
           {/* CATEGORY */}
           <ListItem>
-            <ListItemButton onClick={handleCategoryClick} sx={{}}>
+            <ListItemButton
+              onClick={handleCategoryClick}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Box sx={{ display: "flex", mr: 6 }}>
                 <Typography sx={{}}>Category</Typography>
               </Box>
@@ -282,7 +294,10 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
 
           {/* COLORS */}
           <ListItem>
-            <ListItemButton onClick={handleColorClick} sx={{}}>
+            <ListItemButton
+              onClick={handleColorClick}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Box sx={{ display: "flex", mr: 6 }}>
                 <Typography sx={{}}>Colors</Typography>
               </Box>
@@ -313,7 +328,10 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
 
           {/* PRICE */}
           <ListItem>
-            <ListItemButton onClick={handlePriceClick} sx={{}}>
+            <ListItemButton
+              onClick={handlePriceClick}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Box sx={{ display: "flex", mr: 6 }}>
                 <Typography sx={{}}>Price</Typography>
               </Box>
@@ -332,6 +350,7 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
               aria-labelledby="range-slider"
               min={0}
               max={100}
+              sx={{ width: "75%" }}
             />
             <Typography variant="body2">
               ${price[0]} - ${price[1]}

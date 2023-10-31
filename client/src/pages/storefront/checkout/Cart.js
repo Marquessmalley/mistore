@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { Grid, IconButton, Button, Box } from "@mui/material";
+import { Grid, IconButton, Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { removeItem, calculateTotal } from "store/slices/cartSlice";
