@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { Grid, IconButton, Button } from "@mui/material";
+import { Grid, IconButton, Button, Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { removeItem, calculateTotal } from "store/slices/cartSlice";
@@ -41,25 +41,33 @@ const Cart = () => {
               return (
                 <Grid
                   item
+                  lg={12}
                   key={item.cart_id}
                   sx={{
                     borderRadius: "10px",
                     display: "flex",
-                    alignItems: "flex-start",
-                    justifyContent: "space-between",
                     margin: "1rem",
-                    height: "35vh",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.8)",
                   }}
                 >
-                  <div style={{ display: "flex", padding: "1rem" }}>
+                  <Grid item xs={12} md={4} lg={3} sx={{ margin: "1rem" }}>
                     <img
                       src={`${process.env.REACT_APP_DOMAIN_KEY}/${imageUrl}`}
-                      alt="cart"
-                      width="150"
-                      height="200"
+                      alt="item"
+                      width="100%"
+                      height="280"
                     />
-                    <div style={{ padding: "1rem" }}>
+                  </Grid>
+                  <Grid item xs={12} md={8} lg={8}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-evenly",
+
+                        height: "38vh",
+                      }}
+                    >
                       <p style={{ fontWeight: "bold", fontSize: "22px" }}>
                         {item.name}
                       </p>
@@ -102,13 +110,12 @@ const Cart = () => {
                         {item.price}
                       </p>
                     </div>
-                  </div>
-
-                  <div>
+                  </Grid>
+                  <Grid item xs={1} sx={{ textAlign: "center" }}>
                     <IconButton onClick={() => dispatch(removeItem(item))}>
                       <CloseIcon />
                     </IconButton>
-                  </div>
+                  </Grid>
                 </Grid>
               );
             })}
