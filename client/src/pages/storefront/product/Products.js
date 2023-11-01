@@ -1,5 +1,5 @@
-import React from "react";
-import { Grid } from "@mui/material";
+import { useState } from "react";
+import { Grid, Pagination } from "@mui/material";
 import ProductCard from "../../../components/UI/Card/ProductCard";
 import {
   useGetProductsQuery,
@@ -7,8 +7,22 @@ import {
 } from "../../../features/products/productsApiSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 const Products = () => {
-  const { data: products, isLoading, isError, error } = useGetProductsQuery();
+  const {
+    data: products,
+    isSuccess,
+    isLoading,
+    isError,
+    error,
+  } = useGetProductsQuery();
   // const products = useSelector(selectAllProducts);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedProducts = products?.ids.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(products?.ids.length / itemsPerPage);
 
   return (
     <Grid container>
@@ -27,7 +41,7 @@ const Products = () => {
         </Grid>
       )}
       {products?.ids.length &&
-        products.ids.map((id) => (
+        displayedProducts.map((id) => (
           <Grid
             item
             m={3}
@@ -40,6 +54,23 @@ const Products = () => {
             <ProductCard data={products.entities[id]} />
           </Grid>
         ))}
+      {isSuccess && (
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "1rem",
+          }}
+        >
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={(event, page) => setCurrentPage(page)}
+          />
+        </Grid>
+      )}
     </Grid>
   );
 };

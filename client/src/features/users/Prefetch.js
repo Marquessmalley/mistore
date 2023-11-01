@@ -2,7 +2,7 @@ import { usersApiSlice } from "./usersApiSlice";
 import { productsApiSlice } from "../products/productsApiSlice";
 import { store } from "../../store/index";
 import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const Prefetch = () => {
   useEffect(() => {
@@ -12,6 +12,7 @@ const Prefetch = () => {
     const products = store.dispatch(
       productsApiSlice.endpoints.getProducts.initiate()
     );
+
     // store.dispatch(
     //   usersApiSlice.util.prefetch("getUsers", "usersList", { force: true })
     // );
