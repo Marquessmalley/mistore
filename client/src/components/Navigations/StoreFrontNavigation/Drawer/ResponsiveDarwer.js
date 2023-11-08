@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Drawer,
-  List,
   ListItem,
   ListItemButton,
   Collapse,
@@ -11,107 +10,102 @@ import {
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { productsFilteringContext } from "components/Layouts/StoreFront/StoreFrontLayout";
+
+const categories = [
+  {
+    id: 0,
+    label: "T-shirt",
+  },
+  {
+    id: 1,
+    label: "Hoodie",
+  },
+  {
+    id: 2,
+    label: "Shorts",
+  },
+  {
+    id: 3,
+    label: "Pants",
+  },
+  {
+    id: 4,
+    label: "Other",
+  },
+];
+
+const colors = [
+  {
+    id: 0,
+    label: "Red",
+  },
+  {
+    id: 1,
+    label: "Blue",
+  },
+  {
+    id: 2,
+    label: "Green",
+  },
+  {
+    id: 3,
+    label: "Yellow",
+  },
+  {
+    id: 4,
+    label: "Orange",
+  },
+  {
+    id: 5,
+    label: "Black",
+  },
+  {
+    id: 6,
+    label: "White",
+  },
+  {
+    id: 7,
+    label: "Brown",
+  },
+];
 
 const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
   const drawerWidth = 240;
 
-  const [category, setCategory] = useState([
-    {
-      id: 0,
-      label: "T-shirt",
-      ischecked: false,
-    },
-    {
-      id: 1,
-      label: "Hoodie",
-      ischecked: false,
-    },
-    {
-      id: 2,
-      label: "Hoodie",
-      ischecked: false,
-    },
-    {
-      id: 3,
-      label: "Shorts",
-      ischecked: false,
-    },
-    {
-      id: 4,
-      label: "Pants",
-      ischecked: false,
-    },
-    {
-      id: 5,
-      label: "Other",
-      ischecked: false,
-    },
-  ]);
-
-  const [colors, setColors] = useState([
-    {
-      id: 0,
-      label: "Red",
-      ischecked: false,
-    },
-    {
-      id: 1,
-      label: "Blue",
-      ischecked: false,
-    },
-    {
-      id: 2,
-      label: "Green",
-      ischecked: false,
-    },
-    {
-      id: 3,
-      label: "Yellow",
-      ischecked: false,
-    },
-    {
-      id: 4,
-      label: "Orange",
-      ischecked: false,
-    },
-    {
-      id: 5,
-      label: "Black",
-      ischecked: false,
-    },
-    {
-      id: 6,
-      label: "White",
-      ischecked: false,
-    },
-    {
-      id: 7,
-      label: "Brown",
-      ischecked: false,
-    },
-  ]);
   const [price, setPrice] = useState([20, 80]);
 
   const [openCategory, setOpenCategory] = useState(false);
   const [openColor, setOpenColor] = useState(false);
   const [openPrice, setOpenPrice] = useState(false);
 
+  const {
+    selectedCategories,
+    selectedColors,
+    setSelectedCategories,
+    setSelectedColors,
+  } = useContext(productsFilteringContext);
+
   const handleCategoryClick = () => setOpenCategory(!openCategory);
   const handleColorClick = () => setOpenColor(!openColor);
   const handlePriceClick = () => setOpenPrice(!openPrice);
 
-  const handleCategoryChange = (id) => {
-    setCategory((prevState) => {
-      return prevState.map((item) =>
-        item.id === id ? { ...item, ischecked: !item.ischecked } : item
-      );
+  const handleCategoryChange = (item) => {
+    setSelectedCategories((prevState) => {
+      if (prevState.includes(item.label)) {
+        return prevState.filter((category) => category !== item.label);
+      } else {
+        return [...prevState, item.label];
+      }
     });
   };
-  const handleColorChange = (id) => {
-    setColors((prevState) => {
-      return prevState.map((item) =>
-        item.id === id ? { ...item, ischecked: !item.ischecked } : item
-      );
+  const handleColorChange = (item) => {
+    setSelectedColors((prevState) => {
+      if (prevState.includes(item.label)) {
+        return prevState.filter((category) => category !== item.label);
+      } else {
+        return [...prevState, item.label];
+      }
     });
   };
   const handlePriceChange = (e, newValue) => {
@@ -121,7 +115,6 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
   return (
     <>
       <Drawer
-        // container={container}
         variant="temporary"
         open={filterMobileOpen}
         onClose={handleFilterDrawerToggle}
@@ -155,15 +148,20 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
             </ListItemButton>
           </ListItem>
           <Collapse in={openCategory} timeout="auto" unmountOnExit>
-            {category.map((item) => {
+            {categories.map((item) => {
               return (
-                <div key={item.id}>
+                <div
+                  key={item.id}
+                  style={{
+                    marginLeft: "2rem",
+                  }}
+                >
                   <label>
                     <input
                       type="checkbox"
-                      checked={item.ischecked}
-                      name="category"
-                      onChange={() => handleCategoryChange(item.id)}
+                      checked={selectedCategories.includes(item.label)}
+                      // name="category"
+                      onChange={() => handleCategoryChange(item)}
                     />
                     {item.label}
                   </label>
@@ -191,13 +189,18 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
           <Collapse in={openColor} timeout="auto" unmountOnExit>
             {colors.map((item) => {
               return (
-                <div key={item.id}>
+                <div
+                  key={item.id}
+                  style={{
+                    marginLeft: "2rem",
+                  }}
+                >
                   <label>
                     <input
                       type="checkbox"
-                      checked={item.ischecked}
-                      name="category"
-                      onChange={() => handleColorChange(item.id)}
+                      checked={selectedColors.includes(item.label)}
+                      name="colors"
+                      onChange={() => handleColorChange(item)}
                     />
                     {item.label}
                   </label>
@@ -275,15 +278,21 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
             </ListItemButton>
           </ListItem>
           <Collapse in={openCategory} timeout="auto" unmountOnExit>
-            {category.map((item) => {
+            {categories.map((item) => {
               return (
-                <div key={item.id}>
+                <div
+                  key={item.id}
+                  style={{
+                    marginLeft: "2rem",
+                  }}
+                >
                   <label>
                     <input
                       type="checkbox"
-                      checked={item.ischecked}
+                      checked={selectedCategories.includes(item.label)}
                       name="category"
-                      onChange={() => handleCategoryChange(item.id)}
+                      onChange={() => handleCategoryChange(item)}
+                      style={{ margin: ".5rem" }}
                     />
                     {item.label}
                   </label>
@@ -311,13 +320,18 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
           <Collapse in={openColor} timeout="auto" unmountOnExit>
             {colors.map((item) => {
               return (
-                <div key={item.id}>
+                <div
+                  key={item.id}
+                  style={{
+                    marginLeft: "2rem",
+                  }}
+                >
                   <label>
                     <input
                       type="checkbox"
-                      checked={item.ischecked}
-                      name="category"
-                      onChange={() => handleColorChange(item.id)}
+                      checked={selectedColors.includes(item.label)}
+                      name="colors"
+                      onChange={() => handleColorChange(item)}
                     />
                     {item.label}
                   </label>

@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Grid, Pagination } from "@mui/material";
 import ProductCard from "../../../components/UI/Card/ProductCard";
 import {
   useGetProductsQuery,
   selectAllProducts,
 } from "../../../features/products/productsApiSlice";
+import { productsFilteringContext } from "components/Layouts/StoreFront/StoreFrontLayout";
 import CircularProgress from "@mui/material/CircularProgress";
+
 const Products = () => {
+  const { selectedCategories, selectedColors } = useContext(
+    productsFilteringContext
+  );
   const {
     data: products,
     isSuccess,
