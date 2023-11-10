@@ -15,7 +15,7 @@ import { productsFilteringContext } from "components/Layouts/StoreFront/StoreFro
 const categories = [
   {
     id: 0,
-    label: "T-shirt",
+    label: "T-Shirt",
   },
   {
     id: 1,

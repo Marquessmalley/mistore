@@ -7,6 +7,7 @@ import {
 } from "../../../features/products/productsApiSlice";
 import { productsFilteringContext } from "components/Layouts/StoreFront/StoreFrontLayout";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Category } from "@mui/icons-material";
 
 const Products = () => {
   const { selectedCategories, selectedColors } = useContext(
@@ -29,6 +30,17 @@ const Products = () => {
   const displayedProducts = products?.ids.slice(startIndex, endIndex);
   const totalPages = Math.ceil(products?.ids.length / itemsPerPage);
 
+  const filteredProducts = products?.ids.filter((id) => {
+    const category = products.entities[id].category;
+    const categoryMatch =
+      selectedCategories.length === 0 || selectedCategories.includes(category);
+
+    const color = products.entities[id].colors[0];
+    const colorMatch =
+      selectedColors.length === 0 || selectedColors.includes(color);
+    return categoryMatch && colorMatch;
+  });
+
   return (
     <Grid container>
       {/* PRODUCTS GRID ITEM */}
@@ -46,7 +58,7 @@ const Products = () => {
         </Grid>
       )}
       {products?.ids.length &&
-        displayedProducts.map((id) => (
+        filteredProducts.map((id) => (
           <Grid
             item
             m={3}
