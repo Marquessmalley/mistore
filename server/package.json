@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "NODE_ENV=development DOMAIN=http://localhost:3000 nodemon server.js",
-    "start:prod": "NODE_ENV=production DOMAIN=https://mistrains.shop nodemon server.js"
+    "start:prod": "NODE_ENV=production DOMAIN=https://mistrains.shop nodemon server.js",
+    "seed:data": "NODE_ENV=development node dev-data/import-dev-data.js"
   },
   "author": "",
   "license": "ISC",

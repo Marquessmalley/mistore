@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Cool T-Shirt",
+    "description": "A stylish and comfortable T-shirt for any occasion",
+    "images": ["images/black-shirt.jpg"],
+    "category": "T-Shirt",
+    "quantity": 100,
+    "sizes": ["Small", "Medium", "Large"],
+    "colors": ["Black"],
+    "gender": ["Mens"],
+    "price": 19.99
+  },
+  {
+    "name": "Casual Hoodie",
+    "description": "A cozy hoodie to keep you warm in colder weather",
+    "images": ["images/black-hoodie.jpg"],
+    "category": "Hoodie",
+    "quantity": 50,
+    "sizes": ["Medium", "Large"],
+    "colors": ["Black"],
+    "gender": ["Womens"],
+    "price": 39.99
+  },
+  {
+    "name": "Demin Pants",
+    "description": "Comfortable shorts for an active lifestyle",
+    "images": ["images/pants.jpg"],
+    "category": "Pants",
+    "quantity": 75,
+    "sizes": ["Small", "Large"],
+    "colors": ["Blue"],
+    "gender": ["Mens", "Womens"],
+    "price": 29.99
+  },
+  {
+    "name": "All White Tee",
+    "description": "Comfortable shirt for an active lifestyle",
+    "images": ["images/white-shirt.jpg"],
+    "category": "T-Shirt",
+    "quantity": 75,
+    "sizes": ["Small", "Large"],
+    "colors": ["White"],
+    "gender": ["Mens", "Womens"],
+    "price": 29.99
+  },
+  {
+    "name": "Blue Jeans",
+    "description": "Comfortable jeand for an active lifestyle",
+    "images": ["images/jeans.jpg"],
+    "category": "Pants",
+    "quantity": 75,
+    "sizes": ["Small", "Large"],
+    "colors": ["Blue"],
+    "gender": ["Mens"],
+    "price": 59.99
+  }
+]

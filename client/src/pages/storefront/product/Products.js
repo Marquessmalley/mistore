@@ -88,6 +88,11 @@ const Products = () => {
           />
         </Grid>
       )}
+      {error && (
+        <Grid item xs={12} sx={{ textAlign: "center" }}>
+          <p>{error?.data.message}</p>
+        </Grid>
+      )}
     </Grid>
   );
 };
