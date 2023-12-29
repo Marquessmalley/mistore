@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import {
   Grid,
   Box,
@@ -18,7 +18,7 @@ import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
 import { useCreateProductMutation } from "./productsApiSlice";
 import ClearIcon from "@mui/icons-material/Clear";
 import "./products.css";
-
+import { ThemeContext } from "App";
 const colors = [
   "Red",
   "Blue",
@@ -67,6 +67,8 @@ const AddProduct = () => {
   const [categoryErr, setCategoryErr] = useState(false);
   const [sizesErr, setSizesErr] = useState(false);
   const [priceErr, setPriceErr] = useState(false);
+
+  const { darkMode } = useContext(ThemeContext);
 
   const [createProduct, { isSuccess, isError, error }] =
     useCreateProductMutation();
@@ -248,7 +250,7 @@ const AddProduct = () => {
         sx={{
           padding: "1rem",
           borderRadius: "10px",
-          background: "rgb(33, 43, 54)",
+          background: darkMode ? "rgb(33, 43, 54)" : "#eeeeee",
         }}
       >
         {error && (
@@ -269,7 +271,7 @@ const AddProduct = () => {
           error={nameErr}
           InputProps={{
             style: {
-              color: "#fff", // Change the text color to red
+              color: darkMode ? "#fff" : "#000", // Change the text color to red
             },
           }}
           sx={{ marginBottom: "2rem" }}
@@ -288,7 +290,7 @@ const AddProduct = () => {
           error={descErr}
           InputProps={{
             style: {
-              color: "#fff", // Change the text color to red
+              color: darkMode ? "#fff" : "#000", // Change the text color to red
             },
           }}
           sx={{ marginBottom: "2rem" }}
@@ -298,7 +300,7 @@ const AddProduct = () => {
             sx={{
               fontWeight: 600,
               fontSize: "0.875rem",
-              color: "#fff",
+              color: darkMode ? "#fff" : "#000",
               marginBottom: ".8rem",
             }}
           >
@@ -318,12 +320,19 @@ const AddProduct = () => {
               style={{ display: "none" }}
             />
             <Typography
-              sx={{ fontWeight: 700, fontSize: "1rem", color: "#fff" }}
+              sx={{
+                fontWeight: 700,
+                fontSize: "1rem",
+                color: darkMode ? "#fff" : "#000",
+              }}
             >
               Drop or Select file
             </Typography>
             <Typography
-              sx={{ fontSize: "0.875remrem", color: "rgb(145, 158, 171)" }}
+              sx={{
+                fontSize: "0.875remrem",
+                color: darkMode ? "rgb(145, 158, 171)" : "#000",
+              }}
             >
               Drop files here or click to browse through your machine
             </Typography>
@@ -362,7 +371,11 @@ const AddProduct = () => {
                     }}
                   >
                     <ClearIcon
-                      sx={{ color: "#fff", width: "14px", height: "14px" }}
+                      sx={{
+                        color: darkMode ? "#fff" : "#000",
+                        width: "14px",
+                        height: "14px",
+                      }}
                     />
                   </IconButton>
                 </li>
@@ -374,11 +387,14 @@ const AddProduct = () => {
       {/* ADDITIONAL PROPERTIES SECTION */}
       <Grid item mt={5} xs={12} sm={12} md={4} lg={5}>
         <Box>
-          <Typography sx={{ fontWeight: 700, lineHeight: 1.5, color: "#fff" }}>
+          <Typography sx={{ fontWeight: 700, lineHeight: 1.5 }}>
             Properties
           </Typography>
           <Typography
-            sx={{ fontSize: "0.875rem", color: "rgb(145, 158, 171)" }}
+            sx={{
+              fontSize: "0.875rem",
+              color: darkMode ? "rgb(145, 158, 171)" : "#000",
+            }}
           >
             Additonal functions and attributes
           </Typography>
@@ -394,7 +410,7 @@ const AddProduct = () => {
         sx={{
           padding: "1rem",
           borderRadius: "10px",
-          background: "rgb(33, 43, 54)",
+          background: darkMode ? "rgb(33, 43, 54)" : "#eeeeee",
         }}
       >
         <Box
@@ -418,7 +434,7 @@ const AddProduct = () => {
             error={quantityErr}
             InputProps={{
               style: {
-                color: "#fff", // Change the text color to red
+                color: darkMode ? "#fff" : "#000", // Change the text color to red
               },
             }}
             sx={{ width: "250px" }}
@@ -435,7 +451,7 @@ const AddProduct = () => {
             error={categoryErr}
             InputProps={{
               style: {
-                color: "#fff", // Change the text color to red
+                color: darkMode ? "#fff" : "#000", // Change the text color to red
               },
             }}
             sx={{
@@ -475,7 +491,7 @@ const AddProduct = () => {
             }}
             InputProps={{
               style: {
-                color: "#fff", // Change the text color to red
+                color: darkMode ? "#fff" : "#000", // Change the text color to red
               },
             }}
             sx={{
@@ -507,7 +523,7 @@ const AddProduct = () => {
             }}
             InputProps={{
               style: {
-                color: "#fff", // Change the text color to red
+                color: darkMode ? "#fff" : "#000", // Change the text color to red
               },
             }}
             sx={{
@@ -526,7 +542,11 @@ const AddProduct = () => {
 
         <Box>
           <Typography
-            sx={{ color: "#fff", fontWeight: 600, fontSize: "0.875rem" }}
+            sx={{
+              color: darkMode ? "#fff" : "#000",
+              fontWeight: 600,
+              fontSize: "0.875rem",
+            }}
           >
             Gender
           </Typography>
@@ -534,7 +554,10 @@ const AddProduct = () => {
             <FormControlLabel
               control={
                 <Checkbox
-                  sx={{ color: "#fff", transform: "scale(.9)" }}
+                  sx={{
+                    color: darkMode ? "#fff" : "#000",
+                    transform: "scale(.9)",
+                  }}
                   checked={maleChecked}
                   onChange={handleMaleChange}
                 />
@@ -545,7 +568,10 @@ const AddProduct = () => {
             <FormControlLabel
               control={
                 <Checkbox
-                  sx={{ color: "#fff", transform: "scale(.9)" }}
+                  sx={{
+                    color: darkMode ? "#fff" : "#000",
+                    transform: "scale(.9)",
+                  }}
                   checked={femaleChecked}
                   onChange={handleFemaleChange}
                 />
@@ -558,11 +584,20 @@ const AddProduct = () => {
       </Grid>
       <Grid item mt={5} xs={12} sm={12} md={4} lg={5}>
         <Box>
-          <Typography sx={{ fontWeight: 700, lineHeight: 1.5, color: "#fff" }}>
+          <Typography
+            sx={{
+              fontWeight: 700,
+              lineHeight: 1.5,
+              color: darkMode ? "#fff" : "#000",
+            }}
+          >
             Pricing
           </Typography>
           <Typography
-            sx={{ fontSize: "0.875rem", color: "rgb(145, 158, 171)" }}
+            sx={{
+              fontSize: "0.875rem",
+              color: darkMode ? "rgb(145, 158, 171)" : "#000",
+            }}
           >
             Price related inputs
           </Typography>
@@ -578,7 +613,7 @@ const AddProduct = () => {
         sx={{
           padding: "1rem",
           borderRadius: "10px",
-          background: "rgb(33, 43, 54)",
+          background: darkMode ? "rgb(33, 43, 54)" : "#eeeeee",
         }}
       >
         <TextField
@@ -594,7 +629,7 @@ const AddProduct = () => {
           error={priceErr}
           InputProps={{
             style: {
-              color: "#fff", // Change the text color to red
+              color: darkMode ? "#fff" : "#000", // Change the text color to red
             },
           }}
           sx={{ marginBottom: "2rem" }}

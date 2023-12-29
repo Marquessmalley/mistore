@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   Box,
   Typography,
@@ -9,6 +9,7 @@ import {
   MenuItem,
   IconButton,
   Fab,
+  Switch,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -22,12 +23,14 @@ import { useLogoutMutation } from "../../../features/auth/authApiSlice";
 import "./navBar.css";
 import jwtDecode from "jwt-decode";
 import { selectUserById } from "../../../features/users/usersApiSlice";
+import { ThemeContext } from "../../../App";
 
 const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState(null);
+  const { darkMode, toggleTheme } = useContext(ThemeContext);
 
   const token = useSelector((state) => state.auth.token);
 
@@ -65,7 +68,7 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
     <AppBar
       position="fixed"
       sx={{
-        background: "rgb(9, 20, 34)",
+        // background: "rgb(9, 20, 34)",
         width: { md: `calc(100% - ${drawerWidth}px)` },
         ml: { sm: `${drawerWidth}px` },
         pb: "2rem",
@@ -93,7 +96,7 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
               sx={{ mr: 2, display: { md: "none" } }}
               onClick={handleToggleDrawer}
             >
-              <MenuIcon />
+              <MenuIcon sx={{ color: darkMode ? "#fff" : "#000" }} />
             </IconButton>
             <Box
               sx={{
@@ -125,8 +128,13 @@ const NavBar = ({ handleToggleDrawer, drawerWidth }) => {
               }}
               mt={2}
             >
-              <SearchIcon sx={{ marginRight: "15px" }} />
-              <NotificationsNoneIcon sx={{ marginRight: "15px" }} />
+              <Switch checked={darkMode} onChange={toggleTheme} />
+              <SearchIcon
+                sx={{ marginRight: "15px", color: darkMode ? "#fff" : "#000" }}
+              />
+              <NotificationsNoneIcon
+                sx={{ marginRight: "15px", color: darkMode ? "#fff" : "#000" }}
+              />
               <Fab size="small" onClick={handleMenuClick}>
                 <PersonIcon />
               </Fab>

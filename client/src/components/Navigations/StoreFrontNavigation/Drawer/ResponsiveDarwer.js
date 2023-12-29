@@ -11,6 +11,7 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { productsFilteringContext } from "components/Layouts/StoreFront/StoreFrontLayout";
+import { ThemeContext } from "App";
 
 const categories = [
   {
@@ -85,6 +86,8 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
     setSelectedCategories,
     setSelectedColors,
   } = useContext(productsFilteringContext);
+
+  const { darkMode } = useContext(ThemeContext);
 
   const handleCategoryClick = () => setOpenCategory(!openCategory);
   const handleColorClick = () => setOpenColor(!openColor);
@@ -254,7 +257,6 @@ const ResponsiveDarwer = ({ filterMobileOpen, handleFilterDrawerToggle }) => {
             top: 140,
             left: 25,
             height: "80vh",
-            background: "#E5E5E5",
             borderRadius: "20px",
           },
         }}

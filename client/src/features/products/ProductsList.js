@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Grid,
   CircularProgress,
@@ -24,6 +24,7 @@ import { useGetProductsQuery } from "./productsApiSlice";
 import { dialogAction } from "../../store/slices/dialog";
 import MuiDialog from "../../components/UI/Dialog/MuiDialog";
 import QuickDelete from "./QuickDelete";
+import { ThemeContext } from "App";
 
 const ProductsList = () => {
   const navigate = useNavigate();
@@ -42,6 +43,8 @@ const ProductsList = () => {
     isError,
     error,
   } = useGetProductsQuery();
+
+  const { darkMode } = useContext(ThemeContext);
 
   const handleCheckboxClick = (params, event) => {
     event.stopPropagation(); // Prevents the row click event from being triggered
@@ -222,7 +225,7 @@ const ProductsList = () => {
         return (
           <div>
             <IconButton onClick={handleMenuOpen}>
-              <MoreVertIcon sx={{ color: "#fff" }} />
+              <MoreVertIcon sx={{ color: darkMode ? "#fff" : "#000" }} />
             </IconButton>
             <Menu
               anchorEl={anchorEl}
@@ -357,8 +360,8 @@ const ProductsList = () => {
               selectionModel={selectedRows}
               rowHeight={75}
               sx={{
-                background: "rgb(22, 28, 36)",
-                color: "#fff",
+                background: darkMode ? "rgb(22, 28, 36)" : "#fff",
+                color: darkMode ? "#fff" : "#000",
                 border: "none",
                 fontFamily: "Montserrat",
                 borderRadius: "15px",

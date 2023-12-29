@@ -6,8 +6,6 @@ const cartSlice = createSlice({
     items: [],
     totalCost: 0,
     contact: {
-      firstname: "",
-      lastname: "",
       email: "",
       phone: "",
     },

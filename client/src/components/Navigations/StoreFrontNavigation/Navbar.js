@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext } from "react";
 import {
   AppBar,
   Toolbar,
@@ -7,6 +7,8 @@ import {
   ListItem,
   IconButton,
   Badge,
+  Switch,
+  Typography,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 // import { storeNavItems } from "constants/navItems";
@@ -14,6 +16,7 @@ import SearchBox from "../../UI/SearchBox/SearchBox";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
+import { ThemeContext } from "../../../App";
 
 export const storeNavItems = [
   {
@@ -34,6 +37,8 @@ const Navbar = ({ handleToggleDrawer }) => {
 
   const cartItems = useSelector((state) => state.cart.items);
 
+  const { darkMode, toggleTheme } = useContext(ThemeContext);
+
   return (
     <AppBar component="nav" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar
@@ -50,9 +55,11 @@ const Navbar = ({ handleToggleDrawer }) => {
           onClick={handleToggleDrawer}
           sx={{ mr: 2, display: { md: "none" } }}
         >
-          <MenuIcon />
+          <MenuIcon sx={{ color: darkMode ? "#fff" : "#000" }} />
         </IconButton>
-        <Box>LOGO</Box>
+        <Box>
+          <Typography>LOGO</Typography>
+        </Box>
 
         {/* NAV */}
         <Box
@@ -68,7 +75,7 @@ const Navbar = ({ handleToggleDrawer }) => {
                     style={{ color: "#fff", textDecoration: "none" }}
                     to={item.path}
                   >
-                    {item.name}
+                    <Typography>{item.name}</Typography>
                   </Link>
                 </ListItem>
               </List>
@@ -80,11 +87,14 @@ const Navbar = ({ handleToggleDrawer }) => {
         <SearchBox />
 
         {/* CART */}
-        <IconButton aria-label="cart" onClick={() => navigate("/store/cart")}>
-          <Badge badgeContent={cartItems.length} color="secondary">
-            <ShoppingCartIcon sx={{ color: "#fff" }} />
-          </Badge>
-        </IconButton>
+        <Box>
+          <IconButton aria-label="cart" onClick={() => navigate("/store/cart")}>
+            <Badge badgeContent={cartItems.length} color="primary">
+              <ShoppingCartIcon sx={{ color: darkMode ? "#fff" : "#000" }} />
+            </Badge>
+          </IconButton>
+          <Switch checked={darkMode} onChange={toggleTheme} />
+        </Box>
       </Toolbar>
     </AppBar>
   );

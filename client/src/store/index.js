@@ -37,7 +37,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(apiSlice.middleware),
-  devTools: false,
+  devTools: true,
 });
 
 setupListeners(store.dispatch); //A utility used to enable refetchOnFocus and refetchOnReconnect behaviors.

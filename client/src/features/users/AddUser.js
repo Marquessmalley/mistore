@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import {
   Grid,
   Box,
@@ -14,6 +14,7 @@ import { useCreateUserMutation } from "./usersApiSlice";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import AdminHeader from "../../components/UI/Headers/AdminHeader";
 import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
+import { ThemeContext } from "App";
 
 const roles = [
   {
@@ -53,6 +54,8 @@ const AddUser = () => {
   const [emailError, setEmailError] = useState(false);
   const [roleError, setRoleError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+
+  const { darkMode } = useContext(ThemeContext);
 
   const [createUser, { isSuccess, isError, error }] = useCreateUserMutation();
 
@@ -157,7 +160,7 @@ const AddUser = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            background: "rgb(33, 43, 54)",
+            background: darkMode ? "rgb(33, 43, 54)" : "#eeeeee",
             borderRadius: "16px",
             padding: "80px 24px 40px",
             mr: "1rem",
@@ -187,7 +190,7 @@ const AddUser = () => {
                 alignItems: "center",
                 padding: "10px",
                 borderRadius: "50px",
-                background: "rgb(44, 52, 62)",
+                background: darkMode ? "rgb(44, 52, 62)" : "#fff",
                 width: "100px",
                 height: "100px",
                 overflow: "hidden",
@@ -206,10 +209,12 @@ const AddUser = () => {
                 />
               ) : (
                 <>
-                  <AddAPhotoIcon sx={{ color: "rgb(99, 115, 129)" }} />
+                  <AddAPhotoIcon
+                    sx={{ color: darkMode ? "rgb(99, 115, 129)" : "#000" }}
+                  />
                   <Typography
                     sx={{
-                      color: "rgb(99, 115, 129)",
+                      color: darkMode ? "rgb(99, 115, 129)" : "#000",
                       fontSize: ".8rem",
                     }}
                   >
@@ -224,7 +229,7 @@ const AddUser = () => {
             <Typography
               sx={{
                 fontSize: "0.75rem",
-                color: "rgb(99, 115, 129)",
+                color: darkMode ? "rgb(99, 115, 129)" : "#000",
                 display: "block",
               }}
             >
@@ -241,7 +246,7 @@ const AddUser = () => {
           md={11}
           lg={7}
           sx={{
-            background: "rgb(33, 43, 54)",
+            background: darkMode ? "rgb(33, 43, 54)" : "#eeeeee",
             padding: "24px",
             borderRadius: "20px",
           }}
@@ -263,7 +268,7 @@ const AddUser = () => {
               helperText={firstNameError ? "First name required" : null}
               InputProps={{
                 style: {
-                  color: "#fff", // Change the text color to red
+                  color: darkMode ? "#fff" : "#000", // Change the text color to red
                 },
               }}
               sx={{
@@ -286,7 +291,7 @@ const AddUser = () => {
               helperText={lastNameError ? "Last name required" : null}
               InputProps={{
                 style: {
-                  color: "#fff", // Change the text color to red
+                  color: darkMode ? "#fff" : "#000", // Change the text color to red
                 },
               }}
               sx={{
@@ -307,7 +312,7 @@ const AddUser = () => {
               helperText={emailError ? "Email required" : null}
               InputProps={{
                 style: {
-                  color: "#fff", // Change the text color to red
+                  color: darkMode ? "#fff" : "#000", // Change the text color to red
                 },
               }}
               sx={{
@@ -329,7 +334,7 @@ const AddUser = () => {
               helperText={roleError ? "Role required" : null}
               InputProps={{
                 style: {
-                  color: "#fff", // Change the text color to red
+                  color: darkMode ? "#fff" : "#000", // Change the text color to red
                 },
               }}
               sx={{
@@ -356,7 +361,7 @@ const AddUser = () => {
               helperText={passwordError ? "Password required" : null}
               InputProps={{
                 style: {
-                  color: "#fff", // Change the text color to red
+                  color: darkMode ? "#fff" : "#000", // Change the text color to red
                 },
               }}
               sx={{

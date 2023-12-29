@@ -19,7 +19,6 @@ const AdminHeader = ({
             fontSize: "1.5rem",
             fontWeight: 700,
             fontFamily: "Montserrat",
-            color: "#fff",
           }}
         >
           {headerTitle}
@@ -32,7 +31,7 @@ const AdminHeader = ({
           fontFamily: "Montserrat",
         }}
       >
-        {breadCrumbs}
+        <Typography>{breadCrumbs}</Typography>
 
         {btn && (
           <Box

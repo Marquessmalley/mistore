@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { Breadcrumbs, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { ThemeContext } from "App";
 
 const MuiBreadcrumbs = ({ crumbs }) => {
+  const { darkMode } = useContext(ThemeContext);
   const lastbreadcrumb = crumbs[crumbs.length - 1];
 
   return (
@@ -10,7 +13,7 @@ const MuiBreadcrumbs = ({ crumbs }) => {
         separator="/"
         sx={{
           "& 	.MuiBreadcrumbs-separator": {
-            color: "#fff",
+            color: darkMode ? "#fff" : "#000",
           },
         }}
       >
@@ -22,7 +25,7 @@ const MuiBreadcrumbs = ({ crumbs }) => {
               textDecoration: "none",
               fontSize: "0.975rem",
               fontWeight: 400,
-              color: "#fff",
+              color: darkMode ? "#fff" : "#000",
               cursor: "pointer",
             }}
           >

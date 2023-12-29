@@ -1,16 +1,25 @@
-import React from "react";
+import { useContext } from "react";
+import { IconButton } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { ThemeContext } from "App";
 
 const SearchBox = () => {
+  const { darkMode } = useContext(ThemeContext);
+
   // styled component using Material-UI's styled function.
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: "20px",
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+
+    backgroundColor: darkMode
+      ? alpha(theme.palette.common.white, 0.15)
+      : "#eeeeee",
     "&:hover": {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: darkMode
+        ? alpha(theme.palette.common.white, 0.15)
+        : "#eeeeee",
     },
     marginLeft: 0,
     width: "100%",
@@ -34,7 +43,7 @@ const SearchBox = () => {
   }));
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
+    // color: "inherit",
     "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
@@ -53,7 +62,7 @@ const SearchBox = () => {
   return (
     <Search>
       <SearchIconWrapper>
-        <SearchIcon />
+        <SearchIcon sx={{ color: darkMode ? "#fff" : "#0288d1" }} />
       </SearchIconWrapper>
 
       <StyledInputBase

@@ -1,10 +1,11 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useContext } from "react";
 import { Box, Toolbar, IconButton } from "@mui/material";
 import Navbar from "../../Navigations/StoreFrontNavigation/Navbar";
 import Temporary from "../../Navigations/StoreFrontNavigation/Drawer/Temporary";
 import { Outlet, useLocation } from "react-router-dom";
 import ResponsiveDarwer from "../../Navigations/StoreFrontNavigation/Drawer/ResponsiveDarwer";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import { ThemeContext } from "App";
 
 export const productsFilteringContext = createContext();
 const StoreFrontLayout = () => {
@@ -15,6 +16,8 @@ const StoreFrontLayout = () => {
   //PRODUCTS FILTERED STATE
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
+
+  const { darkMode } = useContext(ThemeContext);
 
   const location = useLocation();
 
@@ -72,12 +75,12 @@ const StoreFrontLayout = () => {
               sx={{
                 mr: 2,
                 display: { md: "none" },
-                background: "#E5E5E5",
+                background: darkMode ? "rgb(33, 43, 54)" : "#E5E5E5",
                 position: "relaive",
                 left: 40,
               }}
             >
-              <FilterListIcon />
+              <FilterListIcon sx={{ color: darkMode ? "#fff" : "#000" }} />
             </IconButton>
           ) : null}
           <Outlet />

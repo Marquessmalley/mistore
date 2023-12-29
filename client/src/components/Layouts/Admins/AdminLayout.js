@@ -16,13 +16,13 @@ const AdminLayout = () => {
     <Box
       sx={{
         display: "flex",
-        background: "rgb(9, 20, 34)",
       }}
     >
       <Header
         handleToggleDrawer={handleToggleDrawer}
         drawerWidth={drawerWidth}
       />
+
       {/* DRAWER */}
       <Box
         component="nav"

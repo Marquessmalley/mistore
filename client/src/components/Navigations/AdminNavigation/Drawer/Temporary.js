@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Box,
@@ -20,12 +20,14 @@ import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import LogoutIcon from "@mui/icons-material/Logout";
-
+import { ThemeContext } from "App";
 const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
   const location = useLocation();
 
   const [open, setOpen] = useState(false);
   const [openUser, setOpenUser] = useState(false);
+
+  const { darkMode } = useContext(ThemeContext);
 
   const handleProductClick = () => setOpen(!open);
   const handleUserClick = () => setOpenUser(!openUser);
@@ -39,8 +41,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
         "& .MuiDrawer-paper": {
           boxSizing: "border-box",
           width: drawerWidth,
-          background: "rgb(9, 20, 34)",
-          orderRight: "2px solid rgba(145, 158, 171, 0.2)",
+          borderRight: "2px solid rgba(145, 158, 171, 0.2)",
         },
       }}
     >
@@ -52,10 +53,10 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
           alignItems: "center",
         }}
       >
-        <RocketLaunchIcon sx={{ color: "#fff", mr: ".8rem" }} />
-        <Typography variant="h5" style={{ color: "#fff" }}>
-          Mistrain
-        </Typography>
+        <RocketLaunchIcon
+          sx={{ color: darkMode ? "#fff" : "#000", mr: ".8rem" }}
+        />
+        <Typography variant="h5">Mistrain</Typography>
       </Box>
       <Divider sx={{ border: ".1px solid #171412", width: "100%" }} />
       <Box sx={{ marginBottom: "10rem" }}>
@@ -93,10 +94,6 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   <Typography
                     sx={{
                       fontSize: "14px",
-                      color:
-                        location.pathname === "/admin-dash"
-                          ? "#fff"
-                          : "#9DA4AE",
                     }}
                   >
                     Overview
@@ -130,11 +127,6 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   />
                   <Typography
                     sx={{
-                      color:
-                        location.pathname === "/admin-dash/products" ||
-                        location.pathname === "/admin-dash/products/add"
-                          ? "#fff"
-                          : "#9DA4AE",
                       fontSize: "15px",
                       mr: "1rem",
                     }}
@@ -162,10 +154,6 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   <ListItemButton sx={{ ml: 8 }}>
                     <Typography
                       sx={{
-                        color:
-                          location.pathname === "/admin-dash/products"
-                            ? "#fff"
-                            : "#9DA4AE",
                         fontSize: "14px",
                       }}
                     >
@@ -183,10 +171,6 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   <ListItemButton sx={{ ml: 8 }}>
                     <Typography
                       sx={{
-                        color:
-                          location.pathname === "/admin-dash/products"
-                            ? "#fff"
-                            : "#9DA4AE",
                         fontSize: "14px",
                       }}
                     >
@@ -223,11 +207,6 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
 
                   <Typography
                     sx={{
-                      color:
-                        location.pathname === "/admin-dash/users" ||
-                        location.pathname === "/admin-dash/users/add"
-                          ? "#fff"
-                          : "#9DA4AE",
                       fontSize: "14px",
                       mr: "1rem",
                     }}
@@ -254,10 +233,6 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   <ListItemButton sx={{ ml: 8, textAlign: "center" }}>
                     <Typography
                       sx={{
-                        color:
-                          location.pathname === "/admin-dash/users"
-                            ? "#fff"
-                            : "#9DA4AE",
                         fontSize: "14px",
                       }}
                     >
@@ -275,10 +250,6 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
                   <ListItemButton sx={{ ml: 8, textAlign: "center" }}>
                     <Typography
                       sx={{
-                        color:
-                          location.pathname === "/admin-dash/users/add"
-                            ? "#fff"
-                            : "#9DA4AE",
                         fontSize: "14px",
                       }}
                     >
@@ -319,10 +290,6 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
 
                   <Typography
                     sx={{
-                      color:
-                        location.pathname === "/admin-dash/orders"
-                          ? "#fff"
-                          : "#9DA4AE",
                       fontSize: "14px",
                     }}
                   >
@@ -348,7 +315,7 @@ const Temporary = ({ mobileOpen, handleToggleDrawer, drawerWidth }) => {
         </ListItem>
         <ListItem>
           <ListItemButton>
-            <LogoutIcon sx={{ color: "#fff" }} />
+            <LogoutIcon sx={{ color: darkMode ? "#fff" : "#000" }} />
             <ListItemText primary="Logout" sx={{ color: "#fff" }} />
           </ListItemButton>
         </ListItem>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useGetUsersQuery } from "./usersApiSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +25,7 @@ import "./usersList.css";
 import MuiDialog from "../../components/UI/Dialog/MuiDialog";
 import AdminHeader from "../../components/UI/Headers/AdminHeader";
 import MuiBreadcrumbs from "../../components/UI/Breadcrumbs/MuiBreadcrumbs";
+import { ThemeContext } from "App";
 
 const UsersList = () => {
   const navigate = useNavigate();
@@ -40,6 +41,8 @@ const UsersList = () => {
   const [rowInfo, setRowInfo] = useState();
   const [selectedRows, setSelectedRows] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const { darkMode } = useContext(ThemeContext);
 
   const {
     data: users,
@@ -80,7 +83,7 @@ const UsersList = () => {
               fontWeight: 600,
               opacity: 0.8,
               textDecoration: "none",
-              color: "#fff",
+              color: darkMode ? "#fff" : "#000",
             }}
           >
             {params.row.name}
@@ -101,7 +104,7 @@ const UsersList = () => {
                 fontWeight: 600,
                 opacity: 0.8,
                 textDecoration: "none",
-                color: "#fff",
+                color: darkMode ? "#fff" : "#000",
               }}
             >
               {params.row.email}
@@ -173,7 +176,7 @@ const UsersList = () => {
           <div>
             <Tooltip title="Quick edit" placement="bottom" arrow>
               <IconButton onClick={handleEditDialogOpen}>
-                <ModeEditIcon sx={{ color: "#fff" }} />
+                <ModeEditIcon sx={{ color: darkMode ? "#fff" : "#000" }} />
               </IconButton>
             </Tooltip>
             <MuiDialog
@@ -192,7 +195,7 @@ const UsersList = () => {
               }
             />
             <IconButton onClick={handleMenuOpen}>
-              <MoreVertIcon sx={{ color: "#fff" }} />
+              <MoreVertIcon sx={{ color: darkMode ? "#fff" : "#000" }} />
             </IconButton>
             <Menu
               anchorEl={anchorEl}
@@ -304,8 +307,8 @@ const UsersList = () => {
               onCellClick={handleCheckboxClick}
               selectionModel={selectedRows}
               sx={{
-                background: "rgb(22, 28, 36)",
-                color: "#fff",
+                background: darkMode ? "rgb(22, 28, 36)" : "#fff",
+                color: darkMode ? "#fff" : "#000",
                 border: "none",
                 fontFamily: "Montserrat",
                 borderRadius: "15px",

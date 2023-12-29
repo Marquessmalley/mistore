@@ -11,9 +11,7 @@ const YearlySales = ({ stat }) => {
     >
       <CardContent>
         <Box>
-          <Typography
-            sx={{ color: "#fff", fontWeight: 700, fontSize: "1.25rem" }}
-          >
+          <Typography sx={{ fontWeight: 700, fontSize: "1.25rem" }}>
             {stat.title}
           </Typography>
         </Box>
@@ -43,16 +41,12 @@ const YearlySales = ({ stat }) => {
               marginRight: "1.5rem",
             }}
           >
-            <Typography
-              sx={{ fontWeight: 600, fontSize: "13px", color: "#fff" }}
-            >
+            <Typography sx={{ fontWeight: 600, fontSize: "13px" }}>
               {stat.total[0]}
             </Typography>
           </li>
           <li style={{ color: "rgba(0, 227, 150, 0.85)" }}>
-            <Typography
-              sx={{ color: "#fff", fontWeight: 600, fontSize: "13px" }}
-            >
+            <Typography sx={{ fontWeight: 600, fontSize: "13px" }}>
               {stat.total[1]}
             </Typography>
           </li>

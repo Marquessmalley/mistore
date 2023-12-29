@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 
 const Details = () => {
   const [contectInfo, setContactInfo] = useState({
-    firstname: "",
-    lastname: "",
     email: "",
     phone: "",
   });
@@ -13,6 +11,9 @@ const Details = () => {
   const contact = useSelector((state) => state.cart.contact);
 
   const contactEntries = Object.keys(contact);
+
+  console.log(contact);
+  console.log(shipping);
 
   return (
     <Grid container>
@@ -60,13 +61,15 @@ const Details = () => {
                       // color: "#fff", // Change the text color to red
                     },
                   }}
-                  sx={{ width: "250px" }}
+                  sx={{
+                    width: "250px",
+                  }}
                   size="small"
                 />
               </>
             ))}
           </Grid>
-          {contactEntries.slice(2).map((key) => (
+          {/* {contactEntries.slice(2).map((key) => (
             <Grid
               item
               sx={{
@@ -90,11 +93,11 @@ const Details = () => {
                     // color: "#fff", // Change the text color to red
                   },
                 }}
-                sx={{ width: "570px" }}
+                sx={{ width: "570px",  }}
                 size="small"
               />
             </Grid>
-          ))}
+          ))} */}
         </Grid>
         {/* TOTALS   */}
         <Grid

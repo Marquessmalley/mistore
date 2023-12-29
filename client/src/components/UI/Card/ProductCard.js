@@ -1,8 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { ThemeContext } from "App";
 
 const ProductCard = ({ data }) => {
+  const { darkMode } = useContext(ThemeContext);
+
   const imageUrl = data.images.map((image) => {
     if (image.includes("public")) {
       return image.replace("public/", "");
@@ -11,7 +14,7 @@ const ProductCard = ({ data }) => {
   });
 
   return (
-    <Card sx={{ background: "white" }}>
+    <Card sx={{ background: darkMode ? "rgb(33, 43, 54)" : "#fff" }}>
       {imageUrl.map((imageUrl, index) => (
         <CardMedia
           key={index} // Use a unique key for each image
@@ -26,16 +29,10 @@ const ProductCard = ({ data }) => {
           to={`/store/products/${data.id}`}
           style={{ textDecoration: "none", color: "black" }}
         >
-          <Typography gutterBottom variant="h5" component="div">
-            {data.name}
-          </Typography>
+          <Typography gutterBottom>{data.name}</Typography>
         </Link>
-        <Typography variant="body2" color="text.secondary">
-          {data.description}
-        </Typography>
-        <Typography variant="h6" color="text.secondary">
-          Price: ${data.price}
-        </Typography>
+        <Typography>{data.description}</Typography>
+        <Typography>Price: ${data.price}</Typography>
       </CardContent>
     </Card>
   );

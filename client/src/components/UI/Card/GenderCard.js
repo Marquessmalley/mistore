@@ -12,9 +12,7 @@ const MuiCard = ({ stat }) => {
     >
       <CardContent>
         <Box>
-          <Typography
-            sx={{ color: "#fff", fontWeight: "bold", fontSize: "1.25rem" }}
-          >
+          <Typography sx={{ fontWeight: "bold", fontSize: "1.25rem" }}>
             {stat.title}
           </Typography>
         </Box>
@@ -39,16 +37,12 @@ const MuiCard = ({ stat }) => {
             }}
           >
             <li style={{ listStyle: "disc", color: "rgba(0, 143, 251, 0.85)" }}>
-              <Typography
-                sx={{ fontWeight: 600, fontSize: "13px", color: "#fff" }}
-              >
+              <Typography sx={{ fontWeight: 600, fontSize: "13px" }}>
                 {stat.gender[0]}
               </Typography>
             </li>
             <li style={{ color: "rgba(0, 227, 150, 0.85)" }}>
-              <Typography
-                sx={{ color: "#fff", fontWeight: 600, fontSize: "13px" }}
-              >
+              <Typography sx={{ fontWeight: 600, fontSize: "13px" }}>
                 <span></span>
                 {stat.gender[1]}
               </Typography>

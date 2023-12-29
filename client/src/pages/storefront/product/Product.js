@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Grid, Typography, Button, IconButton } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,6 +6,7 @@ import { selectProductById } from "../../../features/products/productsApiSlice";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { addToCart } from "store/slices/cartSlice";
 import { v4 as uuidv4 } from "uuid";
+import { ThemeContext } from "App";
 
 const Product = () => {
   const { id } = useParams();
@@ -15,6 +16,8 @@ const Product = () => {
   const product = useSelector((state) => selectProductById(state, id));
   const cart = useSelector((state) => state.cart);
   const [selectedSize, setSelectedSize] = useState(null);
+
+  const { darkMode } = useContext(ThemeContext);
 
   const imageUrl = product?.images.map((image) => {
     if (image.includes("public")) {
@@ -40,7 +43,10 @@ const Product = () => {
     }
   };
   return (
-    <Grid container sx={{ background: "#E5E5E5" }}>
+    <Grid
+      container
+      sx={{ background: darkMode ? "rgb(33, 43, 54)" : "#E5E5E5" }}
+    >
       <Grid item xs={12}>
         <IconButton onClick={() => navigate("/store/products")}>
           <ArrowBackIcon sx={{ color: "black" }} />

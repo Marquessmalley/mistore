@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
   return (
-    <Grid container sx={{ height: "85vh", background: "#E5E5E5" }}>
+    <Grid container sx={{ height: "85vh" }}>
       <Grid
         item
         xs={12}
@@ -19,12 +19,10 @@ const Home = () => {
           justifyContent: "center",
         }}
       >
-        <Typography sx={{ color: "#323232", fontSize: "1.5rem" }}>
-          Trending Collection
-        </Typography>
+        <Typography sx={{ fontSize: "1.5rem" }}>Trending Collection</Typography>
         <Typography
           sx={{
-            color: "#323232",
+            // color: "#323232",
             fontSize: "1.8rem",
             fontWeight: "bold",
             marginBottom: "2rem",
