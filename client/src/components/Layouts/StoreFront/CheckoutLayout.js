@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Grid, Button } from "@mui/material";
 import MuiStepper from "../../UI/Stepper/MuiStepper";
+import { useSelector } from "react-redux";
 
 export const CheckoutContex = createContext();
 const CheckoutLayout = () => {
@@ -9,7 +10,7 @@ const CheckoutLayout = () => {
   const [activeStep, setActiveStep] = useState(() =>
     localStorage.getItem("activeStep") ? +localStorage.getItem("activeStep") : 0
   );
-
+  const cart = useSelector((state) => state.cart);
   const handleNext = () => {
     setActiveStep((prevStep) => prevStep + 1);
   };
@@ -48,13 +49,39 @@ const CheckoutLayout = () => {
           <MuiStepper />
         </Grid>
         <Outlet />
-        <Grid item xs={12}>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          {activeStep === 0 && (
+            <>
+              <Button
+                variant="contained"
+                onClick={handleNext}
+                disabled={cart.items.length === 0 ? true : false}
+              >
+                Checkout Now
+              </Button>
+            </>
+          )}
           {activeStep === 1 && (
             <>
-              <Button variant="contained" onClick={handleBack}>
+              <Button
+                variant="contained"
+                onClick={handleBack}
+                sx={{ marginRight: "1rem" }}
+              >
                 Back To Cart
               </Button>
-              <Button variant="contained" onClick={handleNext}>
+              <Button
+                variant="contained"
+                onClick={handleNext}
+                sx={{ marginRight: "10rem" }}
+              >
                 Proceed To Payment
               </Button>
             </>

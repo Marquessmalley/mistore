@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { removeItem, calculateTotal } from "store/slices/cartSlice";
 import CloseIcon from "@mui/icons-material/Close";
-import { CheckoutContex } from "components/Layouts/StoreFront/CheckoutLayout";
+import { ThemeContext } from "App";
 import {
   handleAddQuantity,
   handleSubtractQuantity,
@@ -13,7 +13,7 @@ import {
 const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const { handleNext } = useContext(CheckoutContex);
+  const { darkMode } = useContext(ThemeContext);
 
   useEffect(() => {
     dispatch(calculateTotal());
@@ -21,16 +21,16 @@ const Cart = () => {
 
   return (
     <Grid container>
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <h1>My Cart </h1>
-      </Grid>
+      </Grid> */}
       {cart.items.length === 0 ? (
         <Grid item xs={12} md={8} lg={8}>
           Your cart is empty
         </Grid>
       ) : (
         <>
-          <Grid item xs={12} md={8} lg={8}>
+          <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: "1rem" }}>
             {cart.items.map((item) => {
               const imageUrl = item.images.map((image) => {
                 if (image.includes("public")) {
@@ -48,6 +48,7 @@ const Cart = () => {
                     display: "flex",
                     margin: "1rem",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.8)",
+                    background: darkMode ? "rgb(33, 43, 54)" : "#fff",
                   }}
                 >
                   <Grid item xs={12} md={4} lg={3} sx={{ margin: "1rem" }}>
@@ -132,6 +133,9 @@ const Cart = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          background: darkMode ? "rgb(33, 43, 54)" : "#fff",
+          marginTop: "2rem",
+          marginBottom: "2rem",
         }}
       >
         <div
@@ -145,14 +149,6 @@ const Cart = () => {
             <p style={{ fontWeight: "bold" }}>${cart.totalCost}</p>
           </div>
         </div>
-
-        <Button
-          variant="contained"
-          onClick={handleNext}
-          disabled={cart.items.length === 0 ? true : false}
-        >
-          Checkout Now
-        </Button>
       </Grid>
     </Grid>
   );

@@ -14,14 +14,19 @@ const Details = () => {
   const { darkMode } = useContext(ThemeContext);
 
   const contactEntries = Object.keys(contact);
+  const shippingEntries = Object.keys(shipping);
 
   return (
     <Grid container sx={{ display: "flex", justifyContent: "center" }}>
-      <Grid item xs={12} sx={{ marginLeft: "2rem" }}>
-        <h1>Details </h1>
-      </Grid>
       {/* LEFT COLUMN */}
-      <Grid item xs={12} sm={10} md={7} lg={6} sx={{ marginRight: "1rem" }}>
+      <Grid
+        item
+        xs={12}
+        sm={10}
+        md={7}
+        lg={6}
+        sx={{ marginRight: "1rem", marginTop: "2rem" }}
+      >
         <Grid
           item
           lg={12}
@@ -35,14 +40,15 @@ const Details = () => {
             marginBottom: "3rem",
           }}
         >
-          <h1 style={{ marginLeft: "2rem" }}>Contact Information</h1>
+          <h2 style={{ marginLeft: "1rem" }}>Contact Information</h2>
           <Grid
             item
             xs={12}
             sx={{
               display: "flex",
               // width: "100%",
-              marginLeft: "2rem",
+              marginLeft: "1rem",
+              marginRight: "1rem",
             }}
           >
             {contactEntries.slice(0, 2).map((key) => (
@@ -66,6 +72,7 @@ const Details = () => {
                   marginLeft: ".5rem",
                 }}
                 size="small"
+                fullWidth={true}
               />
             ))}
           </Grid>
@@ -77,7 +84,6 @@ const Details = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
             width: "100%",
             background: darkMode ? "rgb(33, 43, 54)" : "#fff",
             boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.8)",
@@ -85,7 +91,140 @@ const Details = () => {
             marginBottom: "3rem",
           }}
         >
-          <p>Shipping Information</p>
+          <h2 style={{ marginLeft: "1rem" }}>Shipping Information</h2>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              marginLeft: "1rem",
+              marginRight: "1rem",
+            }}
+          >
+            {shippingEntries.slice(0, 2).map((key) => (
+              <TextField
+                id={key}
+                label={key[0].toUpperCase() + key.slice(1)}
+                name={key}
+                type="text"
+                // value={loginData.email}
+                variant="outlined"
+                margin="normal"
+                // onChange={handleFormChange}
+                // error={emailErr}
+                // helperText={emailErr ? "Email required" : null}
+                InputProps={{
+                  style: {
+                    // color: "#fff", // Change the text color to red
+                  },
+                }}
+                sx={{
+                  marginLeft: ".5rem",
+                }}
+                size="small"
+                fullWidth={true}
+              />
+            ))}
+          </Grid>
+          <Grid
+            item
+            sx={{
+              display: "flex",
+              marginLeft: "1rem",
+              marginRight: "1rem",
+            }}
+          >
+            {shippingEntries.slice(2, 3).map((key) => (
+              <TextField
+                id={key}
+                label={key[0].toUpperCase() + key.slice(1)}
+                name={key}
+                type="text"
+                // value={loginData.email}
+                variant="outlined"
+                margin="normal"
+                // onChange={handleFormChange}
+                // error={emailErr}
+                // helperText={emailErr ? "Email required" : null}
+                InputProps={{
+                  style: {
+                    // color: "#fff", // Change the text color to red
+                  },
+                }}
+                sx={{
+                  marginLeft: ".5rem",
+                }}
+                size="small"
+                fullWidth={true}
+              />
+            ))}
+          </Grid>
+          <Grid
+            item
+            sx={{
+              display: "flex",
+              marginLeft: "1rem",
+              marginRight: "1rem",
+            }}
+          >
+            {shippingEntries.slice(3, 5).map((key) => (
+              <TextField
+                id={key}
+                label={key[0].toUpperCase() + key.slice(1)}
+                name={key}
+                type="text"
+                // value={loginData.email}
+                variant="outlined"
+                margin="normal"
+                // onChange={handleFormChange}
+                // error={emailErr}
+                // helperText={emailErr ? "Email required" : null}
+                InputProps={{
+                  style: {
+                    // color: "#fff", // Change the text color to red
+                  },
+                }}
+                sx={{
+                  marginLeft: ".5rem",
+                }}
+                size="small"
+                fullWidth={true}
+              />
+            ))}
+          </Grid>
+          <Grid
+            item
+            sx={{
+              display: "flex",
+              marginLeft: "1rem",
+              marginRight: "1rem",
+            }}
+          >
+            {shippingEntries.slice(5, 6).map((key) => (
+              <TextField
+                id={key}
+                label={key[0].toUpperCase() + key.slice(1)}
+                name={key}
+                type="text"
+                // value={loginData.email}
+                variant="outlined"
+                margin="normal"
+                // onChange={handleFormChange}
+                // error={emailErr}
+                // helperText={emailErr ? "Email required" : null}
+                InputProps={{
+                  style: {
+                    // color: "#fff", // Change the text color to red
+                  },
+                }}
+                sx={{
+                  marginLeft: ".5rem",
+                }}
+                size="small"
+                fullWidth={true}
+              />
+            ))}
+          </Grid>
         </Grid>
       </Grid>
 
@@ -101,6 +240,8 @@ const Details = () => {
           boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.8)",
           borderRadius: "5px",
           background: darkMode ? "rgb(33, 43, 54)" : "#fff",
+          marginTop: "2rem",
+          marginBottom: "3rem",
         }}
       >
         <Grid item sx={{ marginLeft: "2rem" }}>
