@@ -54,8 +54,8 @@ const Cart = () => {
                     <img
                       src={`${process.env.REACT_APP_DOMAIN_KEY}/${imageUrl}`}
                       alt="item"
-                      width="100%"
-                      height="280"
+                      width="90%"
+                      height="210"
                     />
                   </Grid>
                   <Grid item xs={12} md={8} lg={8}>
@@ -64,8 +64,7 @@ const Cart = () => {
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "space-evenly",
-
-                        height: "38vh",
+                        height: "35vh",
                       }}
                     >
                       <p style={{ fontWeight: "bold", fontSize: "22px" }}>
