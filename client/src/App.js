@@ -26,9 +26,8 @@ import Product from "./pages/storefront/product/Product";
 import About from "./pages/storefront/About";
 import Cart from "./pages/storefront/checkout/Cart";
 import CheckoutLayout from "./components/Layouts/StoreFront/CheckoutLayout";
-import Details from "./pages/storefront/checkout/Details";
 import Payment from "./pages/storefront/checkout/Payment";
-import Summary from "./pages/storefront/checkout/Summary";
+import OrderStatus from "./pages/storefront/checkout/OrderStatus";
 
 export const ThemeContext = createContext();
 
@@ -67,9 +66,9 @@ function App() {
 
               <Route element={<CheckoutLayout />}>
                 <Route path="cart" element={<Cart />} />
-                <Route path="details" element={<Details />} />
+
                 <Route path="payment" element={<Payment />} />
-                <Route path="review" element={<Summary />} />
+                <Route path="status" element={<OrderStatus />} />
               </Route>
             </Route>
           </Route>

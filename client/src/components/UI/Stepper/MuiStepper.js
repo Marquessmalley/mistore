@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Box, Stepper, Step, StepLabel } from "@mui/material";
 import { CheckoutContex } from "components/Layouts/StoreFront/CheckoutLayout";
-const steps = ["Cart", "Details", "Payment", "Review"];
+const steps = ["Cart", "Payment", "status"];
 
 const MuiStepper = () => {
   const { activeStep } = useContext(CheckoutContex);

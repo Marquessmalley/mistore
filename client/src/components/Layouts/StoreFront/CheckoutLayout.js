@@ -1,51 +1,23 @@
 import { createContext, useState, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Grid } from "@mui/material";
 import MuiStepper from "../../UI/Stepper/MuiStepper";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-const stripePromise = loadStripe(
-  "pk_test_51Mft6QD7KUQOpE4epZI3EbRap7VG9kgdJurQ6f45pHhiqgXMaoT1SfWqxhSULBBAmyKSOMMZKvAp0Sb6KOhBk3W2007zvFFAxB"
-);
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 export const CheckoutContex = createContext();
 
 const CheckoutLayout = () => {
-  const navigate = useNavigate();
-
   const [activeStep, setActiveStep] = useState(() =>
     localStorage.getItem("activeStep") ? +localStorage.getItem("activeStep") : 0
   );
+
   const [clientSecret, setClientSecret] = useState("");
+  const [orderStatus, setOrderStatus] = useState("");
 
   const cart = useSelector((state) => state.cart);
-
-  const handleNext = () => {
-    setActiveStep((prevStep) => prevStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevStep) => prevStep - 1);
-  };
-
-  useEffect(() => {
-    switch (activeStep) {
-      case 0:
-        navigate("/store/cart"); // Navigate to the "cart" page
-        break;
-      case 1:
-        navigate("/store/details"); // Navigate to the "details" page
-        break;
-      case 2:
-        navigate("/store/payment"); // Navigate to the "details" page
-        break;
-      case 3:
-        navigate("/store/review"); // Navigate to the "details" page
-        break;
-      default:
-        break;
-    }
-  }, [activeStep, navigate]);
 
   useEffect(() => {
     localStorage.setItem("activeStep", activeStep);
@@ -72,7 +44,13 @@ const CheckoutLayout = () => {
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutContex.Provider
-            value={{ activeStep, handleNext, handleBack }}
+            value={{
+              activeStep,
+              setActiveStep,
+
+              orderStatus,
+              setOrderStatus,
+            }}
           >
             <Grid container>
               <Grid

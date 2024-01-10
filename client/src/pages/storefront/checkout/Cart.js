@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import { Grid, IconButton, Button } from "@mui/material";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { removeItem, calculateTotal } from "store/slices/cartSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import { ThemeContext } from "App";
@@ -13,13 +13,18 @@ import { CheckoutContex } from "components/Layouts/StoreFront/CheckoutLayout";
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const { darkMode } = useContext(ThemeContext);
-  const { handleNext } = useContext(CheckoutContex);
+  const { setActiveStep } = useContext(CheckoutContex);
 
   useEffect(() => {
     dispatch(calculateTotal());
-  }, [dispatch]);
+
+    if (cart?.items.length === 0) {
+      setActiveStep(0);
+    }
+  }, [dispatch, cart, setActiveStep]);
 
   return (
     <Grid container sx={{ display: "flex", justifyContent: "center" }}>
@@ -153,7 +158,10 @@ const Cart = () => {
       <Grid item xs={12} lg={10} sx={{ marginTop: "1rem", textAlign: "end" }}>
         <Button
           variant="contained"
-          onClick={handleNext}
+          onClick={() => {
+            setActiveStep((prevStep) => +1);
+            navigate("/store/payment");
+          }}
           disabled={cart.items.length === 0 ? true : false}
         >
           Checkout Now
