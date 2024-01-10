@@ -40,6 +40,7 @@ function App() {
   };
 
   const currentTheme = theme(darkMode ? "dark" : "light");
+
   return (
     <ThemeProvider theme={currentTheme}>
       <CssBaseline />

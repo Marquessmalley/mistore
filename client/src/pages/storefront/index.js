@@ -35,7 +35,6 @@ const Home = () => {
         <Button
           variant="contained"
           sx={{
-            background: "#323232",
             fontWeight: "bold",
             padding: ".8rem",
             borderRadius: "20px",

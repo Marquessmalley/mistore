@@ -1,16 +1,25 @@
 import { createContext, useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Grid, Button } from "@mui/material";
+import { Grid } from "@mui/material";
 import MuiStepper from "../../UI/Stepper/MuiStepper";
 import { useSelector } from "react-redux";
-
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+const stripePromise = loadStripe(
+  "pk_test_51Mft6QD7KUQOpE4epZI3EbRap7VG9kgdJurQ6f45pHhiqgXMaoT1SfWqxhSULBBAmyKSOMMZKvAp0Sb6KOhBk3W2007zvFFAxB"
+);
 export const CheckoutContex = createContext();
+
 const CheckoutLayout = () => {
   const navigate = useNavigate();
+
   const [activeStep, setActiveStep] = useState(() =>
     localStorage.getItem("activeStep") ? +localStorage.getItem("activeStep") : 0
   );
+  const [clientSecret, setClientSecret] = useState("");
+
   const cart = useSelector((state) => state.cart);
+
   const handleNext = () => {
     setActiveStep((prevStep) => prevStep + 1);
   };
@@ -42,71 +51,43 @@ const CheckoutLayout = () => {
     localStorage.setItem("activeStep", activeStep);
   }, [activeStep]);
 
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_DOMAIN_KEY}/create-payment-intent`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(cart),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));
+  }, [cart]);
+
+  const appearance = {
+    theme: "night",
+  };
+
+  const options = { clientSecret, appearance };
+
   return (
-    <CheckoutContex.Provider value={{ activeStep, handleNext }}>
-      <Grid container>
-        <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-          <MuiStepper />
-        </Grid>
-        <Outlet />
-        <Grid
-          item
-          xs={12}
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        >
-          {activeStep === 0 && (
-            <>
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                disabled={cart.items.length === 0 ? true : false}
+    <>
+      {clientSecret && (
+        <Elements options={options} stripe={stripePromise}>
+          <CheckoutContex.Provider
+            value={{ activeStep, handleNext, handleBack }}
+          >
+            <Grid container>
+              <Grid
+                item
+                xs={12}
+                sx={{ display: "flex", justifyContent: "center" }}
               >
-                Checkout Now
-              </Button>
-            </>
-          )}
-          {activeStep === 1 && (
-            <>
-              <Button
-                variant="contained"
-                onClick={handleBack}
-                sx={{ marginRight: "1rem" }}
-              >
-                Back To Cart
-              </Button>
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                sx={{ marginRight: "10rem" }}
-              >
-                Proceed To Payment
-              </Button>
-            </>
-          )}
-          {activeStep === 2 && (
-            <>
-              <Button variant="contained" onClick={handleBack}>
-                Back To Details
-              </Button>
-              <Button variant="contained" onClick={handleNext}>
-                Review
-              </Button>
-            </>
-          )}
-          {activeStep === 3 && (
-            <>
-              <Button variant="contained" onClick={handleBack}>
-                Back To Payment
-              </Button>
-              <Button variant="contained">Execute Order</Button>
-            </>
-          )}
-        </Grid>
-      </Grid>
-    </CheckoutContex.Provider>
+                <MuiStepper />
+              </Grid>
+              <Outlet />
+            </Grid>
+          </CheckoutContex.Provider>
+        </Elements>
+      )}
+    </>
   );
 };
 

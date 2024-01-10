@@ -32,9 +32,11 @@ app.use(xss());
 const authRoutes = require("./routes/authRoutes");
 const usersRoutes = require("./routes/usersRoutes");
 const productsRoutes = require("./routes/productsRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
+app.use("/create-payment-intent", paymentRoutes);
 
 module.exports = app;
