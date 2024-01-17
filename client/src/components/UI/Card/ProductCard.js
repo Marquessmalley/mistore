@@ -20,7 +20,7 @@ const ProductCard = ({ data }) => {
           key={index} // Use a unique key for each image
           component="img"
           height="180"
-          src={`${process.env.REACT_APP_DOMAIN_KEY}/${imageUrl}`}
+          src={`${process.env.REACT_APP_BACKEND_DOMAIN}/${imageUrl}`}
           alt={data.name}
         />
       ))}

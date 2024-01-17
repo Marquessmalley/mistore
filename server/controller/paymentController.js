@@ -4,8 +4,10 @@ module.exports.createPaymentIntent = async (req, res) => {
   try {
     const { items, totalCost } = req.body;
 
+    const totalCostInCents = Math.round(totalCost * 100);
+
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: 2500,
+      amount: totalCostInCents ? totalCostInCents : Math.round(0.5 * 100),
       currency: "usd",
       automatic_payment_methods: {
         enabled: true,

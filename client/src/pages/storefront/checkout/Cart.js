@@ -57,7 +57,7 @@ const Cart = () => {
                 >
                   <Grid item xs={12} md={4} lg={3} sx={{ margin: "1rem" }}>
                     <img
-                      src={`${process.env.REACT_APP_DOMAIN_KEY}/${imageUrl}`}
+                      src={`${process.env.REACT_APP_BACKEND_DOMAIN}/${imageUrl}`}
                       alt="item"
                       width="90%"
                       height="210"

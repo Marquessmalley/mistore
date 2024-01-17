@@ -61,7 +61,7 @@ const Product = () => {
         sx={{ display: "flex", justifyContent: "center" }}
       >
         <img
-          src={`${process.env.REACT_APP_DOMAIN_KEY}/${imageUrl}`}
+          src={`${process.env.REACT_APP_BACKEND_DOMAIN}/${imageUrl}`}
           // src={`http://localhost:8000/${imageUrl}`}
           alt="product"
           width="400"

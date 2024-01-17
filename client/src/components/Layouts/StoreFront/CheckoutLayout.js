@@ -1,10 +1,11 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { Grid } from "@mui/material";
 import MuiStepper from "../../UI/Stepper/MuiStepper";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { ThemeContext } from "App";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 export const CheckoutContex = createContext();
@@ -19,12 +20,14 @@ const CheckoutLayout = () => {
 
   const cart = useSelector((state) => state.cart);
 
+  const { darkMode } = useContext(ThemeContext);
+
   useEffect(() => {
     localStorage.setItem("activeStep", activeStep);
   }, [activeStep]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_DOMAIN_KEY}/create-payment-intent`, {
+    fetch(`${process.env.REACT_APP_BACKEND_DOMAIN}/create-payment-intent`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(cart),
@@ -34,7 +37,7 @@ const CheckoutLayout = () => {
   }, [cart]);
 
   const appearance = {
-    theme: "night",
+    theme: darkMode ? "night" : "flat",
   };
 
   const options = { clientSecret, appearance };

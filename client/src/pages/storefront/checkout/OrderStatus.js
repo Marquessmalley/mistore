@@ -1,14 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import { Grid, Button } from "@mui/material";
+import { useContext, useEffect } from "react";
+import { Grid } from "@mui/material";
 import { CheckoutContex } from "components/Layouts/StoreFront/CheckoutLayout";
 import { useStripe } from "@stripe/react-stripe-js";
+import { useDispatch } from "react-redux";
 import { ThemeContext } from "App";
+import { emptyCart } from "store/slices/cartSlice";
 
 const OrderStatus = () => {
   const stripe = useStripe();
+  const dispatch = useDispatch();
 
-  const { setOrderStatus, orderStatus, handleBack } =
-    useContext(CheckoutContex);
+  const { setOrderStatus, orderStatus } = useContext(CheckoutContex);
   const { darkMode } = useContext(ThemeContext);
 
   useEffect(() => {
@@ -41,8 +43,11 @@ const OrderStatus = () => {
       }
     });
 
+    if (orderStatus === "Payment succeeded!") {
+      dispatch(emptyCart());
+    }
     // SET ACTIVE STEP TO ZERO WHEN UNMOUNTING AND REMOVE ITEMS FROM CART
-  }, [stripe, setOrderStatus]);
+  }, [stripe, setOrderStatus, orderStatus, dispatch]);
 
   return (
     <Grid container sx={{ display: "flex", justifyContent: "center" }}>
@@ -55,7 +60,7 @@ const OrderStatus = () => {
         sx={{
           marginRight: "1rem",
           marginTop: "2rem",
-          background: darkMode ? "rgb(33, 43, 54)" : "#fff",
+          // background: darkMode ? "rgb(33, 43, 54)" : "#fff",
           boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.8)",
           borderRadius: "5px",
           padding: "2rem",

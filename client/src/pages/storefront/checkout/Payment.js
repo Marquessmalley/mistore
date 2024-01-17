@@ -21,6 +21,7 @@ const Payment = () => {
 
   const shipping = useSelector((state) => state.cart.shipping);
   const contact = useSelector((state) => state.cart.contact);
+  const totalCost = useSelector((state) => state.cart.totalCost);
 
   const { darkMode } = useContext(ThemeContext);
   const { setActiveStep } = useContext(CheckoutContex);
@@ -36,7 +37,7 @@ const Payment = () => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${process.env.DOMAIN_KEY}/store/status`,
+        return_url: `${process.env.REACT_APP_FRONTEND_DOMAIN}/store/status`,
       },
     });
 
@@ -109,14 +110,29 @@ const Payment = () => {
         }}
       >
         <Grid item sx={{ marginLeft: "2rem" }}>
-          <p>Subtotal: </p>
-          <p>Shipping: </p>
-          <p>Tax: </p>
+          <p style={{ display: "flex", justifyContent: "space-between" }}>
+            Subtotal:{" "}
+            <span style={{ marginRight: "5px", fontWeight: "bold" }}>-</span>
+          </p>
+          <p style={{ display: "flex", justifyContent: "space-between" }}>
+            Shipping:
+            <span style={{ marginRight: "5px", fontWeight: "bold" }}>-</span>
+          </p>
+          <p style={{ display: "flex", justifyContent: "space-between" }}>
+            Tax:
+            <span style={{ marginRight: "5px", fontWeight: "bold" }}>-</span>
+          </p>
+          <p style={{ display: "flex", justifyContent: "space-between" }}>
+            Total:
+            <span style={{ marginRight: "5px", fontWeight: "bold" }}>
+              {totalCost}
+            </span>
+          </p>
         </Grid>
       </Grid>
 
       {/* Show any error or success messages */}
-      {billingMessage && <div id="payment-message">{billingMessage}</div>}
+      {/* {billingMessage && <div id="payment-message">{billingMessage}</div>} */}
 
       {/* EXECUTE ORDER */}
       <Grid

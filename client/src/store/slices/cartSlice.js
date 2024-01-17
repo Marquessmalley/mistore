@@ -44,7 +44,6 @@ const cartSlice = createSlice({
       state.items = newCart;
     },
     handleAddQuantity: (state, action) => {
-      console.log("yoo");
       const { prod_id, cart_id } = action.payload;
 
       const existingItem = state.items.find(
@@ -73,7 +72,13 @@ const cartSlice = createSlice({
         (acc, item) => acc + item.price * item.quantity,
         0
       );
-      state.totalCost = cartTotal;
+
+      const roundedCartTotal = +cartTotal.toFixed(2);
+
+      state.totalCost = roundedCartTotal;
+    },
+    emptyCart: (state, action) => {
+      state.items = [];
     },
   },
 });
@@ -84,5 +89,6 @@ export const {
   calculateTotal,
   handleAddQuantity,
   handleSubtractQuantity,
+  emptyCart,
 } = cartSlice.actions;
 export default cartSlice;

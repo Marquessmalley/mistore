@@ -27,7 +27,7 @@ const theme = (mode) =>
         styleOverrides: {
           root: {
             borderRadius: 8,
-            color: mode === "dark" ? "#fff" : "#000",
+            color: "#fff",
           },
         },
       },
