@@ -28,6 +28,8 @@ import Cart from "./pages/storefront/checkout/Cart";
 import CheckoutLayout from "./components/Layouts/StoreFront/CheckoutLayout";
 import Payment from "./pages/storefront/checkout/Payment";
 import OrderStatus from "./pages/storefront/checkout/OrderStatus";
+import OrderList from "features/orders/OrderList.js";
+import EditOrder from "features/orders/EditOrder.js";
 
 export const ThemeContext = createContext();
 
@@ -89,8 +91,10 @@ function App() {
                     <Route path="add" element={<AddProducts />} />
                     <Route path=":id" element={<EditProduct />} />
                   </Route>
-
-                  <Route path="orders" element={<Orders />} />
+                  <Route path="orders">
+                    <Route index element={<OrderList />} />
+                    <Route path=":id" element={<EditOrder />} />
+                  </Route>
                 </Route>
               </Route>
             </Route>

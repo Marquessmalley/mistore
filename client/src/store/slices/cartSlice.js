@@ -5,13 +5,9 @@ const cartSlice = createSlice({
   initialState: {
     items: [],
     totalCost: 0,
-    contact: {
-      email: "",
-      phone: "",
-    },
     shipping: {
-      firstname: "",
-      lastname: "",
+      fullName: "",
+      country: "",
       address: "",
       city: "",
       zip: "",
@@ -32,6 +28,17 @@ const cartSlice = createSlice({
         // If the item is not in the cart, add it
         state.items.push(action.payload);
       }
+    },
+    addShippingInfo: (state, action) => {
+      const { name, address } = action.payload;
+      const { country, line1, city, postal_code } = address;
+
+      state.shipping.fullName = name;
+      state.shipping.country = country;
+      state.shipping.address = line1;
+      state.shipping.city = city;
+      state.shipping.zip = postal_code;
+      state.shipping.state = address.state;
     },
     removeItem: (state, action) => {
       const { price, quantity } = action.payload;
@@ -85,6 +92,7 @@ const cartSlice = createSlice({
 
 export const {
   addToCart,
+  addShippingInfo,
   removeItem,
   calculateTotal,
   handleAddQuantity,

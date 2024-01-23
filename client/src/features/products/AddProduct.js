@@ -206,7 +206,6 @@ const AddProduct = () => {
 
     await createProduct(formData);
   };
-  // console.log(files);
 
   return (
     <Grid container>

@@ -15,8 +15,6 @@ module.exports.createPaymentIntent = async (req, res) => {
     });
 
     res.send({ clientSecret: paymentIntent.client_secret });
-
-    // console.log(paymentIntent);
   } catch (err) {
     console.log(err);
   }

@@ -281,7 +281,6 @@ const EditProduct = () => {
 
     await updateProduct(formData);
   };
-  console.log(files);
 
   return (
     <Grid container>

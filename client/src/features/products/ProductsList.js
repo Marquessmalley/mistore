@@ -84,7 +84,7 @@ const ProductsList = () => {
           >
             {productImage && (
               <img
-                src={`https://mistrain-api.onrender.com/${productImage}`}
+                src={`${process.env.REACT_APP_BACKEND_DOMAIN}/${productImage}`}
                 alt="img"
                 style={{
                   maxWidth: "60px",

@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Grid, Button } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "App";
 import {
@@ -10,18 +10,18 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { CheckoutContex } from "components/Layouts/StoreFront/CheckoutLayout";
+import { addShippingInfo } from "store/slices/cartSlice";
+import { useCreateOrderMutation } from "features/orders/ordersApiSlice";
 
 const Payment = () => {
   const navigate = useNavigate();
-  const [contectInfo, setContactInfo] = useState({
-    email: "",
-    phone: "",
-  });
-  const [billingMessage, setBillingMessage] = useState("");
+  const dispatch = useDispatch();
+  const [shippingInfo, setShippingInfo] = useState(null);
 
-  const shipping = useSelector((state) => state.cart.shipping);
-  const contact = useSelector((state) => state.cart.contact);
+  const [orderErrorMessage, setOrderErrorMessage] = useState("");
+
   const totalCost = useSelector((state) => state.cart.totalCost);
+  const cart = useSelector((state) => state.cart);
 
   const { darkMode } = useContext(ThemeContext);
   const { setActiveStep } = useContext(CheckoutContex);
@@ -29,11 +29,19 @@ const Payment = () => {
   const stripe = useStripe();
   const elements = useElements();
 
+  const [createOrder, { isSuccess, isError, error }] = useCreateOrderMutation();
+
   const handleExecuteOrder = async () => {
     if (!stripe || !elements) {
       return;
     }
+    const { items, totalCost, shipping } = cart;
+
     setActiveStep((prevStep) => prevStep + 1);
+
+    dispatch(addShippingInfo(shippingInfo));
+
+    await createOrder({ items, totalCost, shipping });
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
@@ -42,9 +50,9 @@ const Payment = () => {
     });
 
     if (error.type === "card_error" || error.type === "validation_error") {
-      setBillingMessage(error.message);
+      setOrderErrorMessage(error.message);
     } else {
-      setBillingMessage("An unexpected error occurred.");
+      setOrderErrorMessage("An unexpected error occurred.");
     }
   };
 
@@ -72,9 +80,7 @@ const Payment = () => {
 
           <AddressElement
             options={{ mode: "shipping" }}
-            onChange={(e) => {
-              console.log(e.value);
-            }}
+            onChange={(e) => setShippingInfo(e.value)}
           />
         </Grid>
         <Grid
@@ -132,7 +138,7 @@ const Payment = () => {
       </Grid>
 
       {/* Show any error or success messages */}
-      {/* {billingMessage && <div id="payment-message">{billingMessage}</div>} */}
+      {/* {orderErrorMessage && <div id="payment-message">{orderErrorMessage}</div>} */}
 
       {/* EXECUTE ORDER */}
       <Grid

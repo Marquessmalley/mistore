@@ -38,7 +38,6 @@ userSchema.pre("save", async function (next) {
   try {
     if (!this.password) return next();
     if (!this.isModified("password")) return next();
-    console.log(this.password);
     console.log("per svae running");
 
     //generating salt to use for hashing
