@@ -66,7 +66,7 @@ const OrderList = () => {
                 fontWeight: 600,
                 opacity: 0.8,
                 textDecoration: "none",
-                color: "#fff",
+                color: darkMode ? "#fff" : "#000",
               }}
             >
               #{params.row.id.substring(0, 4)}
@@ -99,6 +99,7 @@ const OrderList = () => {
       headerName: "Date",
       width: 150,
       renderCell: (params) => {
+        console.log(params.row);
         const formattedDate = format(params.row.date, "dd MMM yyyy", {
           locale: enUS,
         });

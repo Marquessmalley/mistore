@@ -22,10 +22,10 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
       // providesTags: (result, error, arg) => {
       //   if (result?.ids) {
       //     return [
-      //       { type: "User", id: "LIST" },
-      //       ...result.ids.map((id) => ({ type: "Product", id })),
+      //       { type: "Order", id: "LIST" },
+      //       ...result.ids.map((id) => ({ type: "Order", id })),
       //     ];
-      //   } else return [{ type: "Product", id: "LIST" }];
+      //   } else return [{ type: "Order", id: "LIST" }];
       // },
     }),
     createOrder: builder.mutation({
