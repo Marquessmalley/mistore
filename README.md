@@ -13,7 +13,7 @@ An ecommerce website built with the MERN (MongoDB, Express, React, Node.js) stac
 1. Run the following command to install server dependencies:
 
    npm install
-Create a .env file in the root directory with the following environment variables:
+2. Create a .env file in the root directory with the following environment variables:
 
 DATABASE,
 DOMAIN,
@@ -37,9 +37,6 @@ cd client
 REACT_APP_BACKEND_DOMAIN, 
 REACT_APP_FRONTEND_DOMAIN, 
 REACT_APP_STRIPE_PUBLISHABLE_KEY
-
-Running the Server
-To start the Express server, run the following command:
 
 
 Contributing
