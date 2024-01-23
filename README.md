@@ -12,7 +12,6 @@ An ecommerce website built with the MERN (MongoDB, Express, React, Node.js) stac
 
 1. Run the following command to install server dependencies:
 
-   ```bash
    npm install
 Create a .env file in the root directory with the following environment variables:
 
@@ -24,40 +23,32 @@ STRIPE_SECRET_KEY
 Client Setup
 Navigate to the client directory:
 
-bash
-Copy code
+### Client Setup
+
 cd client
 Run the following command to install client dependencies:
 
-bash
-Copy code
 npm install
 Create a .env file in the client directory with the following environment variables:
 
 REACT_APP_BACKEND_DOMAIN
 REACT_APP_FRONTEND_DOMAIN
 REACT_APP_STRIPE_PUBLISHABLE_KEY
-Usage
+
 Running the Server
 To start the Express server, run the following command:
 
-bash
-Copy code
 npm start
 Running the Client
 To start the React client, navigate to the client directory and run:
-
-bash
-Copy code
 npm start
+
 Contributing
 If you'd like to contribute to this project, please follow the contributing guidelines.
 
 License
 This project is licensed under the MIT License.
 
-css
-Copy code
 
 Feel free to further modify the content based on your specific project details and preferences.
 
