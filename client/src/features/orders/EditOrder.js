@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Box } from "@mui/material";
 import { useGetOrdersQuery, selectOrderById } from "./ordersApiSlice";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -167,12 +167,83 @@ const EditOrder = () => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
+            marginBottom: "1rem",
           }}
         >
           <Typography sx={{ fontWeight: "bold", fontSize: "20px" }}>
             Customer Info
           </Typography>
           <ModeEditIcon />
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            marginBottom: "1rem",
+          }}
+        >
+          <Typography>Name: </Typography>
+          <Box>
+            <Typography>{order?.shipping.fullName}</Typography>
+            <Typography>{order?.contactInfo.email}</Typography>
+          </Box>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            marginBottom: "1rem",
+          }}
+        >
+          <Typography>Phone number: </Typography>
+          <Typography>{order?.contactInfo.phoneNumber}</Typography>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "1rem",
+          }}
+        >
+          <Typography sx={{ fontWeight: "bold", fontSize: "20px" }}>
+            Shipping Info
+          </Typography>
+          <ModeEditIcon />
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            marginBottom: "1rem",
+          }}
+        >
+          <Typography>Address: </Typography>
+
+          <Typography>{order?.shipping.address}</Typography>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            marginBottom: "1rem",
+          }}
+        >
+          <Typography>City: </Typography>
+
+          <Typography>
+            {order?.shipping.city}, {order?.shipping.state}
+          </Typography>
         </Grid>
       </Grid>
     </Grid>

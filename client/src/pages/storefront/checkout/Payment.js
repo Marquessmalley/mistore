@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, TextField } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "App";
@@ -10,13 +10,21 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { CheckoutContex } from "components/Layouts/StoreFront/CheckoutLayout";
-import { addShippingInfo } from "store/slices/cartSlice";
+import { addShippingInfo, addContactInfo } from "store/slices/cartSlice";
 import { useCreateOrderMutation } from "features/orders/ordersApiSlice";
+import "./payment.css";
 
 const Payment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [shippingInfo, setShippingInfo] = useState(null);
+  const [contactInfo, setContactInfo] = useState({
+    email: "",
+    phoneNumber: "",
+  });
+  const [emailErr, setEmailErr] = useState(false);
+  const [phoneErr, setPhoneErr] = useState(false);
 
   const [orderErrorMessage, setOrderErrorMessage] = useState("");
 
@@ -29,19 +37,36 @@ const Payment = () => {
   const stripe = useStripe();
   const elements = useElements();
 
+  const { email, phoneNumber } = contactInfo;
+
   const [createOrder, { isSuccess, isError, error }] = useCreateOrderMutation();
+
+  const handleContactChange = (e) => {
+    setContactInfo((prevInfo) => ({
+      ...prevInfo,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   const handleExecuteOrder = async () => {
     if (!stripe || !elements) {
       return;
+    }
+
+    if (!email) {
+      setEmailErr(true);
+    }
+    if (!phoneNumber) {
+      setPhoneErr(true);
     }
     const { items, totalCost, shipping } = cart;
 
     setActiveStep((prevStep) => prevStep + 1);
 
     dispatch(addShippingInfo(shippingInfo));
+    dispatch(addContactInfo(contactInfo));
 
-    await createOrder({ items, totalCost, shipping });
+    await createOrder({ items, totalCost, shipping, contactInfo });
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
@@ -77,6 +102,67 @@ const Payment = () => {
           }}
         >
           <h2 style={{ marginLeft: "1rem" }}>Contact Information</h2>
+          <label for="Email" style={{ fontSize: "0.93rem" }}>
+            Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleContactChange}
+            placeholder="Email Address"
+            style={{
+              color: "#fff", // Change the text color to red
+              background: "#30313d",
+              width: "100%",
+              height: "44%",
+              padding: "0.75rem",
+              marginBottom: "0.5rem",
+              border: "1px solid #424353",
+              borderRadius: "5px",
+              boxShadow:
+                "0px 2px 4px rgba(0, 0, 0, 0.5), 0px 1px 6px rgba(0, 0, 0, 0.25)",
+              WebkitTransition: "background-color 5000s ease-in-out 0s ",
+              WebkitTextFillColor: "#fff",
+            }}
+          />
+          <label for="phoneNumber" style={{ fontSize: "0.93rem" }}>
+            Phone Number
+          </label>
+          <input
+            type="phoneNumber"
+            name="phoneNumber"
+            value={phoneNumber}
+            onChange={handleContactChange}
+            placeholder="Phone Number"
+            style={{
+              color: "#fff", // Change the text color to red
+              background: "#30313d",
+              width: "100%",
+              height: "44%",
+              padding: "0.75rem",
+              marginBottom: "0.5rem",
+              border: "1px solid #424353",
+              borderRadius: "5px",
+              boxShadow:
+                "0px 2px 4px rgba(0, 0, 0, 0.5), 0px 1px 6px rgba(0, 0, 0, 0.25)",
+              WebkitTransition: "background-color 5000s ease-in-out 0s ",
+              WebkitTextFillColor: "#fff",
+            }}
+          />
+        </Grid>
+        <Grid
+          item
+          sx={{
+            marginRight: "1rem",
+            marginTop: "2rem",
+            background: darkMode ? "rgb(33, 43, 54)" : "#fff",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.8)",
+            borderRadius: "5px",
+            padding: "2rem",
+          }}
+        >
+          <h2 style={{ marginLeft: "1rem" }}>Shipping Information</h2>
 
           <AddressElement
             options={{ mode: "shipping" }}

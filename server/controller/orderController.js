@@ -30,16 +30,18 @@ module.exports.getOrder = async (req, res, next) => {
 
 module.exports.createOrder = async (req, res, next) => {
   try {
-    const { items, totalCost, shipping } = req.body;
+    const { items, totalCost, shipping, contactInfo } = req.body;
 
     const order = await Order.create({
       items,
       totalCost,
+      contactInfo,
       shipping,
     });
 
     res.status(200).json({ message: "Order created successfully", order });
   } catch (err) {
+    console.log(err);
     if (err.name === "ValidationError") {
       return res.status(400).json({
         message: "Validation error. Make sure fields filled out correctly.",
