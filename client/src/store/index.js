@@ -17,7 +17,7 @@ import authSlice from "./slices/authSlice";
 import cartSlice from "./slices/cartSlice";
 
 const persistConfig = {
-  key: "root",
+  key: "root1",
   storage,
 };
 

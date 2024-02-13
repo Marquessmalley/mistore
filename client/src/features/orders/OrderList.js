@@ -99,7 +99,6 @@ const OrderList = () => {
       headerName: "Date",
       width: 150,
       renderCell: (params) => {
-        console.log(params.row);
         const formattedDate = format(params.row.date, "dd MMM yyyy", {
           locale: enUS,
         });
@@ -189,7 +188,7 @@ const OrderList = () => {
 
           return {
             id: orders?.entities[id].id,
-            name: orders?.entities[id].shipping.fullName,
+            name: orders?.entities[id].shipping.name,
             date,
             items: orders?.entities[id].items.length,
             totalCost: orders?.entities[id].totalCost,

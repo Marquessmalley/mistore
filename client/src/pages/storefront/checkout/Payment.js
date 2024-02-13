@@ -59,14 +59,15 @@ const Payment = () => {
     if (!phoneNumber) {
       setPhoneErr(true);
     }
-    const { items, totalCost, shipping } = cart;
+
+    if (!email || !phoneNumber) {
+      return;
+    }
+    const { items, totalCost } = cart;
 
     setActiveStep((prevStep) => prevStep + 1);
 
-    dispatch(addShippingInfo(shippingInfo));
-    dispatch(addContactInfo(contactInfo));
-
-    await createOrder({ items, totalCost, shipping, contactInfo });
+    await createOrder({ items, totalCost, shippingInfo, contactInfo });
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
@@ -124,8 +125,18 @@ const Payment = () => {
                 "0px 2px 4px rgba(0, 0, 0, 0.5), 0px 1px 6px rgba(0, 0, 0, 0.25)",
               WebkitTransition: "background-color 5000s ease-in-out 0s ",
               WebkitTextFillColor: "#fff",
+              borderColor: emailErr ? "#fe87a1" : "#fff",
             }}
           />
+          {emailErr && (
+            <label
+              for="Email"
+              style={{ fontSize: "0.93rem", color: "#fe87a1" }}
+            >
+              Please provide your email
+            </label>
+          )}
+          <br />
           <label for="phoneNumber" style={{ fontSize: "0.93rem" }}>
             Phone Number
           </label>
@@ -148,8 +159,17 @@ const Payment = () => {
                 "0px 2px 4px rgba(0, 0, 0, 0.5), 0px 1px 6px rgba(0, 0, 0, 0.25)",
               WebkitTransition: "background-color 5000s ease-in-out 0s ",
               WebkitTextFillColor: "#fff",
+              borderColor: phoneErr ? "#fe87a1" : "#fff",
             }}
           />
+          {phoneErr && (
+            <label
+              for="phoneNumber"
+              style={{ fontSize: "0.93rem", color: "#fe87a1" }}
+            >
+              Please provide your phone number
+            </label>
+          )}
         </Grid>
         <Grid
           item

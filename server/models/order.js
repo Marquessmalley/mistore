@@ -1,5 +1,14 @@
 const mongoose = require("mongoose");
 
+const addressSchema = new mongoose.Schema({
+  line1: { type: String, required: true },
+  line2: { type: String, default: null },
+  city: { type: String, required: true },
+  country: { type: String, required: true },
+  postal_code: { type: String, required: true },
+  state: { type: String },
+});
+
 // Create a Order schema
 const orderSchema = new mongoose.Schema(
   {
@@ -11,7 +20,7 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    contactInfo: {
+    contact: {
       email: {
         type: String,
         required: true,
@@ -23,32 +32,15 @@ const orderSchema = new mongoose.Schema(
     },
 
     shipping: {
-      fullName: {
+      name: {
         type: String,
         required: true,
       },
-      country: {
-        type: String,
-        required: true,
-      },
+
       address: {
-        type: String,
+        type: addressSchema,
         required: true,
       },
-      city: {
-        type: String,
-        required: true,
-      },
-      zip: {
-        type: String,
-        required: true,
-      },
-      state: {
-        type: String,
-        required: true,
-      },
-      // Add more shipping details as needed
-      // For example, phone number, email, etc.
     },
   },
   { timestamps: true }

@@ -144,7 +144,7 @@ const EditOrder = () => {
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Typography sx={{ marginRight: "1rem" }}>Total</Typography>
-            <p style={{ fontWeight: "bold" }}>{order.totalCost}</p>
+            <p style={{ fontWeight: "bold" }}>{order?.totalCost}</p>
           </div>
         </Grid>
       </Grid>
@@ -186,8 +186,8 @@ const EditOrder = () => {
         >
           <Typography>Name: </Typography>
           <Box>
-            <Typography>{order?.shipping.fullName}</Typography>
-            <Typography>{order?.contactInfo.email}</Typography>
+            <Typography>{order?.shipping.name}</Typography>
+            <Typography>{order?.contact.email}</Typography>
           </Box>
         </Grid>
 
@@ -201,7 +201,7 @@ const EditOrder = () => {
           }}
         >
           <Typography>Phone number: </Typography>
-          <Typography>{order?.contactInfo.phoneNumber}</Typography>
+          <Typography>{order?.contact.phoneNumber}</Typography>
         </Grid>
         <Grid
           item
@@ -228,7 +228,7 @@ const EditOrder = () => {
         >
           <Typography>Address: </Typography>
 
-          <Typography>{order?.shipping.address}</Typography>
+          <Typography>{order?.shipping.address.line1}</Typography>
         </Grid>
         <Grid
           item
@@ -242,7 +242,7 @@ const EditOrder = () => {
           <Typography>City: </Typography>
 
           <Typography>
-            {order?.shipping.city}, {order?.shipping.state}
+            {order?.shipping.address.city}, {order?.shipping.address.state}
           </Typography>
         </Grid>
       </Grid>

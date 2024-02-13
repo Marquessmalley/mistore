@@ -1,7 +1,8 @@
 import React from "react";
 import { Drawer, List, ListItem } from "@mui/material";
 import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { ThemeContext } from "App";
 export const storeNavItems = [
   {
     id: 0,
@@ -18,6 +19,7 @@ export const storeNavItems = [
 
 const Temporary = ({ mobileOpen, handleToggleDrawer }) => {
   const drawerWidth = 240;
+  const { darkMode } = useContext(ThemeContext);
   return (
     <Drawer
       variant="temporary"
@@ -37,7 +39,10 @@ const Temporary = ({ mobileOpen, handleToggleDrawer }) => {
           <List key={item.id}>
             <ListItem>
               <Link
-                style={{ color: "black", textDecoration: "none" }}
+                style={{
+                  color: darkMode ? "#fff" : "#000",
+                  textDecoration: "none",
+                }}
                 to={item.path}
               >
                 {item.name}

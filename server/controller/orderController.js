@@ -5,7 +5,7 @@ module.exports.getOrders = async (req, res, next) => {
     const orders = await Order.find();
 
     if (orders.length === 0) {
-      return res.status(404).json({ message: "No products found" });
+      return res.status(404).json({ message: "No orders found" });
     }
     res.status(200).json({ orders });
   } catch (err) {
@@ -30,13 +30,13 @@ module.exports.getOrder = async (req, res, next) => {
 
 module.exports.createOrder = async (req, res, next) => {
   try {
-    const { items, totalCost, shipping, contactInfo } = req.body;
+    const { items, totalCost, shippingInfo, contactInfo } = req.body;
 
     const order = await Order.create({
       items,
       totalCost,
-      contactInfo,
-      shipping,
+      contact: contactInfo,
+      shipping: shippingInfo,
     });
 
     res.status(200).json({ message: "Order created successfully", order });
