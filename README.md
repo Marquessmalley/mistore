@@ -9,38 +9,45 @@ An ecommerce website built with the MERN (MongoDB, Express, React, Node.js) stac
 ## Getting Started
 
 ## Clone Repo
-$ https://github.com/Marquessmalley/mistore.git
+```
+git clone https://github.com/Marquessmalley/mistore.git
+```
 
 ### Server Setup
 
 1. Run the following command to install server dependencies:
+```
+$ npm install
+$ cd server
+$ npm run start:dev
+```
 
-   npm install
-2. Create a .env file in the root directory with the following environment variables:
-
-DATABASE,
-DOMAIN,
-NODE_ENVIRONMENT,
-REFRESH_TOKEN_SECRET,
-STRIPE_SECRET_KEY,
-
-Navigate to the client directory:
+2. Create a .env file in the server root directory with the following environment variables:
+```
+DATABASE = your_db_key,
+DOMAIN = your_domain,
+NODE_ENVIRONMENT = you_environment,
+REFRESH_TOKEN_SECRET = your_refresh_token,
+STRIPE_SECRET_KEY = your_stripe_secret_key,
+```
 
 ### Client Setup
 
 Navigate to the client directory:
-cd client
 
 1. Run the following command to install client dependencies:
-
- npm install
+```
+cd client
+npm install
+npm run start
+```
  
 2. Create a .env file in the client directory with the following environment variables:
-
-REACT_APP_BACKEND_DOMAIN, 
-REACT_APP_FRONTEND_DOMAIN, 
-REACT_APP_STRIPE_PUBLISHABLE_KEY
-
+```
+REACT_APP_BACKEND_DOMAIN = your_backend_domain, 
+REACT_APP_FRONTEND_DOMAIN = your_frontend_domain, 
+REACT_APP_STRIPE_PUBLISHABLE_KEY = your stripe_publishable_key
+```
 
 Contributing
 If you'd like to contribute to this project, please follow the contributing guidelines.
