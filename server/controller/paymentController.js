@@ -1,5 +1,14 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
+module.exports.listPayments = async (req, res) => {
+  try {
+    const paymentsList = await stripe.paymentIntents.list();
+    res.json({ paymentsList: paymentsList });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports.createPaymentIntent = async (req, res) => {
   try {
     const { items, totalCost } = req.body;

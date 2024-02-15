@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import { Grid, Button, TextField } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
+import { Grid, Button } from "@mui/material";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "App";
 import {
@@ -10,13 +10,11 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { CheckoutContex } from "components/Layouts/StoreFront/CheckoutLayout";
-import { addShippingInfo, addContactInfo } from "store/slices/cartSlice";
 import { useCreateOrderMutation } from "features/orders/ordersApiSlice";
 import "./payment.css";
 
 const Payment = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [shippingInfo, setShippingInfo] = useState(null);
   const [contactInfo, setContactInfo] = useState({
@@ -85,7 +83,7 @@ const Payment = () => {
   const paymentElementOptions = {
     layout: "accordion",
   };
-
+  console.log(darkMode);
   return (
     <Grid container sx={{ display: "flex", justifyContent: "center" }}>
       {/* LEFT COLUMN */}
@@ -106,15 +104,15 @@ const Payment = () => {
           <label for="Email" style={{ fontSize: "0.93rem" }}>
             Email
           </label>
-          <input
+          {/* <input
             type="email"
             name="email"
             value={email}
             onChange={handleContactChange}
             placeholder="Email Address"
             style={{
-              color: "#fff", // Change the text color to red
-              background: "#30313d",
+              // Change the text color to red
+              background: darkMode ? "#30313d" : "#fff",
               width: "100%",
               height: "44%",
               padding: "0.75rem",
@@ -124,8 +122,36 @@ const Payment = () => {
               boxShadow:
                 "0px 2px 4px rgba(0, 0, 0, 0.5), 0px 1px 6px rgba(0, 0, 0, 0.25)",
               WebkitTransition: "background-color 5000s ease-in-out 0s ",
-              WebkitTextFillColor: "#fff",
-              borderColor: emailErr ? "#fe87a1" : "#fff",
+              WebkitTextFillColor: darkMode ? "#fff" : "#000",
+              borderColor: emailErr ? "#fe87a1" : "none",
+            }}
+          /> */}
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleContactChange}
+            placeholder="Email Address"
+            style={{
+              background: darkMode ? "#30313d" : "#fff",
+              color: darkMode ? "#fff" : "#000",
+              width: "100%",
+              height: "44%",
+              padding: "0.75rem",
+              marginBottom: "0.5rem",
+              border: "1px solid #424353",
+              borderRadius: "5px",
+              boxShadow:
+                "0px 2px 4px rgba(0, 0, 0, 0.5), 0px 1px 6px rgba(0, 0, 0, 0.25)",
+              transition: "background-color 0.3s ease-in-out",
+              borderColor: emailErr ? "#fe87a1" : "none",
+              WebkitTextFillColor: darkMode ? "#fff" : "#000", // Prevent text color change
+              "&:focus": {
+                WebkitBoxShadow: "0 0 0 30px #30313d inset", // Apply autofill style on focus
+              },
+              "&:-webkit-autofill": {
+                WebkitBoxShadow: "0 0 0 30px #30313d inset", // Override autocomplete style
+              },
             }}
           />
           {emailErr && (
@@ -147,8 +173,8 @@ const Payment = () => {
             onChange={handleContactChange}
             placeholder="Phone Number"
             style={{
-              color: "#fff", // Change the text color to red
-              background: "#30313d",
+              color: darkMode ? "#fff" : "#000", // Change the text color to red
+              background: darkMode ? "#30313d" : "#fff",
               width: "100%",
               height: "44%",
               padding: "0.75rem",
@@ -159,7 +185,7 @@ const Payment = () => {
                 "0px 2px 4px rgba(0, 0, 0, 0.5), 0px 1px 6px rgba(0, 0, 0, 0.25)",
               WebkitTransition: "background-color 5000s ease-in-out 0s ",
               WebkitTextFillColor: "#fff",
-              borderColor: phoneErr ? "#fe87a1" : "#fff",
+              borderColor: phoneErr ? "#fe87a1" : "none",
             }}
           />
           {phoneErr && (

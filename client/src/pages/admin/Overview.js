@@ -5,6 +5,11 @@ import GenderCard from "../../components/UI/Card/GenderCard";
 import YearlySales from "../../components/UI/Card/YearlySales";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
+import {
+  useGetListPaymentsQuery,
+  useGetAccountBalanceQuery,
+} from "features/financials/financialsApi";
+
 const commerceStats = [
   {
     id: 0,
@@ -72,7 +77,13 @@ const yearlySales = {
   difference: "(+43%)",
   total: ["Total Income", "Total Expenses"],
 };
+
 const Overview = () => {
+  const { data: acctBalance } = useGetAccountBalanceQuery();
+  const { data: paymentsList } = useGetListPaymentsQuery();
+
+  console.log(paymentsList);
+
   return (
     <Grid container spacing={2} sx={{ display: "flex" }}>
       {commerceStats.map((stat) => (
