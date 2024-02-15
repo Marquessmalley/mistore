@@ -9,6 +9,7 @@ An ecommerce website built with the MERN (MongoDB, Express, React, Node.js) stac
 ## Getting Started
 
 ## Clone Repo
+$ https://github.com/Marquessmalley/mistore.git
 
 ### Server Setup
 
