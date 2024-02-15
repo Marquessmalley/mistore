@@ -8,6 +8,8 @@ An ecommerce website built with the MERN (MongoDB, Express, React, Node.js) stac
 
 ## Getting Started
 
+## Clone Repo
+
 ### Server Setup
 
 1. Run the following command to install server dependencies:
