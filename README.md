@@ -32,7 +32,7 @@ $ npm run start:dev
 2. Create a .env file in the server root directory with the following environment variables:
 ```
 DATABASE = your_db_key,
-DOMAIN = your_domain,
+DOMAIN = your_clien_domain,
 NODE_ENVIRONMENT = you_environment,
 REFRESH_TOKEN_SECRET = your_refresh_token,
 STRIPE_SECRET_KEY = your_stripe_secret_key,
