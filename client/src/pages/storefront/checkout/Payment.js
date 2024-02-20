@@ -183,8 +183,15 @@ const Payment = () => {
               borderRadius: "5px",
               boxShadow:
                 "0px 2px 4px rgba(0, 0, 0, 0.5), 0px 1px 6px rgba(0, 0, 0, 0.25)",
-              WebkitTransition: "background-color 5000s ease-in-out 0s ",
-              WebkitTextFillColor: "#fff",
+              transition: "background-color 0.3s ease-in-out",
+              WebkitTextFillColor: darkMode ? "#fff" : "#000", // Prevent text color change
+              "&:focus": {
+                WebkitBoxShadow: "0 0 0 30px #30313d inset", // Apply autofill style on focus
+              },
+              "&:-webkit-autofill": {
+                WebkitBoxShadow: "0 0 0 30px #30313d inset", // Override autocomplete style
+              },
+
               borderColor: phoneErr ? "#fe87a1" : "none",
             }}
           />
